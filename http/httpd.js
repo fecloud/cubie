@@ -41,7 +41,7 @@ function list_dir(params){
                 f.name = name;
                 f.size = st.size;
                 f.mtime = st.mtime.toLocaleString();
-                f.path = params.value + name;
+                f.path = params.value + "/" + name;
                 file_array.push(f);
             }
 
@@ -57,7 +57,7 @@ function list_dir(params){
             f.name = name;
             f.size = st.size;
             f.mtime = st.mtime.toLocaleString();
-            f.path = params.value + name;
+            f.path = params.value + "/" + name;
             file_array.push(f);
         }
 

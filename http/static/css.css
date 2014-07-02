@@ -44,8 +44,25 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer {
 	border-bottom: solid 1px #B3B3B3;
 	-webkit-box-shadow: 0 1px 1px 0 #DFDFDF;
 	box-shadow: 0 1px 1px 0 #DFDFDF;
-
 }
+.btn {
+	width: 50px;
+	height: 30px;
+	color: #000;
+	font-size: 15px;
+	border: solid 1px #DFDFDF;
+	background: #FFF;
+	text-align: center;
+	text-align: -webkit-match-parent;
+	line-height: 30px;
+}
+
+.back_btn {
+	margin-top: 3px;
+	left: 10px;
+	position: absolute;
+}
+
 .list {
 	list-style: none;
 }

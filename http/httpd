@@ -13,7 +13,7 @@
 
 ## Fill in name of program here.
 PROG="httpd.js"
-PROG_PATH="/usr/local/bin" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
+PROG_PATH="nodejs /usr/local/bin" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
 PROG_ARGS="/data/f/"
 PID_PATH="/var/run/"
 

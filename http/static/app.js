@@ -36,9 +36,9 @@ function load_list(data){
        		console.log(arr[i]);
        		var item ;
        		if(file.isDir){
-       			item = "<li ><a href=\"file.html?path=" + file.path+"\" class=\"list-item\"><i class=\"file-icon folder\"></i><div class=\"content\"><h3> "+ file.name+" </h3><div class=\"list-content\">2013-12-06 19:52:03<span>285.42k</span></div><div class=\"file-operate\"><div class=\"file-rename\" <i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
+       			item = "<li ><a href=\"file.html?path=" + file.path +"\" class=\"list-item\"><i class=\"file-icon folder\"></i><div class=\"content\"><h3> "+ file.name+" </h3><div class=\"list-content\">2013-12-06 19:52:03<span>285.42k</span></div><div class=\"file-operate\"><div class=\"file-rename\" <i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
       		}else {
-      			item = "<li ><a href=\"#\" class=\"list-item\"><i class=\"file-icon file\"></i><div class=\"content\"><h3> "+ file.name+" </h3><div class=\"list-content\">2013-12-06 19:52:03<span>285.42k</span></div><div class=\"file-operate\"><div class=\"file-rename\" <i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
+      			item = "<li ><a href=\"src" + file.path +"\" class=\"list-item\"><i class=\"file-icon file\"></i><div class=\"content\"><h3> "+ file.name+" </h3><div class=\"list-content\">2013-12-06 19:52:03<span>285.42k</span></div><div class=\"file-operate\"><div class=\"file-rename\" <i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
        		}
        		$('#content').append(item);
 		}
