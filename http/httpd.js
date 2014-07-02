@@ -7,9 +7,12 @@ var webroot = process.argv[2];
 console.log("webroot:" + webroot);
 
 var SFile= function (){
+    this.isFile = false;
+    this.isDir = false
     this.name;
     this.size;
     this.mtime;
+    this.path = "";
 }
 
 var Result = function(){
@@ -28,18 +31,38 @@ function list_dir(params){
         var dir = webroot + "/" + params.value;
         var files = fs.readdirSync(dir);
         var file_array=[];
+
         files.forEach(function(name){
             // 查看文件状态
             var st  = fs.statSync(dir + "/" + name);
-            if(st.isFile()) {
-                var f = new SFile();
+            var f = new SFile();
+             if(st.isDirectory()){
+                f.isDir = true;
                 f.name = name;
                 f.size = st.size;
                 f.mtime = st.mtime.toLocaleString();
+                f.path = params.value + name;
                 file_array.push(f);
             }
 
+           
         });
+
+        files.forEach(function(name){
+        // 查看文件状态
+        var st  = fs.statSync(dir + "/" + name);
+        var f = new SFile();
+        if(st.isFile()) {
+            f.isFile = true;
+            f.name = name;
+            f.size = st.size;
+            f.mtime = st.mtime.toLocaleString();
+            f.path = params.value + name;
+            file_array.push(f);
+        }
+
+    });
+
         result.data = file_array;
     }else {
         result.error = 'path not found!';
