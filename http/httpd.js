@@ -43,7 +43,7 @@ var Result = function () {
 function list_dir(params) {
     var result = new Result();
     result.action = "list";
-    if ( params.value) {
+    if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
         if (params.value.substring(params.value.length - 1) != '/') {
             params.value = params.value + '/';
@@ -115,15 +115,15 @@ function dispath(req, res, params) {
     if (params.action) {
         if (params.action == 'list') {
 
-            resultClient(req,res,list_dir(params));
+            resultClient(req, res, list_dir(params));
 
         } else if (params.action == 'delete') {
 
-            resultClient(req,res,delete_file(params));
+            resultClient(req, res, delete_file(params));
 
         } else if (params.action == 'upload') {
 
-            save_file(req, res);
+            save_file(req, res, params);
 
         } else {
 
@@ -143,28 +143,30 @@ function dispath(req, res, params) {
  * @param res
  * @returns {Result}
  */
-function save_file(req, res) {
+function save_file(req, res, params) {
     var result = new Result();
     result.action = "upload";
-    if (params.value) {
-        var save_dir = params.value;
+    if (!params.value) {
+        result.error = 'require save path!';
+    } else {
+        var save_dir = webroot + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
             save_dir.value = save_dir + '/';
         }
         // parse a file upload
         var form = new formidable.IncomingForm();
         form.encoding = 'utf-8';
-        form.uploadDir = webroot + save_dir;
+        form.uploadDir = save_dir;
 
         form.parse(req, function (err, fields, files) {
             console.log(fields);
             console.log(files);
-            // res.writeHead(200, {'content-type': 'text/plain'});
-            // res.write('received upload:\n\n');
-            //  res.write(util.inspect({fields: fields, files: files}));
+            fs.renameSync(files.fileToUpload.path, save_dir + files.fileToUpload.name);
+            res.writeHead(200, {'content-type': 'text/plain'});
+            res.write('received upload:\n\n');
+            res.end();
+//            res.write(util.inspect({fields: fields, files: files}));
         });
-    } else {
-        result.error = 'require save path!';
     }
 
     return result;

@@ -40,8 +40,9 @@
 
         function uploadFile() {
 
-            var fd = new FormData();
+//            var fd = new FormData(document.forms.namedItem('form1'));
 
+            var fd = new FormData();
             var count = document.getElementById('fileToUpload').files.length;
 
             for (var index = 0; index < count; index++) {
@@ -62,7 +63,7 @@
 
             xhr.addEventListener("abort", uploadCanceled, false);
 
-            xhr.open("POST", "a.php?action=upload");
+            xhr.open("POST", "a.php?action=upload&value=/");
 
             xhr.send(fd);
 
@@ -112,13 +113,13 @@
 
 <body>
 
-<form id="form1" enctype="multipart/form-data" method="post" action="uploa.php?action=upload">
+<form id="form1" enctype="multipart/form-data" method="post" action="uploa.php?action=upload&value=/">
 
     <div>
 
         <label for="fileToUpload">Take or select photo(s)</label><br/>
 
-        <input type="file" name="fileToUpload" id="fileToUpload" onchange="fileSelected();" accept="*/*"
+        <input type="file" name="fileToUpload" id="fileToUpload"  multiple="multiple" onchange="fileSelected();" accept="*/*"
                 />
 
     </div>

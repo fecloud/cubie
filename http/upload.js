@@ -4,6 +4,7 @@
 var formidable = require('formidable'),
     http = require('http'),
     util = require('util');
+    fs = require('fs');
 
 http.createServer(function(req, res) {
     if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
@@ -11,9 +12,12 @@ http.createServer(function(req, res) {
         var form = new formidable.IncomingForm();
 
         form.parse(req, function(err, fields, files) {
+            console.log(fields);
+            console.log(files);
             res.writeHead(200, {'content-type': 'text/plain'});
             res.write('received upload:\n\n');
             res.end(util.inspect({fields: fields, files: files}));
+
         });
 
         return;
