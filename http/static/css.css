@@ -4,8 +4,10 @@
 }
 
 body {
-	font: normal 14px "microsoft yahei";
-	color: #333;
+    font: normal 14px "microsoft yahei";
+    background-color: #F7F7F7;
+    color: #333;
+    position: relative;
 }
 i {
 	font-style: normal;
@@ -45,6 +47,10 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer {
 	-webkit-box-shadow: 0 1px 1px 0 #DFDFDF;
 	box-shadow: 0 1px 1px 0 #DFDFDF;
 }
+#header h1 {
+    color: #000000;
+    font-size: 26px;
+}
 .btn {
 	width: 50px;
 	height: 30px;
@@ -58,11 +64,15 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer {
 }
 
 .back_btn {
-	margin-top: 3px;
+	/*margin-top: 2px;*/
 	left: 10px;
 	position: absolute;
 }
-
+.upload_btn {
+    right: 10px;
+    position: absolute;
+    display: inline-block;
+}
 .list {
 	list-style: none;
 }
@@ -157,10 +167,28 @@ h3 {
 	font-size: 12px;
 }
 
+.file-operate {
+    text-align: center;
+    font-size: 11px;
+    height: 44px;
+}
+
 .list-content span {
 	position: absolute;
 	right: 5px;
 	top: 0;
+}
+
+.file-operate div {
+    display: inline-block;
+    text-align: center;
+    width: 60px;
+    padding: 8px 0 4px 0;
+}
+.file-operate i {
+    display: block;
+    margin: 0 auto;
+    font-size: 16px;
 }
 .show-operate {
 	width: 50px;
@@ -169,17 +197,30 @@ h3 {
 	text-align: center;
 	vertical-align: middle;
 	position: relative;
+    display: inline-block;
 }
 
-.iall, .idownload, .ilogout, .iedit, .iremove, .idown, .iup, .iclose, .inormaldownload, .ishare, .iopen {
+.iall, .idownload, .ilogout, .iedit, .iremove, .irename, .idown, .iup, .iclose, .inormaldownload, .ishare, .iopen {
 	background-image: url('/blackIcons.png');
 	-webkit-background-size: 16px 266px;
 	background-size: 16px 266px;
 }
+.iremove {
+    width: 16px;
+    height: 16px;
+    background-position: 0 -122px;
+}
+.iedit{
 
+
+    width: 16px;
+    height: 16px;
+    background-position: 0 -88px;
+}
 .idown {
 	background-position: 0 -162px;
 }
+
 .idown, .iup {
 	width: 11px;
 	height: 7px;
