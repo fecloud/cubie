@@ -28,6 +28,20 @@
             border: 0px;
             margin: 1px;
         }
+
+             #upload,#upload span {
+                 width: 50px;
+                 height: 30px;
+                 opacity: 0;
+                 display: inline-block;
+                 position: absolute;
+                 left: 0px;
+             }
+
+        #upload span{
+
+        }
+
     </style>
     <script type="text/javascript" src="/jquery-2.1.1.min.js"></script>
     <script type="text/javascript">
@@ -169,12 +183,12 @@
 
 <form id="form1" enctype="multipart/form-data" method="post" action="uploa.php?action=upload&value=/">
 
-    <div>
+    <div id="upload_div">
 
         <label for="fileToUpload">Take or select photo(s)</label><br/>
 
         <input type="file" name="upload" id="upload" multiple="multiple" onchange="fileSelected();" accept="*/*"/>
-
+        <span><i>上传</i></span>
     </div>
 
     <div id="details"></div>

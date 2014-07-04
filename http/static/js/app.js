@@ -1,20 +1,30 @@
+var current_path =  '/';
+
 $(document).ready(function () {
 
     var path = getArgs(path);
     if (path == '')
         path = "/";
-    $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=list&value=' + path,
-        success: function (data) {
-            load_list(data);
-        }
-    });
+    current_path = path;
+
+    load_data();
 
     $('.back_btn').bind('click',function (e){
         history.go(-1);
         e.stopPropagation();
     });
 
+    $('.upload').bind('change',fileSelected);
+
 });
+
+function load_data(){
+    $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=list&value=' + current_path ,
+        success: function (data) {
+            load_list(data);
+        }
+    });
+}
 
 function getArgs(strParame) {
     var query = location.search.substring(1); // Get query string

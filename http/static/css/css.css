@@ -24,7 +24,7 @@ li{
 	text-align: -webkit-match-parent;
 }
 
-html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer {
+html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_container {
 	margin: 0;
 	padding: 0;
 	-webkit-tap-highlight-color: rgba(255,255,255,0);
@@ -84,17 +84,17 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer {
 }
 
 .file {
-	background-image:url('/default.png');
+	background-image:url('/img/default.png');
 }
 
 .folder {
-	background-image:url('/folder.png');
+	background-image:url('/img/folder.png');
 }
 
-.list {
+.list ,#progress_container {
 	border-bottom: solid 1px #FFF;
 }
-.list li {
+.list li ,#progress_container{
 	border: solid 1px #DFDFDF;
 	border-top: solid 1px #FFF;
 	position: relative;
@@ -201,7 +201,7 @@ h3 {
 }
 
 .iall, .idownload, .ilogout, .iedit, .iremove, .irename, .idown, .iup, .iclose, .inormaldownload, .ishare, .iopen {
-	background-image: url('/blackIcons.png');
+	background-image: url('/img/blackIcons.png');
 	-webkit-background-size: 16px 266px;
 	background-size: 16px 266px;
 }
