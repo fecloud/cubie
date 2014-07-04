@@ -37,6 +37,34 @@ var Result = function () {
     this.data;
 }
 
+
+Date.prototype.format = function (format) {
+    var o = {
+        "M+": this.getMonth() + 1, //month
+        "d+": this.getDate(),    //day
+        "h+": this.getHours(),   //hour
+        "m+": this.getMinutes(), //minute
+        "s+": this.getSeconds(), //second
+        "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+        "S": this.getMilliseconds() //millisecond
+    }
+    if (/(y+)/.test(format)) format = format.replace(RegExp.$1,
+        (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)if (new RegExp("(" + k + ")").test(format))
+        format = format.replace(RegExp.$1,
+                RegExp.$1.length == 1 ? o[k] :
+                ("00" + o[k]).substr(("" + o[k]).length));
+    return format;
+}
+
+/**
+ * 格式化时间
+ * @returns {*}
+ */
+function format_time() {
+    return new Date().format("yyyy-MM-dd hh:mm:ss.S ");
+}
+
 /**
  * 返回当前目录的子目录以及文件
  */
@@ -135,6 +163,7 @@ function dispath(req, res, params) {
         }
 
     }
+    console.log(format_time() + "dispath finish");
 }
 
 /**
@@ -159,13 +188,19 @@ function save_file(req, res, params) {
         form.uploadDir = save_dir;
 
         form.parse(req, function (err, fields, files) {
-            console.log(fields);
-            console.log(files);
-            fs.renameSync(files.fileToUpload.path, save_dir + files.fileToUpload.name);
-            res.writeHead(200, {'content-type': 'text/plain'});
-            res.write('received upload:\n\n');
-            res.end();
-//            res.write(util.inspect({fields: fields, files: files}));
+//            console.log(fields);
+//            console.log(files);
+            if (params.files != undefined) {
+                var renamefiles = JSON.parse(params.files);
+                renamefiles.forEach(function (name) {
+                    fs.rename(files[name].path, save_dir + name);
+                    console.log(format_time() + "rename " + files[name].path + " to " + save_dir + name);
+                });
+                result.data = renamefiles;
+            } else {
+                result.error = "not found files!";
+            }
+            resultClient(req, res, result);
         });
     }
 
@@ -189,7 +224,7 @@ function resultClient(req, res, result) {
  */
 http.createServer(function (req, res) {
 
-    console.info('url:' + req.url);
+    console.info(format_time() + 'url:' + req.url);
     var params = url.parse(req.url, true).query;
     if (params != undefined) {
         dispath(req, res, params);
@@ -201,3 +236,5 @@ http.createServer(function (req, res) {
 
 }).listen(3000, '127.0.0.1');
 console.log('Server running at http://127.0.0.1:3000/');
+
+
