@@ -120,6 +120,7 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
 	-o-transition: all 250ms ease;
 	transition: all 250ms ease;
 	margin-left: 4px;
+    position: relative;
 }
 
 .list-item {
@@ -130,6 +131,14 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
 	display: box;
 	color: #333;
 	position: relative;
+}
+.list-item-show{
+    background: #FFF;
+}
+
+.list-item-show .content {
+
+    top: -44px;
 }
 .list-item h3 {
 	white-space: nowrap;

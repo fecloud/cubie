@@ -65,9 +65,11 @@ function load_list(data) {
                     + "</span></div><div class=\"file-operate\"><div class=\"file-rename\" ><i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
             }
             $('#content').append(item);
-            $(".list-item").bind('click',idown);
-            $('#loading').css({display:'none'});
+
+
         }
+        $('#loading').css({display:'none'});
+        $(".show-operate").bind('click',idown);
     }
 }
 Date.prototype.format = function (format) {
@@ -91,9 +93,13 @@ Date.prototype.format = function (format) {
 
 
 function idown(b){
-    console.log(b.target).closest(".show-operate");
+   // console.log(b.target).closest(".content");
+
     b.preventDefault();
     b.stopPropagation();
+    $(b.target).closest('a').toggleClass(function (){
+       return 'list-item-show';
+    });
     console.log("idown");
 }
 
