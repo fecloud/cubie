@@ -96,11 +96,16 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
     background-size: 364px 40px;
     background-position: -276px 0;
 }
-.afolder{
-    background-image:url('/img/folders.png');
-    -webkit-background-size: 364px 40px;
-    background-size: 364px 40px;
-    background-position: -276px 0;
+.newfolder{
+    background-image:url('/img/newfolder.png');
+    -webkit-background-size: 50px 50px;
+    background-size: 50px 50px;
+    background-position: -5px -4px;
+    border-right: solid 1px #DFDFDF;
+}
+.tools_bar {
+    border-bottom: solid 1px #DFDFDF;
+    width: inherit;
 }
 
 .list ,#progress_container {

@@ -62,7 +62,8 @@ function load_list(data) {
                     + "\" class=\"list-item\"><i class=\"file-icon file\"></i><div class=\"content\"><h3> " + file.name
                     + "</h3><div class=\"list-content\">" + new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss")
                     + "<span>" + renderSize(file.size)
-                    + "</span></div><div class=\"file-operate\"><div class=\"file-rename\" ><i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
+                    + "</span></div><div class=\"file-operate\" src=\"" + file.path
+                    + "\"><div class=\"file-rename\" ><i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
             }
             $('#content').append(item);
 
@@ -70,6 +71,7 @@ function load_list(data) {
         }
         $('#loading').css({display:'none'});
         $(".show-operate").bind('click',idown);
+        $('.file-delete').bind('click',iremove);
     }
 }
 Date.prototype.format = function (format) {
@@ -101,6 +103,18 @@ function idown(b){
        return 'list-item-show';
     });
     console.log("idown");
+}
+
+function iremove(b){
+    b.preventDefault();
+    b.stopPropagation();
+    var src =    $(b.target).closest('.file-operate')[0].getAttribute('src');
+    $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=delete&value=' + src ,
+        success: function (data) {
+            $('#content').html('');
+            load_data();
+        }
+    });
 }
 
 /**
