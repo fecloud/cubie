@@ -10,8 +10,10 @@ $(document).ready(function () {
     load_data();
 
     $('.back_btn').bind('click',function (e){
-        history.go(-1);
+
+        e.preventDefault();
         e.stopPropagation();
+        history.go(-1);
     });
 
     $('.upload').bind('change',fileSelected);
@@ -64,6 +66,7 @@ function load_list(data) {
             }
             $('#content').append(item);
             $(".list-item").bind('click',idown);
+            $('#loading').css({display:'none'});
         }
     }
 }

@@ -5,8 +5,10 @@
  * Time: 21:21
  * To change this template use File | Settings | File Templates.
  */
-function fileSelected() {
 
+function fileSelected() {
+    $('.li_progress').fadeIn(2000);
+    $('.progress_num').html("请稍候");
     var count = document.getElementById('upload').files.length;
 
     document.getElementById('details').innerHTML = "";
@@ -25,9 +27,9 @@ function fileSelected() {
 
             fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
 
-        document.getElementById('details').innerHTML += 'Name: ' + file.name + '<br>Size: ' + fileSize + '<br>Type: ' + file.type;
+        //document.getElementById('details').innerHTML += 'Name: ' + file.name + '<br>Size: ' + fileSize + '<br>Type: ' + file.type;
 
-        document.getElementById('details').innerHTML += '<p>';
+        //document.getElementById('details').innerHTML += '<p>';
 
     }
 
@@ -36,8 +38,6 @@ function fileSelected() {
 }
 
 function uploadFile() {
-
-//            var fd = new FormData(document.forms.namedItem('form1'));
 
     var fd = new FormData();
     var count = document.getElementById('upload').files.length;
@@ -56,6 +56,7 @@ function uploadFile() {
         files.push(filename);
     }
 
+    $('#details').html('上传列表:' + JSON.stringify(files));
     var xhr = new XMLHttpRequest();
 
     xhr.upload.addEventListener("progress", uploadProgress, false);
@@ -66,7 +67,7 @@ function uploadFile() {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", "a.php?action=upload&value=/&files=" + JSON.stringify(files));
+    xhr.open("POST", Math.random() * 100000+ ".php?action=upload&value=" + current_path +"&files=" + JSON.stringify(files));
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }
@@ -76,18 +77,13 @@ function uploadProgress(evt) {
     if (evt.lengthComputable) {
 
         var percentComplete = Math.round(evt.loaded * 100 / evt.total);
-
-        document.getElementById('progress').innerHTML = percentComplete.toString() + '%';
-
-        var h = $('.progress-bar').width();
+        $('.progress_num').html(percentComplete.toString() + '%');
+        var h = $('.progress_bar').width();
         h = h / 100;
-        $('.progress-bar b').width(h * parseFloat(percentComplete.toString()) - 2);
-    }
+        $('.progress_bar b').width(h * parseFloat(percentComplete.toString()) - 2);
+    }else {
 
-
-    else {
-
-        document.getElementById('progress').innerHTML = 'unable to compute';
+//                document.getElementById('progress').innerHTML = 'unable to compute';
 
     }
 
@@ -96,21 +92,26 @@ function uploadProgress(evt) {
 function uploadComplete(evt) {
 
     /* This event is raised when the server send back a response */
-    var h = $('.progress-bar').width();
+    var h = $('.progress_bar').width();
     console.log(h);
-    $('.progress-bar b').width(h - 2);
-    alert(evt.target.responseText);
+    $('.progress_bar b').width(h - 2);
+    $('.progress_num').html("完成");
+    $('.li_progress').fadeOut(2000);
+    setTimeout(load_data,2000);
+//            alert(evt.target.responseText);
 
 }
 
 function uploadFailed(evt) {
 
-    alert("There was an error attempting to upload the file.");
+//            alert("There was an error attempting to upload the file.");
     $('.progress-bar b').css({background: "red"});
+    $('.progress_num').html("上传失败");
+    $('.li_progress').fadeOut(2000);
 }
 
 function uploadCanceled(evt) {
 
-    alert("The upload has been canceled by the user or the browser dropped the connection.");
+//            alert("The  user or the browser dropped the connection.");
 
 }

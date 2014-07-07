@@ -84,11 +84,23 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
 }
 
 .file {
-	background-image:url('/img/default.png');
+	background-image:url('/img/common.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -40px 0px;
 }
 
 .folder {
-	background-image:url('/img/folder.png');
+	background-image:url('/img/folders.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -276px 0;
+}
+.afolder{
+    background-image:url('/img/folders.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -276px 0;
 }
 
 .list ,#progress_container {
