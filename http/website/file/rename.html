@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>重命名</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+    <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../css/file.css"/>
+    <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript">
+        var current_path = '/';
+        var filename  = '';
+        $(document).ready(function () {
+
+            var path = getArgs('path');
+            filename = getArgs('name');
+
+            if (path == '')
+                path = "/";
+            current_path = path;
+
+            $('#search_input').val(filename);
+
+            back_bind();
+
+            $('.upload_btn').bind('click', function (b) {
+
+                b.preventDefault();
+                b.stopPropagation();
+                var folder_name = $('#search_input').val();
+
+                if (folder_name == '') {
+                    alert("请输入文件夹名!");
+                } else {
+                    $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=newfolder&value=' + current_path + folder_name,
+                        success: function (data) {
+                            window.location.replace('/file?path=' + current_path);
+                        }
+                    });
+                }
+
+            });
+
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+<div id="page">
+
+    <div id="header">
+        <a href="#">
+            <h1>
+                <div class="btn back_btn">返回</div>
+                重命名
+                <div class="btn upload_btn">确定</div>
+            </h1>
+        </a>
+    </div>
+
+    <div class="addfolder_c">
+        <i class="file-icon folder" style="left: 5px;"></i>
+
+        <div class="input_bar" style="padding: 0px;border: none;left: 10px">
+            <input type="text" placeholder="输入新的命名" id="search_input"
+                   style="display: block;width: 100%;height: 34px;border: 0px;margin: 0px;padding: 0px;font-size: 15px"/>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
