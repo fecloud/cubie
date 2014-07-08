@@ -2,7 +2,7 @@ var current_path = '/';
 
 $(document).ready(function () {
 
-    var path = getArgs(path);
+    var path = getArgs('path');
     if (path == '')
         path = "/";
     current_path = path;
