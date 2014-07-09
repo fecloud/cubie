@@ -10,13 +10,31 @@ $(document).ready(function () {
     load_data();
     back_bind();
 
-    $('.upload').bind('change', function(b){
+    $('.upload').bind('change', function (b) {
         b.preventDefault();
         b.stopPropagation();
         fileSelected();
     });
     $('.newfolder').bind('click', newfolder);
 
+    $('#header h1').bind('click', function () {
+        window.location.replace('/file');
+    });
+
+    $('#search_btn').bind('click', function () {
+        var query = $('#search_input').val();
+        if (query != '') {
+            $('#loading').css({display: 'block'});
+            $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=search&value=' + current_path + '&query=' + query,
+                success: function (data) {
+                    if (data.error == '') {
+                        load_list(data);
+                    }
+                        $('#loading').css({display: 'none'});
+                    }
+            });
+        }
+    });
 });
 
 
@@ -37,7 +55,6 @@ function load_list(data) {
         $('#content').html('');
         for (var i = 0, len = arr.length; i < len; i++) {
             var file = arr[i];
-//            console.log(arr[i]);
             var item;
             if (file.isDir) {
                 item = "<li ><a href=\"index.html?path=" + file.path
@@ -47,14 +64,13 @@ function load_list(data) {
                     + "\"><div class=\"file-rename\" ><i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
             } else {
                 item = "<li ><a href=\"../src" + file.path
-                    + "\" class=\"list-item\"><i class=\"file-icon file\"></i><div class=\"content\"><h3> " + file.name
+                    + "\" class=\"list-item\"><i class=\"file-icon " + getFileTypeCss(file.name) + "\"></i><div class=\"content\"><h3> " + file.name
                     + "</h3><div class=\"list-content\">" + new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss")
                     + "<span>" + renderSize(file.size)
                     + "</span></div><div class=\"file-operate\" src=\"" + file.path + "\" file=\"" + file.isFile + "\" name=\"" + file.name
                     + "\"><div class=\"file-rename\" ><i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
             }
             $('#content').append(item);
-
 
         }
 
@@ -96,7 +112,7 @@ function irename(b) {
     b.preventDefault();
     b.stopPropagation();
     var src = $(b.target).closest('.file-operate')[0];
-    window.location = '/file/rename.html?path=' + src.getAttribute('src') + "&isFile=" + src.getAttribute('file') + "&name="+ src.getAttribute('name');
+    window.location = '/file/rename.html?path=' + src.getAttribute('src') + "&isFile=" + src.getAttribute('file') + "&name=" + src.getAttribute('name');
 }
 
 /**

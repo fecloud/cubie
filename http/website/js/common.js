@@ -31,7 +31,7 @@ function getArgs(strParame) {
         var argname = pairs[i].substring(0, pos); // Extract the name
         var value = pairs[i].substring(pos + 1); // Extract the value
         value = decodeURIComponent(value); // Decode it, if needed
-        if(argname == strParame){
+        if (argname == strParame) {
 
             return  value; // Store as a property
 
@@ -50,4 +50,43 @@ function back_bind() {
         e.stopPropagation();
         window.history.back();
     });
+}
+
+function getParentDir(path) {
+    var last = path.lastIndexOf('/');
+    return path.substring(0, last);
+}
+
+function getFileTypeCss(name) {
+
+    var last = name.lastIndexOf('.');
+    var fix = name.substring(last + 1);
+    fix = fix.toLowerCase();
+    if (fix == 'apk') {
+        return 'apk';
+    } else if (fix == 'doc') {
+        return 'doc';
+    } else if (fix == 'exe') {
+        return 'exe';
+    } else if (fix == 'mov' || fix == 'rmvb'
+        || fix == 'mp4' || fix == 'rm'
+        || fix == 'ts'|| fix == 'mkv'
+        || fix == 'flv') {
+        return 'video';
+    } else if (fix == 'mp3'|| fix == 'wma'
+        || fix == 'arm') {
+        return 'music';
+    } else if (fix == 'pdf') {
+        return 'pdf';
+    } else if (fix == 'rar' || fix == 'zip'
+        || fix == 'gz' || fix == 'bz2'
+        || fix == 'img' || fix == 'dmg'
+        || fix == 'iso') {
+        return 'rar';
+    } else if (fix == 'txt') {
+        return 'txt';
+    } else {
+        return 'file';
+    }
+
 }

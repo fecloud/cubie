@@ -202,3 +202,64 @@ function new_dir(req, res, params) {
 
 exports.new_dir = new_dir;
 
+
+/**
+ * 重命名
+ * @param req
+ * @param res
+ * @param params
+ */
+function rename(req,res,params){
+
+    var result = new common.web_result();
+    result.action = 'rename';
+    var path = webroot + params.value;
+    var target = webroot + params.target;
+
+    console.log(util.format_time() + 'path:' + path + " target:" + target);
+
+    fs.rename(path,target,function(err){
+        if(err){
+            result.error = err;
+        }else {
+            result.data = 'true';
+        }
+        util.result_client(req,res,result);
+    });
+
+}
+
+exports.rename = rename;
+
+
+/**
+ *
+ * @param req
+ * @param res
+ * @param params
+ */
+function search_dir(req,res,params){
+
+    var result = new common.web_result();
+    result.action = 'search_dir';
+    if(params.query != undefined) {
+        var file_list = list_dir(params);
+        if (file_list.error == '') {
+            var file_array = [];
+            file_list.data.forEach(function (name) {
+
+                if (name.name.toLowerCase().indexOf(params.query.toLowerCase()) > -1) {
+                    file_array.push(name)
+                }
+
+            });
+            result.data = file_array;
+        }
+    }else {
+        result.error = 'require query!';
+    }
+
+    util.result_client(req,res,result);
+}
+
+exports.search = search_dir;

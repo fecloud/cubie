@@ -25,8 +25,6 @@
 
             $('.upload_btn').bind('click', function (b) {
 
-                b.preventDefault();
-                b.stopPropagation();
                 var folder_name = $('#search_input').val();
 
                 if (folder_name == '') {
@@ -52,13 +50,12 @@
 <div id="page">
 
     <div id="header">
-        <a href="#">
-            <h1>
-                <div class="btn back_btn">返回</div>
-                新建文件夹
-                <div class="btn upload_btn">确定</div>
-            </h1>
-        </a>
+
+        <div class="btn back_btn">返回</div>
+        <h1>新建文件夹</h1>
+
+        <div class="btn upload_btn">确定</div>
+
     </div>
 
     <div class="addfolder_c">

@@ -12,11 +12,12 @@
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript">
         var current_path = '/';
-        var filename  = '';
+        var filename = '';
         $(document).ready(function () {
 
             var path = getArgs('path');
-            filename = getArgs('name');
+            var filename = getArgs('name');
+            var isFile = getArgs('isFile');
 
             if (path == '')
                 path = "/";
@@ -25,27 +26,32 @@
             $('#search_input').val(filename);
 
             back_bind();
+            if (eval(isFile)) {
+                $('#icon').removeClass('folder');
+                $('#icon').addClass(getFileTypeCss(filename));
+            }
 
             $('.upload_btn').bind('click', function (b) {
 
-                b.preventDefault();
-                b.stopPropagation();
                 var folder_name = $('#search_input').val();
 
                 if (folder_name == '') {
                     alert("请输入文件夹名!");
                 } else {
-                    $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=newfolder&value=' + current_path + folder_name,
+                    $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=rename&value=' + current_path + '&target=' + getParentDir(current_path) + '/' + folder_name,
                         success: function (data) {
-                            window.location.replace('/file?path=' + current_path);
+                            window.location.replace('/file?path=' + getParentDir(current_path));
                         }
                     });
+
                 }
 
             });
 
 
         });
+
+
     </script>
 
 </head>
@@ -55,17 +61,16 @@
 <div id="page">
 
     <div id="header">
-        <a href="#">
-            <h1>
-                <div class="btn back_btn">返回</div>
-                重命名
-                <div class="btn upload_btn">确定</div>
-            </h1>
-        </a>
+
+        <div class="btn back_btn">返回</div>
+        <h1>重命名</h1>
+
+        <div class="btn upload_btn">确定</div>
+
     </div>
 
     <div class="addfolder_c">
-        <i class="file-icon folder" style="left: 5px;"></i>
+        <i id="icon" class="file-icon folder" style="left: 5px;"></i>
 
         <div class="input_bar" style="padding: 0px;border: none;left: 10px">
             <input type="text" placeholder="输入新的命名" id="search_input"

@@ -21,21 +21,22 @@
 <div id="page">
 
     <div id="header">
-        <a href="/file/">
-            <h1>
-                <div class="btn back_btn">返回</div>
-                文件管理
-                <div class="btn upload_btn" style="float: right ;overflow: hidden;">
+        <!--<a href="/file/">-->
 
-                    <form id="form1" enctype="multipart/form-data" method="post"
-                          action="uploa.php?action=upload&value=/">
-                        <input type="file" name="upload" class="upload" id="upload" multiple="multiple"
-                               accept="*/*"/>
-                        <span class="u_span">上传</span>
-                    </form>
-                </div>
-            </h1>
-        </a>
+        <div class="btn back_btn">返回</div>
+        <h1>文件管理</h1>
+
+        <div class="btn upload_btn" style="float: right ;overflow: hidden;">
+
+            <form id="form1" enctype="multipart/form-data" method="post"
+                  action="uploa.php?action=upload&value=/">
+                <input type="file" name="upload" class="upload" id="upload" multiple="multiple"
+                       accept="*/*"/>
+                <span class="u_span">上传</span>
+            </form>
+        </div>
+
+        <!--</a>-->
     </div>
 
     <div id="loading">
@@ -49,21 +50,21 @@
 
         <div class="input_bar">
             <input type="text" placeholder="输入搜索" id="search_input"
-                   style="display: block;width: 100%;height: 22px;border: 0px;margin: 0px;padding: 0px"/>
+                   style="display: block;width: 100%;height: 22px;border: 0px;margin: 0px;padding: 0px;font-size: 14px"/>
         </div>
         <div style="text-align: center;width: 54px" id="search_btn">
-            <div class="btn" style="position: relative;top: 6px;left: -3px;font-weight: bold">搜索</div>
+            <div id="search_btn" class="btn" style="position: relative;top: 6px;left: -3px;font-weight: bold">搜索</div>
+        </div>
+    </div>
+    <div id="li_progress" class="list-item tools_bar" style="display: none">
+        <div class="li_progress content" style="margin-left: 0px">
+            <div id="detail" class="detail"><span id="details"></span>
+            </div>
+            <div id="progress_bar" class="progress_bar"><b></b><span class="progress_num"></span></div>
         </div>
     </div>
 
     <ul id="content" class="list">
-
-        <li class="li_progress" style="display: none">
-            <div id="progress" class="progress">
-                <div id="detail" class="detail"><span id="details"></span></div>
-                <div id="progress_bar" class="progress_bar"><b></b><span class="progress_num"></span></div>
-            </div>
-        </li>
 
 
     </ul>

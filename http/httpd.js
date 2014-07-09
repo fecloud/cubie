@@ -41,6 +41,14 @@ function dispath(req, res, params) {
 
             fm.save_file(req, res, params);
 
+        } else if(params.action == 'rename'){
+
+            fm.rename(req,res,params);
+
+        } else if(params.action == 'search'){
+
+            fm.search(req,res,params);
+
         } else if (params.action == 'save_temperature') {
 
             util.result_client(req, res,arduino.save_temperature());
@@ -72,6 +80,8 @@ http.createServer(function (req, res) {
         req_p.action = params.action;
         req_p.value = params.value;
         req_p.files = params.files;
+        req_p.target = params.target;
+        req_p.query = params.query;
         dispath(req, res, req_p);
     } else {
         req_p.error = "check request params!";

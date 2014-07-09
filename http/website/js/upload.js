@@ -7,7 +7,7 @@
  */
 
 function fileSelected() {
-    $('.li_progress').fadeIn(2000);
+    $('#li_progress').fadeIn(2000);
     $('.progress_num').html("请稍候");
     var count = document.getElementById('upload').files.length;
 
@@ -96,7 +96,7 @@ function uploadComplete(evt) {
     console.log(h);
     $('.progress_bar b').width(h - 2);
     $('.progress_num').html("完成");
-    $('.li_progress').fadeOut(2000);
+    $('#li_progress').fadeOut(2000);
     setTimeout(load_data,2000);
 //            alert(evt.target.responseText);
 
@@ -107,7 +107,7 @@ function uploadFailed(evt) {
 //            alert("There was an error attempting to upload the file.");
     $('.progress-bar b').css({background: "red"});
     $('.progress_num').html("上传失败");
-    $('.li_progress').fadeOut(2000);
+    $('#li_progress').fadeOut(2000);
 }
 
 function uploadCanceled(evt) {

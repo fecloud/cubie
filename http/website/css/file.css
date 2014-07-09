@@ -30,9 +30,9 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
     -webkit-tap-highlight-color: rgba(255,255,255,0);
     -webkit-appearance: none;
 }
-.list li:first-child {
-    border-top: none;
-}
+/*.list li:first-child {*/
+    /*border-top: none;*/
+/*}*/
 
 #page {
     width: 100%;
@@ -46,10 +46,21 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
     border-bottom: solid 1px #B3B3B3;
     -webkit-box-shadow: 0 1px 1px 0 #DFDFDF;
     box-shadow: 0 1px 1px 0 #DFDFDF;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+
 }
 #header h1 {
     color: #000000;
-    font-size: 26px;
+    font-size: 20px;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+   line-height: 30px;
+
 }
 .btn {
     width: 50px;
@@ -61,16 +72,17 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
     text-align: center;
     text-align: -webkit-match-parent;
     line-height: 30px;
+    font-weight: bold;
 }
 
 .back_btn {
     /*margin-top: 2px;*/
-    left: 10px;
-    position: absolute;
+    /*left: 0px;*/
+    position: relative;
 }
 .upload_btn {
-    right: 10px;
-    position: absolute;
+    /*right: 0px;*/
+    position: relative;
     display: inline-block;
 }
 .list {
@@ -90,6 +102,62 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
     background-position: -40px 0px;
 }
 
+.apk {
+     background-image:url('/img/common.png');
+     -webkit-background-size: 364px 40px;
+     background-size: 364px 40px;
+     background-position: 0px 0px;
+ }
+
+.doc {
+    background-image:url('/img/common.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -81px 0px;
+}
+
+.exe {
+    background-image:url('/img/common.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -121px 0px;
+}
+
+.video {
+    background-image:url('/img/common.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -162px 0px;
+}
+
+.music {
+    background-image:url('/img/common.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -202px 0px;
+}
+
+.pdf {
+     background-image:url('/img/common.png');
+     -webkit-background-size: 364px 40px;
+     background-size: 364px 40px;
+     background-position: -243px 0px;
+ }
+
+.rar {
+     background-image:url('/img/common.png');
+     -webkit-background-size: 364px 40px;
+     background-size: 364px 40px;
+     background-position: -283px 0px;
+ }
+
+.txt {
+    background-image:url('/img/common.png');
+    -webkit-background-size: 364px 40px;
+    background-size: 364px 40px;
+    background-position: -324px 0px;
+}
+
 .folder {
     background-image:url('/img/folders.png');
     -webkit-background-size: 364px 40px;
@@ -103,7 +171,11 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer,#progress_con
     background-position: -5px -4px;
 }
 .tools_bar {
-    border-bottom: solid 1px #DFDFDF;
+    border: solid 1px #DFDFDF;
+    border-top: solid 1px #FFF;
+    position: relative;
+    overflow: hidden;
+    height: 44px;
 }
 .input_bar {
     margin-left: 10px;

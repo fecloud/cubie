@@ -1,20 +1,18 @@
 .li_progress {
-
-    padding-left: 6px;
+    /*padding-left: 6px;*/
     padding-right: 6px;
+    border-top: solid 1px #FFF;
 }
 
 #progress {
     height: 44px;
-    border-bottom: solid 1px #FFF;
+
 }
 
 .detail {
     margin-top: 5px;
-    /*width: auto;*/
     height: 16px;
     overflow: hidden;
-    /*padding: 1;*/
     line-height: 16px;
     -moz-transition: all 250ms ease;
     -webkit-transition: all 250ms ease;
@@ -27,6 +25,7 @@
     verflow: hidden;
     white-space: nowrap;
     overflow: hidden;
+    display: block;
 }
 
 .progress_bar {
