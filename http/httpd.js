@@ -5,6 +5,7 @@ var url = require('url');
 var common = require('./common.js');
 var util = require('./util.js');
 var fm = require('./fm.js');
+var arduino = require('./arduino.js');
 
 var webroot = process.argv[2];
 
@@ -39,6 +40,10 @@ function dispath(req, res, params) {
         } else if (params.action == 'upload') {
 
             fm.save_file(req, res, params);
+
+        } else if (params.action == 'save_temperature') {
+
+            util.result_client(req, res,arduino.save_temperature());
 
         } else {
 

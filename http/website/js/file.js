@@ -10,7 +10,11 @@ $(document).ready(function () {
     load_data();
     back_bind();
 
-    $('.upload').bind('change', fileSelected);
+    $('.upload').bind('change', function(b){
+        b.preventDefault();
+        b.stopPropagation();
+        fileSelected();
+    });
     $('.newfolder').bind('click', newfolder);
 
 });
@@ -30,6 +34,7 @@ function load_data() {
 function load_list(data) {
     if (data && data.error == '' && data.data) {
         var arr = data.data;
+        $('#content').html('');
         for (var i = 0, len = arr.length; i < len; i++) {
             var file = arr[i];
 //            console.log(arr[i]);
@@ -82,7 +87,6 @@ function iremove(b) {
     var src = $(b.target).closest('.file-operate')[0].getAttribute('src');
     $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=delete&value=' + src,
         success: function (data) {
-            $('#content').html('');
             load_data();
         }
     });
