@@ -44,7 +44,7 @@ $(document).ready(function () {
  */
 function changeFileUpload(){
     var user_agent = window.navigator.userAgent;
-    if((user_agent.indexOf('iPhone') > -1) || (user_agent.indexOf('Android') > -1) ){
+    if((user_agent.indexOf('iPhone') > -1) || (user_agent.indexOf('Android') > -1) (user_agent.indexOf('Ipad') > -1)){
         //ios android
     }else {
         var input =  $('#upload')[0];
