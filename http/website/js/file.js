@@ -2,6 +2,8 @@ var current_path = '/';
 
 $(document).ready(function () {
 
+    changeFileUpload();
+
     var path = getArgs('path');
     if (path == '')
         path = "/";
@@ -36,6 +38,19 @@ $(document).ready(function () {
         }
     });
 });
+
+/**
+ * 当是pc时加上multiple='multiple'
+ */
+function changeFileUpload(){
+    var user_agent = window.navigator.userAgent;
+    if((user_agent.indexOf('iPhone') > -1) || (user_agent.indexOf('Android') > -1) ){
+        //ios android
+    }else {
+        var input =  $('#upload')[0];
+        input.setAttribute('multiple','multiple');
+    }
+}
 
 
 function load_data() {
