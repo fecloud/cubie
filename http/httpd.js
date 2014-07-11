@@ -51,9 +51,13 @@ function dispath(req, res, params) {
 
         } else if (params.action == 'save_temperature') {
 
-            util.result_client(req, res,arduino.save_temperature());
+            util.result_client(req, res,arduino.save_temperature(params));
 
-        } else {
+        } else if(params.action == 'list_temperature'){
+
+             arduino.list_temperature(req,res,params);
+
+        }else {
 
             var result = new common.web_result();
             result.error = 'action not found!';
@@ -76,7 +80,7 @@ http.createServer(function (req, res) {
     var params = url.parse(req.url, true).query;
     var req_p = new common.req_param();
 
-    if (params != undefined) {
+    if (params != undefined && params.action != undefined && params.value != undefined) {
         req_p.action = params.action;
         req_p.value = params.value;
         req_p.files = params.files;
