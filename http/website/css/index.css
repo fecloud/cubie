@@ -1,0 +1,97 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("../img/index_background.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    font: normal 14px "microsoft yahei";
+}
+
+#container {
+    width: 100%;
+    /*height: 960px;*/
+
+    overflow: hidden;
+}
+
+.header {
+    /*width: 100%;*/
+    height: 60px;
+}
+
+.content {
+    width: 100%;
+    /*height: 560px;*/
+    left: 20px;
+    position: relative;
+    /*background-color: red;*/
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+}
+
+.left_block {
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    /*background-color: yellow;*/
+    margin-top: 20px;
+    margin-bottom: 31px;
+}
+
+.left_block div {
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+}
+
+/*.left_block ul li {*/
+    /*display: list-item;*/
+    /*width: 50%;*/
+    /*float: left;*/
+    /*background:rgba(0,0,0,0.5);*//*前三个参数为rgb颜色，第四个参数为透明度*/
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000,endcolorstr=#7F000000);*/
+    /*height: 100px;*/
+    /*overflow: hidden;*/
+/*}*/
+
+.list-item {
+    display: block;
+    margin-bottom: 5px;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    background-color: yellow;
+    height: 105px;
+    background:rgba(0,0,0,0.5);
+    filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#FFFFFFFF,endcolorstr=#FFFFFFFF);
+    /*filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000,endcolorstr=#7F000000);*/
+    overflow: hidden;
+    text-align: center;
+    line-height:105px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    /*box-shadow:2px 2px 3px #7F000000;*/
+}
+
+.list-item_m {
+    display: block;
+    width: 5px ;
+    /*height: 100px;*/
+}
+
+.right_block {
+    width: 80px;
+
+    /*background-color: green;*/
+}
+.right_block span {
+    display: block;
+    position: absolute;
+    text-align: center;
+    bottom: 0px;
+}
