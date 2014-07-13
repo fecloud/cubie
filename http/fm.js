@@ -36,41 +36,46 @@ function list_dir(params) {
             params.value = params.value + '/';
         }
         var dir = webroot + params.value;
-        var files = fs.readdirSync(dir);
-        var file_array = [];
 
-        files.forEach(function (name) {
-            // 查看文件状态
-            var st = fs.statSync(dir + name);
-            var f = new File();
-            if (st.isDirectory()) {
-                f.isDir = true;
-                f.name = name;
-                f.size = st.size;
-                f.mtime = st.mtime.toLocaleString();
-                f.path = params.value + name;
-                file_array.push(f);
-            }
+        if (fs.existsSync(dir)) {
+            var files = fs.readdirSync(dir);
+            var file_array = [];
+
+            files.forEach(function (name) {
+                // 查看文件状态
+                var st = fs.statSync(dir + name);
+                var f = new File();
+                if (st.isDirectory()) {
+                    f.isDir = true;
+                    f.name = name;
+                    f.size = st.size;
+                    f.mtime = st.mtime.toLocaleString();
+                    f.path = params.value + name;
+                    file_array.push(f);
+                }
 
 
-        });
+            });
 
-        files.forEach(function (name) {
-            // 查看文件状态
-            var st = fs.statSync(dir + "/" + name);
-            var f = new File();
-            if (st.isFile()) {
-                f.isFile = true;
-                f.name = name;
-                f.size = st.size;
-                f.mtime = st.mtime.getTime();
-                f.path = params.value + name;
-                file_array.push(f);
-            }
+            files.forEach(function (name) {
+                // 查看文件状态
+                var st = fs.statSync(dir + "/" + name);
+                var f = new File();
+                if (st.isFile()) {
+                    f.isFile = true;
+                    f.name = name;
+                    f.size = st.size;
+                    f.mtime = st.mtime.getTime();
+                    f.path = params.value + name;
+                    file_array.push(f);
+                }
 
-        });
+            });
 
-        result.data = file_array;
+            result.data = file_array;
+        }else {
+            result.error = 'path not exists!';
+        }
     }
     return result;
 }
@@ -209,7 +214,7 @@ exports.new_dir = new_dir;
  * @param res
  * @param params
  */
-function rename(req,res,params){
+function rename(req, res, params) {
 
     var result = new common.web_result();
     result.action = 'rename';
@@ -218,13 +223,13 @@ function rename(req,res,params){
 
     console.log(util.format_time() + 'path:' + path + " target:" + target);
 
-    fs.rename(path,target,function(err){
-        if(err){
+    fs.rename(path, target, function (err) {
+        if (err) {
             result.error = err;
-        }else {
+        } else {
             result.data = 'true';
         }
-        util.result_client(req,res,result);
+        util.result_client(req, res, result);
     });
 
 }
@@ -238,11 +243,11 @@ exports.rename = rename;
  * @param res
  * @param params
  */
-function search_dir(req,res,params){
+function search_dir(req, res, params) {
 
     var result = new common.web_result();
     result.action = 'search_dir';
-    if(params.query != undefined) {
+    if (params.query != undefined) {
         var file_list = list_dir(params);
         if (file_list.error == '') {
             var file_array = [];
@@ -255,11 +260,11 @@ function search_dir(req,res,params){
             });
             result.data = file_array;
         }
-    }else {
+    } else {
         result.error = 'require query!';
     }
 
-    util.result_client(req,res,result);
+    util.result_client(req, res, result);
 }
 
 exports.search = search_dir;
