@@ -86,6 +86,8 @@ http.createServer(function (req, res) {
         req_p.files = params.files;
         req_p.target = params.target;
         req_p.query = params.query;
+        req_p.skip = params.skip;
+        req_p.num = params.num;
         dispath(req, res, req_p);
     } else {
         req_p.error = "check request params!";

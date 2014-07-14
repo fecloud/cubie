@@ -24,6 +24,48 @@ var File = function () {
 
 exports.file = File;
 
+function list_dir_files(dir, base) {
+    if (fs.existsSync(dir)) {
+        var files = fs.readdirSync(dir);
+        var file_array = [];
+
+        files.forEach(function (name) {
+            // 查看文件状态
+            var st = fs.statSync(dir + name);
+            var f = new File();
+            if (st.isDirectory()) {
+                f.isDir = true;
+                f.name = name;
+                f.size = st.size;
+                f.mtime = st.mtime.toLocaleString();
+                f.path = base + name;
+                file_array.push(f);
+            }
+
+
+        });
+
+        files.forEach(function (name) {
+            // 查看文件状态
+            var st = fs.statSync(dir + "/" + name);
+            var f = new File();
+            if (st.isFile()) {
+                f.isFile = true;
+                f.name = name;
+                f.size = st.size;
+                f.mtime = st.mtime.getTime();
+                f.path = base + name;
+                file_array.push(f);
+            }
+
+        });
+
+        return file_array;
+    } else {
+        return [];
+    }
+}
+
 /**
  * 返回当前目录的子目录以及文件
  */
@@ -37,45 +79,39 @@ function list_dir(params) {
         }
         var dir = webroot + params.value;
 
-        if (fs.existsSync(dir)) {
-            var files = fs.readdirSync(dir);
-            var file_array = [];
+        var array_files = list_dir_files(dir, params.value);
 
-            files.forEach(function (name) {
-                // 查看文件状态
-                var st = fs.statSync(dir + name);
-                var f = new File();
-                if (st.isDirectory()) {
-                    f.isDir = true;
-                    f.name = name;
-                    f.size = st.size;
-                    f.mtime = st.mtime.toLocaleString();
-                    f.path = params.value + name;
-                    file_array.push(f);
+        //有按页加载
+        if (params.skip != undefined) {
+
+            if (array_files.length >= params.skip) {
+                var page_array = [];
+                for (var i = params.skip; i < array_files.length; i++) {
+
+                    page_array.push(array_files[i]);
+
+                    if (params.num != undefined && (i - params.skip == params.num)) {
+
+                        result.data = page_array;
+                        if (i++ < array_files.length) {
+                            result.more = true;
+                        }
+                        return result;
+                    }
+
                 }
+                result.data = page_array;
+                result.more = false;
 
+            } else {
+                result.data = [];
+                result.more = false;
+            }
 
-            });
-
-            files.forEach(function (name) {
-                // 查看文件状态
-                var st = fs.statSync(dir + "/" + name);
-                var f = new File();
-                if (st.isFile()) {
-                    f.isFile = true;
-                    f.name = name;
-                    f.size = st.size;
-                    f.mtime = st.mtime.getTime();
-                    f.path = params.value + name;
-                    file_array.push(f);
-                }
-
-            });
-
-            result.data = file_array;
-        }else {
-            result.error = 'path not exists!';
+        } else {
+            result.data = array_files;
         }
+
     }
     return result;
 }

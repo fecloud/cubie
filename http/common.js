@@ -9,6 +9,7 @@ var WebResult = function () {
     this.action;
     this.error = '';
     this.data;
+    this.more;
 }
 
 exports.web_result = WebResult;
@@ -22,6 +23,10 @@ var ReqParam = function (){
     this.action;
     this.value ;
     this.files;
+    this.target;
+    this.query;
+    this.skip;
+    this.num;
 
 }
 
