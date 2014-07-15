@@ -1,10 +1,10 @@
 /**
- * Created with JetBrains WebStorm.
- * User: ouyangfeng
- * Date: 7/8/14
- * Time: 20:33
- * To change this template use File | Settings | File Templates.
- */
+* Created with JetBrains WebStorm.
+* User: ouyangfeng
+* Date: 7/8/14
+* Time: 20:33
+* To change this template use File | Settings | File Templates.
+*/
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('httpd.db');
 
@@ -24,10 +24,10 @@ process.on('exit', function (code) {
 });
 
 /**
- * 保存温度
- * @param parsms
- * @returns {exports.web_result}
- */
+* 保存温度
+* @param parsms
+* @returns {exports.web_result}
+*/
 function save_temperature(parsms) {
 
     var result = new common.web_result();
@@ -70,9 +70,9 @@ exports.list_temperature = list_temperature;
 
 
 /**
- * 插入温度
- * @param temperature
- */
+* 插入温度
+* @param temperature
+*/
 function insert(temperature) {
 
     console.log(util.format_time() + " insert:" + temperature);
@@ -83,8 +83,8 @@ function insert(temperature) {
 
 }
 /**
- * 建表
- */
+* 建表
+*/
 function create_table() {
 
     var create_sql = "CREATE TABLE IF NOT EXISTS ";

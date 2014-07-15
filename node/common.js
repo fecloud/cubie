@@ -14,20 +14,3 @@ var WebResult = function () {
 
 exports.web_result = WebResult;
 
-/**
- * 请求参数
- * @constructor
- */
-var ReqParam = function (){
-
-    this.action;
-    this.value ;
-    this.files;
-    this.target;
-    this.query;
-    this.skip;
-    this.num;
-
-}
-
-exports.req_param = ReqParam;
