@@ -27,6 +27,7 @@ function dispath(req, res, params) {
     if (params.action) {
         if (params.action == 'list') {
 
+
             util.result_client(req, res, fm.list_dir(params));
 
         } else if (params.action == 'delete') {

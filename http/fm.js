@@ -90,10 +90,10 @@ function list_dir(params) {
 
                     page_array.push(array_files[i]);
 
-                    if (params.num != undefined && (i - params.skip == params.num)) {
+                    if (params.num != undefined && (i - params.skip == (params.num -1) )) {
 
                         result.data = page_array;
-                        if (i++ < array_files.length) {
+                        if (i < array_files.length -1 ) {
                             result.more = true;
                         }
                         return result;
