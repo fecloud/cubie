@@ -1,3 +1,4 @@
+var os = require('os')
 var exec = require('child_process').exec,
     child;
 
@@ -7,7 +8,7 @@ var util = require('./../util.js');
 
 var service_status = function () {
 
-    this.fm = true;
+    this.fm = false;
     this.arduino = false;
     this.baiduyunsync = false;
     this.status = false;
@@ -15,6 +16,8 @@ var service_status = function () {
     this.platform;
     this.uptime;
     this.arch;
+    this.core;
+    this.network;
 }
 
 /**
@@ -32,19 +35,19 @@ function status(req, res, params) {
             if (out && out != '') {
 
                 //查询所有服务的状态
-                if (out.indexOf('fm')) {
+                if (out.indexOf('fm') > 0) {
                     service_s.fm = true;
                 }
 
-                if (out.indexOf('arduino')) {
+                if (out.indexOf('arduino') > 0) {
                     service_s.arduino = true;
                 }
 
-                if (out.indexOf('baiduyunsync')) {
+                if (out.indexOf('baiduyunsync') > 0) {
                     service_s.baiduyunsync = true;
                 }
 
-                if (out.indexOf('status')) {
+                if (out.indexOf('status') > 0) {
                     service_s.status = true;
                 }
 
@@ -53,6 +56,8 @@ function status(req, res, params) {
             service_s.platform = process.platform;
             service_s.version = process.version;
             service_s.uptime = process.uptime();
+            service_s.core = os.cpus().length;
+            service_s.network = os.networkInterfaces();
             result.data = service_s;
             util.result_client(req,res,result);
 

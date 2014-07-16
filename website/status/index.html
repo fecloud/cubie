@@ -9,7 +9,6 @@
     <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="../css/com.css"/>
-    <link rel="stylesheet" href="../css/file.css"/>
     <link rel="stylesheet" href="../css/status.css"/>
     <link rel="stylesheet" href="../css/switchery.min.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
@@ -19,14 +18,23 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+            var fm_switch = document.querySelector('.fm-switch');
+            var fm = new Switchery(fm_switch);
+            fm_switch.onchange = function() {
+                console.log(this.checked);
+            };
 
-            var elems = document.querySelectorAll('.js-switch');
+            var arduino_switch = document.querySelector('.arduino-switch');
+            var arduino = new Switchery(arduino_switch);
+
+            var baiduyunsync_switch = document.querySelector('.baiduyunsync-switch');
+            var baiduyunsync = new Switchery(baiduyunsync_switch);
+
+
+            var status = new Switchery(document.querySelector('.status-switch'),{ disabled: true });
+
 
             back_bind();
-
-            for (var i = 0; i < elems.length; i++) {
-                var switchery = new Switchery(elems[i]);
-            }
 
 
             $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=status&value=/', success: function (data) {
@@ -34,16 +42,15 @@
                 var status = data.data;
 
                 if(status.fm){
-                    $('#fm').attr("checked","true");
+                    fm_switch.click();
                 }if(status.arduino){
-                    $('#arduino').attr("checked","true");
+                    arduino_switch.click();
                 }if(status.baiduyunsync){
-                    $('#baiduyunsync').attr("checked","true");
-                }if(status.status){
-                    $('#status').attr("checked","true");
+                    baiduyunsync_switch.click();
                 }
 
                 $('#arch').html(status.arch);
+                $('#core').html(status.core);
                 $('#platform').html(status.platform);
                 $('#version').html(status.version);
                 $('#uptime').html(parseInt(status.uptime));
@@ -74,25 +81,25 @@
         <li>
             <div class="list-item">
                 <div class="content">文件管理服务</div>
-                <div class="show-operate"><input type="checkbox" class="js-switch" id="fm"/></div>
+                <div class="show-operate"><input type="checkbox" class="fm-switch" id="fm"/></div>
             </div>
         </li>
         <li>
             <div class="list-item">
                 <div class="content">温度监控服务</div>
-                <div class="show-operate"><input type="checkbox" class="js-switch" id="arduino"/></div>
+                <div class="show-operate"><input type="checkbox" class="arduino-switch" id="arduino"/></div>
             </div>
         </li>
         <li>
             <div class="list-item">
                 <div class="content">百度云同步服务</div>
-                <div class="show-operate"><input type="checkbox" class="js-switch" id="baiduyunsync" /></div>
+                <div class="show-operate"><input type="checkbox" class="baiduyunsync-switch" id="baiduyunsync" /></div>
             </div>
         </li>
         <li>
             <div class="list-item">
                 <div class="content">服务状态服务</div>
-                <div class="show-operate"><input type="checkbox" class="js-switch" id="status" /></div>
+                <div class="show-operate"><input type="checkbox" class="status-switch" id="status" checked/></div>
             </div>
         </li>
 
@@ -105,6 +112,12 @@
             <div class="list-item">
                 <div class="content">CPU</div>
                 <div class="show-operate text_right" id="arch">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">核心数</div>
+                <div class="show-operate text_right" id="core">...</div>
             </div>
         </li>
         <li>
@@ -131,7 +144,7 @@
 
 
     <div style="text-align: center;margin: 10px 0 20px 0;" class="ios7_font">
-        Copyright Cubie, Inc
+        Copyright FCloud, Inc
     </div>
 
 </div>
