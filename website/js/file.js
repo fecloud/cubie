@@ -55,7 +55,7 @@ $(document).ready(function () {
                 //console.log('search');
             });
             $('#content').html('');
-            $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=search&value=' + current_path + '&query=' + query,
+            $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=search&value=' + current_path + '&query=' + query,
                 success: function (data) {
                     if (data.error == '') {
                         load_list(data);
@@ -93,7 +93,7 @@ function load_data(befor, end) {
     }
 
     loading = true;
-    var address = '/' + parseInt(Math.random() * 10000000) + '.php?action=list&value=' + current_path + '&skip=' + count + "&num=" + page_num;
+    var address = fm_service + parseInt(Math.random() * 10000000) + '.php?action=list&value=' + current_path + '&skip=' + count + "&num=" + page_num;
     $.ajax({url: address,
         success: function (data) {
             loading = false;
@@ -167,7 +167,7 @@ function iremove(b) {
     b.preventDefault();
     b.stopPropagation();
     var src = $(b.target).closest('.file-operate')[0].getAttribute('src');
-    $.ajax({url: '/' + parseInt(Math.random() * 10000000) + '.php?action=delete&value=' + src,
+    $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=delete&value=' + src,
         success: function (data) {
             load_data(function () {
                 $('#loading').css({display: 'block'});

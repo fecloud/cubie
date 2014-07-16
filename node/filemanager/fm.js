@@ -4,11 +4,11 @@
 var fs = require("fs");
 var formidable = require("formidable");
 
-var common = require('./common.js');
-var util = require('./util.js');
+var common = require('./../common.js');
+var util = require('./../util.js');
 
 
-var webroot = process.argv[2];
+var webroot = process.argv[3];
 /**
  * 返回数据
  * @constructor

@@ -5,10 +5,9 @@
  * Time: 22:37
  * To change this template use File | Settings | File Templates.
  */
-var common = require('./common.js');
-var util = require('./util.js');
+var common = require('./../common.js');
+var util = require('./../util.js');
 var fm = require('./fm.js');
-var arduino = require('./arduino.js');
 
 var route = {};
 
@@ -44,21 +43,26 @@ route.search = function (req, res, params) {
     fm.search(req, res, params);
 }
 
-route.save_temperature = function (req, res, params) {
-
-    util.result_client(req, res, arduino.save_temperature(params));
-}
-
-route.list_temperature = function (req, res, params) {
-    arduino.list_temperature(req, res, params);
-}
 
 route.default = function (req, res, params) {
 
     var result = new common.web_result();
     result.error = 'action not found!';
-    console.error("action not found!");
+    console.error(util.format_time () + "action not found!");
     util.result_client(req, res, result);
 }
 
 exports.route = route;
+
+var webroot = process.argv[3];
+
+if (webroot) {
+
+    console.log("webroot:" + webroot);
+
+} else {
+
+    console.error("not setting webroot ,please set !");
+    process.exit(1);
+
+}

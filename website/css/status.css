@@ -1,0 +1,22 @@
+.group{
+
+}
+
+.content{
+    line-height: 44px;
+    font-size: 18px;
+    margin-left: 18px;
+}
+
+.list {
+    border-bottom: none;
+}
+.show-operate {
+    margin-right: 18px;
+    font-size: 18px;
+    -webkit-box-flex:1;
+    box-flex:1;
+    -moz-box-flex:1;
+    width: auto;
+    color: #A6A6A9;
+}

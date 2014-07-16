@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>服务器状态</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../css/com.css"/>
+    <link rel="stylesheet" href="../css/file.css"/>
+    <link rel="stylesheet" href="../css/status.css"/>
+    <link rel="stylesheet" href="../css/switchery.min.css"/>
+    <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/html5.js"></script>
+    <script type="text/javascript" src="../js/switchery.min.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var elems = document.querySelectorAll('.js-switch');
+
+            back_bind();
+
+            for (var i = 0; i < elems.length; i++) {
+                var switchery = new Switchery(elems[i]);
+            }
+
+
+            $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=status&value=/', success: function (data) {
+
+                var status = data.data;
+
+                if(status.fm){
+                    $('#fm').attr("checked","true");
+                }if(status.arduino){
+                    $('#arduino').attr("checked","true");
+                }if(status.baiduyunsync){
+                    $('#baiduyunsync').attr("checked","true");
+                }if(status.status){
+                    $('#status').attr("checked","true");
+                }
+
+                $('#arch').html(status.arch);
+                $('#platform').html(status.platform);
+                $('#version').html(status.version);
+                $('#uptime').html(parseInt(status.uptime));
+
+            }});
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="page">
+
+    <div id="header">
+
+        <div class="btn back_btn">返回</div>
+        <h1>服务器状态</h1>
+        <div style=" width: 50px;height: 30px;"></div>
+
+    </div>
+
+    <ul id="content" class="list group">
+
+        <li></li>
+        <li>
+            <div class="list-item">
+                <div class="content">文件管理服务</div>
+                <div class="show-operate"><input type="checkbox" class="js-switch" id="fm"/></div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">温度监控服务</div>
+                <div class="show-operate"><input type="checkbox" class="js-switch" id="arduino"/></div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">百度云同步服务</div>
+                <div class="show-operate"><input type="checkbox" class="js-switch" id="baiduyunsync" /></div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">服务状态服务</div>
+                <div class="show-operate"><input type="checkbox" class="js-switch" id="status" /></div>
+            </div>
+        </li>
+
+    </ul>
+
+    <ul id="content" class="list group">
+
+        <li></li>
+        <li>
+            <div class="list-item">
+                <div class="content">CPU</div>
+                <div class="show-operate text_right" id="arch">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">平台</div>
+                <div class="show-operate text_right" id="platform">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">软件版本</div>
+                <div class="show-operate text_right" id="version">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">软件运行时间</div>
+                <div class="show-operate text_right" id="uptime">...</div>
+            </div>
+        </li>
+
+
+    </ul>
+
+
+    <div style="text-align: center;margin: 10px 0 20px 0;" class="ios7_font">
+        Copyright Cubie, Inc
+    </div>
+
+</div>
+
+</body>
+</html>

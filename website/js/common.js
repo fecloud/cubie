@@ -1,6 +1,7 @@
 /**
  * Created by Feng OuYang on 2014-07-08.
  */
+
 Date.prototype.format = function (format) {
     var o = {
         "M+": this.getMonth() + 1, //month
@@ -90,3 +91,6 @@ function getFileTypeCss(name) {
     }
 
 }
+
+var fm_service = "/service/fm/";
+var status_service = "/service/status/";

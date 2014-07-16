@@ -6,10 +6,10 @@
 * To change this template use File | Settings | File Templates.
 */
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('httpd.db');
+var db = new sqlite3.Database('/httpd.db');
 
-var common = require('./common.js');
-var util = require('./util.js');
+var common = require('./../common.js');
+var util = require('./../util.js');
 
 var table_name = "temperature";
 

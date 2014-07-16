@@ -1,6 +1,8 @@
 /**
  * Created by Feng OuYang on 2014-07-08.
  */
+var https = require('https');
+
 Date.prototype.format = function (format) {
     var o = {
         "M+": this.getMonth() + 1, //month
@@ -43,3 +45,36 @@ function resultClient(req, res, result) {
 }
 
 exports.result_client = resultClient;
+
+/**
+ *
+ * @param url
+ * @param sucess
+ * @param error
+ */
+function https_get(url, sucess, error) {
+
+    https.get(url, function (res) {
+        console.log("statusCode: ", res.statusCode);
+       // console.log("headers: ", res.headers);
+
+        res.on('data', function (d) {
+            if (sucess != undefined) {
+               sucess.call(sucess,d);
+            }
+        });
+
+    }).on('error', function (e) {
+        if (error != undefined) {
+            error.call(error, e);
+        }
+        console.error(e);
+    });
+
+}
+
+exports.https_get = https_get;
+
+//function https(url){
+//
+//}
