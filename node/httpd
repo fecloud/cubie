@@ -13,23 +13,98 @@
 
 ## Fill in name of program here.
 PROG="httpd.js"
-PROG_PATH="nodejs /data/app/httpd" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
-PROG_ARGS="/data/f/"
+PROG_PATH="nodejs /data/app/node" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
+FM_ARGS="/data/f/"
 PID_PATH="/var/run/"
 
-start() {
-    if [ -e "$PID_PATH/$PROG.pid" ]; then
-        ## Program is running, exit with error.
-        echo "Error! $PROG is currently running!" 
-        exit 1
-    else
-        ## Change from /dev/null to something like /var/log/$PROG if you want to save output.
-	$PROG_PATH/$PROG $PROG_ARGS >/var/log/httpd.js.log 2>&1 &
-	pid=`ps x|grep httpd.js |awk '{print $1}' | head -n 1`
+start_fm(){
+
+    pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
+    if [ -z "$pid" ]; then
+        $PROG_PATH/$PROG fm $FM_ARGS >/var/log/httpd.fm.log 2>&1 &
+        pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
         echo "$PROG started"
-	echo "$pid"
-        echo $pid > "$PID_PATH/$PROG.pid"
+        echo "$pid"
+        echo $pid > "$PID_PATH/$PROG.fm.pid"
+    else
+        echo "Error! $PROG fm is currently running!" 
+        exit 1
     fi
+
+}
+
+start_arduino(){
+
+    pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
+    if [ -z "$pid"]; then
+        $PROG_PATH/$PROG arduino >/var/log/httpd.arduino.log 2>&1 &
+        pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
+        echo "$PROG started"
+        echo "$pid"
+        echo $pid > "$PID_PATH/$PROG.arduino.pid"
+    else
+        echo "Error! $PROG arduino is currently running!" 
+        exit 1
+    fi
+
+}
+
+start_baiduyunsync(){
+
+    pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
+    if [ -z "$pid"]; then
+        $PROG_PATH/$PROG baiduyunsync >/var/log/httpd.baiduyunsync.log 2>&1 &
+        pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
+        echo "$PROG started"
+        echo "$pid"
+        echo $pid > "$PID_PATH/$PROG.baiduyunsync.pid"
+    else
+        echo "Error! $PROG baiduyunsync is currently running!" 
+        exit 1
+    fi
+
+}
+
+start_status(){
+
+    pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
+    if [ -z "$pid"];then
+        $PROG_PATH/$PROG status >/var/log/httpd.status.log 2>&1 &
+        pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
+        echo "$PROG started"
+        echo "$pid"
+        echo $pid > "$PID_PATH/$PROG.status.pid"
+    else
+        echo "Error! $PROG status status is currently running!" 
+        exit 1
+    fi
+
+}
+
+start() {
+    echo "begin start $1"
+    case "$1" in
+        fm)
+            start_fm
+        ;;
+        arduino)
+            start_arduino
+        ;;
+        baiduyunsync)
+            start_baiduyunsync
+        ;;
+        status)
+            start_status
+        ;;
+        **)
+            echo "start all"
+            start_fm
+            start_arduino
+            start_baiduyunsync
+            start_status
+        ;;
+    esac
+
 }
 
 stop() {
@@ -53,9 +128,10 @@ if [ "$(id -u)" != "0" ]; then
     exit 1
 fi
 
+
 case "$1" in
     start)
-        start
+        start $2
         exit 0
     ;;
     stop)
@@ -68,7 +144,8 @@ case "$1" in
         exit 0
     ;;
     **)
-        echo "Usage: $0 {start|stop|reload}" 1>&2
+        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baiduyunsync | status ]" 1>&2
         exit 1
     ;;
 esac
+
