@@ -23,6 +23,12 @@ route.uptime = function(req, res, params){
     status.uptime(req,res,params);
 }
 
+route.df = function(req, res, params){
+
+    status.df(req, res, params);
+
+}
+
 
 route.default = function (req, res, params) {
 

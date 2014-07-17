@@ -81,7 +81,7 @@ function uptime(req, res, params) {
             if (out && out != '') {
                 var arr = out.match(/\d+\.+\d+/g);
                 console.log(arr);
-                if(arr != null){
+                if (arr != null) {
                     result.data = arr.join(" ");
                 }
             }
@@ -92,3 +92,39 @@ function uptime(req, res, params) {
 }
 
 exports.uptime = uptime;
+
+
+/**
+ * 查看磁盘空间
+ * @param req
+ * @param res
+ * @param params
+ */
+function df(req, res, params) {
+
+    var result = new common.web_result();
+    result.action = 'df';
+
+    child = exec("df -h |grep " + params.value +" | head -n 1",
+        function (error, stdout, stderr) {
+            var out = stdout;
+            if (out && out != '') {
+                var arr = out.split(" ");
+                var re_arr = [];
+                console.log(arr);
+                if (null != arr) {
+                    arr.forEach(function (a) {
+                        if (a != '') {
+                            re_arr.push(a);
+                        }
+                    });
+                    result.data = re_arr;
+                }
+            }
+            util.result_client(req, res, result);
+
+        });
+
+}
+
+exports.df = df;

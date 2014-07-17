@@ -60,9 +60,27 @@
             $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=uptime&value=/', success: function (data) {
 
                 if(data.data){
-                    $('#load').html(dadta.data);
+                    $('#load').html(data.data);
                 }else {
                     $('#load').html('暂无');
+                }
+
+
+            }});
+
+            $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=df&value=/dev/sda2', success: function (data) {
+
+                if(data.data){
+                    var arr = data.data;
+                    $('#quota').html(arr[1]);
+                    $('#used').html(arr[2]);
+                    $('#free').html(arr[3]);
+                    $('#used_free').html(arr[4]);
+                }else {
+                    $('#quota').html('暂无');
+                    $('#used').html('暂无');
+                    $('#free').html('暂无');
+                    $('#used_free').html('暂无');
                 }
 
 
@@ -156,6 +174,37 @@
             </div>
         </li>
 
+
+    </ul>
+
+
+    <ul id="content" class="list group">
+
+        <li></li>
+        <li>
+            <div class="list-item">
+                <div class="content">磁盘容量</div>
+                <div class="show-operate text_right" id="quota">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">已使用</div>
+                <div class="show-operate text_right" id="used">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">剩余</div>
+                <div class="show-operate text_right" id="free">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">使用率</div>
+                <div class="show-operate text_right" id="used_free">...</div>
+            </div>
+        </li>
 
     </ul>
 
