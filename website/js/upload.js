@@ -67,7 +67,7 @@ function uploadFile() {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", "/fm/" + Math.random() * 100000+ ".php?action=upload&value=" + current_path +"&files=" + JSON.stringify(files));
+    xhr.open("POST", fm_service + Math.random() * 100000+ ".php?action=upload&value=" + current_path +"&files=" + JSON.stringify(files));
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }
