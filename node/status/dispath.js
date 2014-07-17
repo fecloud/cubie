@@ -19,6 +19,10 @@ route.status = function (req, res, params) {
 
 }
 
+route.uptime = function(req, res, params){
+    status.uptime(req,res,params);
+}
+
 
 route.default = function (req, res, params) {
 

@@ -71,10 +71,10 @@ function getFileTypeCss(name) {
         return 'exe';
     } else if (fix == 'mov' || fix == 'rmvb'
         || fix == 'mp4' || fix == 'rm'
-        || fix == 'ts'|| fix == 'mkv'
-        || fix == 'flv') {
+        || fix == 'ts' || fix == 'mkv'
+        || fix == 'flv' || fix == 'wmv') {
         return 'video';
-    } else if (fix == 'mp3'|| fix == 'wma'
+    } else if (fix == 'mp3' || fix == 'wma'
         || fix == 'arm') {
         return 'music';
     } else if (fix == 'pdf') {
@@ -90,6 +90,33 @@ function getFileTypeCss(name) {
         return 'file';
     }
 
+}
+
+/**
+ * 格式化时间到天时分秒
+ */
+function mToH(maxtime) {
+
+    days = Math.floor(maxtime / 86400);
+    hours = Math.floor((maxtime % 86400) / 3600);
+    minutes = Math.floor(((maxtime % 86400) % 3600) / 60);
+    seconds = Math.floor(((maxtime % 86400) % 3600) % 60);
+
+    var str = "";
+    if (days > 0) {
+        str += days + "天";
+    }
+    if (hours > 0) {
+        str += hours + "时";
+    }
+
+    if (minutes > 0) {
+        str += minutes + "分";
+    }
+    if (seconds > 0) {
+        str += seconds + "秒";
+    }
+    return str;
 }
 
 var fm_service = "/service/fm/";

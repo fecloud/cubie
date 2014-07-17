@@ -53,7 +53,18 @@
                 $('#core').html(status.core);
                 $('#platform').html(status.platform);
                 $('#version').html(status.version);
-                $('#uptime').html(parseInt(status.uptime));
+                $('#uptime').html(mToH(parseInt(status.uptime)));
+
+            }});
+
+            $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=uptime&value=/', success: function (data) {
+
+                if(data.data){
+                    $('#load').html(dadta.data);
+                }else {
+                    $('#load').html('暂无');
+                }
+
 
             }});
 
@@ -136,6 +147,12 @@
             <div class="list-item">
                 <div class="content">软件运行时间</div>
                 <div class="show-operate text_right" id="uptime">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">服务器负载</div>
+                <div class="show-operate text_right" id="load">...</div>
             </div>
         </li>
 

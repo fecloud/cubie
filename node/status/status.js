@@ -59,10 +59,36 @@ function status(req, res, params) {
             service_s.core = os.cpus().length;
             service_s.network = os.networkInterfaces();
             result.data = service_s;
-            util.result_client(req,res,result);
+            util.result_client(req, res, result);
 
         });
 
 }
 
 exports.status = status;
+
+/**
+ * 服务器负载
+ */
+function uptime(req, res, params) {
+
+    var result = new common.web_result();
+    result.action = 'uptime';
+
+    child = exec("uptime",
+        function (error, stdout, stderr) {
+            var out = stdout;
+            if (out && out != '') {
+                var arr = out.match(/\d+\.+\d+/g);
+                console.log(arr);
+                if(arr != null){
+                    result.data = arr.join(" ");
+                }
+            }
+            util.result_client(req, res, result);
+
+        });
+
+}
+
+exports.uptime = uptime;

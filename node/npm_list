@@ -1,2 +1,1 @@
-npm install formidable
-npm install sqlite3
+npm install formidable && npm install sqlite3

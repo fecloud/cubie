@@ -23,12 +23,22 @@ start_fm(){
     if [ -z "$pid" ]; then
         $PROG_PATH/$PROG fm $FM_ARGS >/var/log/httpd.fm.log 2>&1 &
         pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
-        echo "$PROG started"
-        echo "$pid"
+        echo "$PROG fm started $pid"
         echo $pid > "$PID_PATH/$PROG.fm.pid"
     else
-        echo "Error! $PROG fm is currently running!" 
-        exit 1
+        echo "Error! $PROG fm is currently running!"
+    fi
+
+}
+
+stop_fm(){
+
+    pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
+    if [ -n "$pid" ]; then
+        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.fm.pid"
+        echo "$PROG fm stopped"
+    else
+        echo "Error! $PROG.fm not started!" 
     fi
 
 }
@@ -36,15 +46,25 @@ start_fm(){
 start_arduino(){
 
     pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
-    if [ -z "$pid"]; then
+    if [ -z "$pid" ]; then
         $PROG_PATH/$PROG arduino >/var/log/httpd.arduino.log 2>&1 &
         pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
-        echo "$PROG started"
-        echo "$pid"
+        echo "$PROG arduino started $pid"
         echo $pid > "$PID_PATH/$PROG.arduino.pid"
     else
-        echo "Error! $PROG arduino is currently running!" 
-        exit 1
+        echo "Error! $PROG arduino is currently running!"
+    fi
+
+}
+
+stop_arduino(){
+
+    pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
+    if [ -n "$pid" ]; then
+        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.arduino.pid"
+        echo "$PROG arduino stopped"
+    else
+        echo "Error! $PROG.arduino not started!"
     fi
 
 }
@@ -52,15 +72,25 @@ start_arduino(){
 start_baiduyunsync(){
 
     pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
-    if [ -z "$pid"]; then
+    if [ -z "$pid" ]; then
         $PROG_PATH/$PROG baiduyunsync >/var/log/httpd.baiduyunsync.log 2>&1 &
         pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
-        echo "$PROG started"
-        echo "$pid"
+        echo "$PROG baiduyunsync started $pid"
         echo $pid > "$PID_PATH/$PROG.baiduyunsync.pid"
     else
-        echo "Error! $PROG baiduyunsync is currently running!" 
-        exit 1
+        echo "Error! $PROG baiduyunsync is currently running!"
+    fi
+
+}
+
+stop_baiduyunsync(){
+
+    pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
+    if [ -n "$pid" ]; then
+        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.baiduyunsync.pid"
+        echo "$PROG baiduyunsync stopped"
+    else
+        echo "Error! $PROG.baiduyunsync not started!" 
     fi
 
 }
@@ -68,15 +98,25 @@ start_baiduyunsync(){
 start_status(){
 
     pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
-    if [ -z "$pid"];then
+    if [ -z "$pid" ]; then
         $PROG_PATH/$PROG status >/var/log/httpd.status.log 2>&1 &
         pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
-        echo "$PROG started"
-        echo "$pid"
+        echo "$PROG status started $pid"
         echo $pid > "$PID_PATH/$PROG.status.pid"
     else
-        echo "Error! $PROG status status is currently running!" 
-        exit 1
+        echo "Error! $PROG status status is currently running!"
+    fi
+
+}
+
+stop_status(){
+
+    pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
+    if [ -n "$pid" ]; then
+        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.status.pid"
+        echo "$PROG status stopped"
+    else
+        echo "Error! $PROG.status not started!"
     fi
 
 }
@@ -108,17 +148,29 @@ start() {
 }
 
 stop() {
-    echo "begin stop"
-    if [ -e "$PID_PATH/$PROG.pid" ]; then
-        ## Program is running, so stop it
-	pid=`ps x|grep httpd.js |awk '{print $1}' | head -n 1`
-	kill -9 $pid &  rm -f  "$PID_PATH/$PROG.pid"
-        echo "$PROG stopped"
-    else
-        ## Program is not running, exit with error.
-        echo "Error! $PROG not started!" 
-        exit 1
-    fi
+    echo "begin stop $1"
+    case "$1" in
+        fm)
+            stop_fm
+        ;;
+        arduino)
+            stop_arduino
+        ;;
+        baiduyunsync)
+            stop_baiduyunsync
+        ;;
+        status)
+            stop_status
+        ;;
+        **)
+            echo "stop all"
+            stop_fm
+            stop_arduino
+            stop_baiduyunsync
+            stop_status
+        ;;
+    esac
+
 }
 
 ## Check to see if we are running as root first.
@@ -135,12 +187,12 @@ case "$1" in
         exit 0
     ;;
     stop)
-        stop
+        stop $2
         exit 0
     ;;
     reload|restart|force-reload)
-        stop
-        start
+        stop $2
+        start $2
         exit 0
     ;;
     **)
