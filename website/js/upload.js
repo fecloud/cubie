@@ -67,7 +67,7 @@ function uploadFile() {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", fm_service + Math.random() * 100000+ ".php?action=upload&value=" + current_path +"&files=" + JSON.stringify(files));
+    xhr.open("POST", fm_service + Math.random() * 100000 + ".php?action=upload&value=" + current_path + "&files=" + JSON.stringify(files));
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }
@@ -81,7 +81,7 @@ function uploadProgress(evt) {
         var h = $('.progress_bar').width();
         h = h / 100;
         $('.progress_bar b').width(h * parseFloat(percentComplete.toString()) - 2);
-    }else {
+    } else {
 
 //                document.getElementById('progress').innerHTML = 'unable to compute';
 
@@ -97,7 +97,19 @@ function uploadComplete(evt) {
     $('.progress_bar b').width(h - 2);
     $('.progress_num').html("完成");
     $('#li_progress').fadeOut(2000);
-    setTimeout(load_data,2000);
+
+    setTimeout(function () {
+
+        count = 0;
+
+        load_data(function () {
+            $('#content').html('');
+            $('#bottom_loading').css({display: 'block'});
+            $(window).scrollTop($(window).scrollTop() + 44);
+        }, function () {
+            $('#bottom_loading').css({display: 'none'});
+        });
+    }, 3000);
 //            alert(evt.target.responseText);
 
 }
