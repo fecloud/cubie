@@ -23,6 +23,7 @@ exports.db = db;
  */
 function create_table() {
 
+    //用户表
     var create_user_sql = "CREATE TABLE IF NOT EXISTS ";
     create_user_sql += "user";
     create_user_sql += " (" + "id INTEGER PRIMARY KEY ,";
@@ -39,6 +40,7 @@ function create_table() {
     console.log("sql user:" + create_user_sql);
     db.run(create_user_sql);
 
+    //用户配容量表
     var create_quota_sql = "CREATE TABLE IF NOT EXISTS ";
     create_quota_sql += "quota";
     create_quota_sql += " (" + "id INTEGER PRIMARY KEY ,";
@@ -49,6 +51,22 @@ function create_table() {
 
     console.log("sql quota:" + create_quota_sql);
     db.run(create_quota_sql);
+
+    //用户同步的所有目录文件
+    var create_pcsfile_sqll  = "CREATE TABLE IF NOT EXISTS ";
+    create_pcsfile_sqll += "files";
+    create_pcsfile_sqll += " fs_id INTEGER PRIMARY KEY ,";
+    create_pcsfile_sqll += " path TEXT ,";
+    create_pcsfile_sqll += " ctime INTEGER ,";
+    create_pcsfile_sqll += " mtime INTEGER ,";
+    create_pcsfile_sqll += " md5 TEXT ,";
+    create_pcsfile_sqll += " size INTEGER ,";
+    create_pcsfile_sqll += " isdir INTEGER ,";
+    create_pcsfile_sqll += " username TEXT ";
+    create_pcsfile_sqll += " ) ;";
+
+    console.log("sql files:" + create_pcsfile_sqll);
+    db.run(create_pcsfile_sqll);
 
 }
 
@@ -172,4 +190,40 @@ function insert_or_update_quota(username, param, res) {
 }
 
 exports.insert_or_update_quota = insert_or_update_quota;
+
+/**
+ * 文件信息
+ * @constructor
+ */
+var PCSFile = function(){
+
+    this.fs_id; //文件或目录在PCS的临时唯一标识id
+    this.path; //文件或目录的绝对路径。
+    this.ctime; //文件或目录的创建时间。
+    this.mtime; //文件或目录的最后修改时间。
+    this.md5; //文件的md5值。
+    this.size; //文件大小（byte）。
+    this.isdir; //“0”为文件“1”为目录
+    this.username; //用户名
+
+};
+
+exports.pcsfile = PCSFile;
+
+/**
+ * 插入或者更新一条数据
+ * @param pcsfile
+ */
+function pcsfile_replace(pcsfile){
+    var sql = "REPLACE INTO files(fs_id,path,ctime,mtime,md5,size,isdir,username) VALUES (?,?,?,?,?,?,?,?)";
+    db.run(sql,pcsfile.fs_id,pcsfile.path,pcsfile.ctime,pcsfile.mtime,pcsfile.md5,pcsfile.size,pcsfile.isdir,pcsfile.username,function(err){
+        if(err){
+
+            console.log(util.format_time() + err);
+        }
+
+    });
+}
+
+exports.pcsfile_replace = pcsfile_replace;
 
