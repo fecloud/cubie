@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>帐户</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../css/com.css"/>
+    <link rel="stylesheet" href="../css/status.css"/>
+    <link rel="stylesheet" href="../css/switchery.min.css"/>
+    <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            back_bind();
+
+            var user = getArgs('user');
+            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_user&value=' + user, success: function (data) {
+
+                var userinfo = data.data;
+                if (userinfo) {
+                    $('#username').html(userinfo.username);
+                }
+
+            }});
+
+            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_quota&value=' + user, success: function (data) {
+
+                var quotainfo = data.data;
+                if (quotainfo) {
+                    $('#quota').html(renderSize(quotainfo.quota));
+                    $('#used').html(renderSize(quotainfo.used));
+                    $('#time').html(quotainfo.time);
+                }
+
+            }});
+
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="page">
+
+    <div id="header">
+
+        <div class="btn back_btn">返回</div>
+        <h1>帐户</h1>
+
+        <div style=" width: 50px;height: 30px;"></div>
+
+    </div>
+
+    <ul id="content" class="list group">
+        <li></li>
+        <li>
+            <div class="list-item">
+                <div class="content">帐户名称</div>
+                <div class="show-operate text_right" id="username">...</div>
+            </div>
+        </li>
+
+    </ul>
+
+    <ul id="content" class="list group">
+        <li></li>
+        <li>
+            <div class="list-item">
+                <div class="content">百度网盘容量</div>
+                <div class="show-operate text_right" id="quota">...</div>
+            </div>
+        </li>
+
+        <li>
+            <div class="list-item">
+                <div class="content">已使用</div>
+                <div class="show-operate text_right" id="used">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">数据更新时间</div>
+                <div class="show-operate text_right" id="time">...</div>
+            </div>
+        </li>
+
+    </ul>
+
+
+    <ul id="content" class="list group">
+        <li></li>
+        <li>
+            <div class="list-item">
+                <div class="content">同步目录</div>
+                <div class="show-operate text_right" id="quota">...</div>
+            </div>
+        </li>
+
+        <li>
+            <div class="list-item">
+                <div class="content">百度网盘文件数</div>
+                <div class="show-operate text_right" >...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">本地文件数</div>
+                <div class="show-operate text_right" >...</div>
+            </div>
+        </li>
+
+    </ul>
+    <div style="text-align: center;margin: 10px 0 20px 0;" class="ios7_font">
+        Copyright FCloud, Inc
+    </div>
+
+</div>
+
+</body>
+</html>

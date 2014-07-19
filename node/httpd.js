@@ -7,7 +7,7 @@ var modules = [
 
     {'name': 'fm', 'port': 3000},
     {'name': 'arduino', 'port': 3001},
-    {'name': 'baiduyunsync', 'port': 3002},
+    {'name': 'baidupansync', 'port': 3002},
     {'name': 'status', 'port': 3003}
 
 ];
@@ -21,8 +21,8 @@ function set_route(m) {
         route = new require('./filemanager/dispath.js').route;
     }else if(m.name == 'arduino'){
         route = new require('./arduino/dispath.js').route;
-    }else if(m.name == 'baiduyunsync'){
-        route = new require('./baiduyunsync/dispath.js').route;
+    }else if(m.name == 'baidupansync'){
+        route = new require('./baidupansync/dispath.js').route;
     }else if(m.name == 'status'){
         route = new require('./status/dispath.js').route;
     }
@@ -76,12 +76,12 @@ if (start_module) {
 
     } else {
         console.error("not found module name ,please check !");
-        console.log('useage :\n \thttpd.js [fm,arduino,baiduyunsync,status] args');
+        console.log('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
     }
 
 } else {
     console.error("not setting start_module name ,please set !");
-    console.log('useage :\n \thttpd.js [fm,arduino,baiduyunsync,status] args');
+    console.log('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
     process.exit(1);
 }
 

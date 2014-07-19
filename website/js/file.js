@@ -189,38 +189,4 @@ function irename(b) {
     window.location = '/file/rename.html?path=' + src.getAttribute('src') + "&isFile=" + src.getAttribute('file') + "&name=" + src.getAttribute('name');
 }
 
-/**
- * 文件大小格式
- * @param value
- * @param p
- * @param record
- * @returns {*}
- */
-function renderSize(value) {
-    if (null == value || value == '') {
-        return "0b";
-    }
-    var unitArr = new Array("B", "K", "M", "G", "T", "P", "E", "Z", "Y");
-    var index = 0;
 
-
-    var srcsize = parseFloat(value);
-    var size = roundFun(srcsize / Math.pow(1024, (index = Math.floor(Math.log(srcsize) / Math.log(1024)))), 2);
-    return size + unitArr[index];
-}
-
-/*
- 四舍五入保留小数位数
- numberRound 被处理的数
- roundDigit  保留几位小数位
- */
-function roundFun(numberRound, roundDigit) {
-    if (numberRound >= 0) {
-        var tempNumber = parseInt((numberRound * Math.pow(10, roundDigit) + 0.5)) / Math.pow(10, roundDigit);
-        return   tempNumber;
-    } else {
-        numberRound1 = -numberRound
-        var tempNumber = parseInt((numberRound1 * Math.pow(10, roundDigit) + 0.5)) / Math.pow(10, roundDigit);
-        return   -tempNumber;
-    }
-}

@@ -18,7 +18,7 @@ var service_status = function () {
     this.arch;
     this.core;
     this.network;
-}
+};
 
 /**
  * 所有服务的运行状态
@@ -43,7 +43,7 @@ function status(req, res, params) {
                     service_s.arduino = true;
                 }
 
-                if (out.indexOf('baiduyunsync') > 0) {
+                if (out.indexOf('baidupansync') > 0) {
                     service_s.baiduyunsync = true;
                 }
 
@@ -105,7 +105,7 @@ function df(req, res, params) {
     var result = new common.web_result();
     result.action = 'df';
 
-    child = exec("df -h |grep " + params.value +" | head -n 1",
+    child = exec("df -h |grep " + params.value + " | head -n 1",
         function (error, stdout, stderr) {
             var out = stdout;
             if (out && out != '') {
@@ -128,3 +128,61 @@ function df(req, res, params) {
 }
 
 exports.df = df;
+
+/**
+ * 启动服务
+ * @param req
+ * @param res
+ * @param params
+ */
+function start_service(req, res, params) {
+
+    var result = new common.web_result();
+    result.action = 'start_service';
+
+    child = exec("service httpd start " + params.value,
+        function (error, stdout, stderr) {
+            var out = stdout;
+            if (out && out != '') {
+                var arr = out.match(/\d+\.+\d+/g);
+                console.log(arr);
+                if (arr != null) {
+                    result.data = arr.join(" ");
+                }
+            }
+            util.result_client(req, res, result);
+
+        });
+
+}
+
+exports.start_service = start_service;
+
+/**
+ * 停止服务
+ * @param req
+ * @param res
+ * @param params
+ */
+function stop_service(req, res, params) {
+
+    var result = new common.web_result();
+    result.action = 'stop_service';
+
+    child = exec("service httpd stop " + params.value,
+        function (error, stdout, stderr) {
+            var out = stdout;
+            if (out && out != '') {
+                var arr = out.match(/\d+\.+\d+/g);
+                console.log(arr);
+                if (arr != null) {
+                    result.data = arr.join(" ");
+                }
+            }
+            util.result_client(req, res, result);
+
+        });
+
+}
+
+exports.stop_service = stop_service;

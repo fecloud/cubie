@@ -278,3 +278,29 @@ h3 {
     position: relative;
     display: inline-block;
 }
+.iall, .idownload, .ilogout, .iedit, .iremove, .irename, .idown, .iup, .iclose, .inormaldownload, .ishare, .iopen {
+    background-image: url('/img/blackIcons.png');
+    -webkit-background-size: 16px 266px;
+    background-size: 16px 266px;
+}
+
+.iremove {
+    width: 16px;
+    height: 16px;
+    background-position: 0 -122px;
+}
+
+.iedit {
+    width: 16px;
+    height: 16px;
+    background-position: 0 -88px;
+}
+
+.idown {
+    background-position: 0 -162px;
+}
+
+.idown, .iup {
+    width: 11px;
+    height: 7px;
+}

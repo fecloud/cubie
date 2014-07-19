@@ -20,7 +20,7 @@ var File = function () {
     this.size;
     this.mtime;
     this.path = "";
-}
+};
 
 exports.file = File;
 
@@ -150,7 +150,7 @@ function delete_folder(path) {
 
     }
 
-};
+}
 
 /**
  * 删除文件

@@ -20,7 +20,7 @@ Date.prototype.format = function (format) {
                 RegExp.$1.length == 1 ? o[k] :
                 ("00" + o[k]).substr(("" + o[k]).length));
     return format;
-}
+} ;
 
 /**
  * 格式化时间

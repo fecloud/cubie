@@ -15,20 +15,31 @@ var route = {};
 
 route.status = function (req, res, params) {
 
-    status.status(req,res,params);
+    status.status(req, res, params);
 
-}
+};
 
-route.uptime = function(req, res, params){
-    status.uptime(req,res,params);
-}
+route.uptime = function (req, res, params) {
+    status.uptime(req, res, params);
+};
 
-route.df = function(req, res, params){
+route.df = function (req, res, params) {
 
     status.df(req, res, params);
 
-}
+};
 
+route.start_service = function (req, res, params) {
+
+    status.start_service(req, res, params);
+
+};
+
+route.stop_service = function (req, res, params) {
+
+    status.stop_service(req, res, params);
+
+};
 
 route.default = function (req, res, params) {
 
@@ -36,7 +47,7 @@ route.default = function (req, res, params) {
     result.error = 'action not found!';
     console.error(util.format_time() + "action not found!");
     util.result_client(req, res, result);
-}
+};
 
 exports.route = route;
 

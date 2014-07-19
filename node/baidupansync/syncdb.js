@@ -2,7 +2,7 @@
  * Created by Feng OuYang on 2014-07-16.
  */
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('/baiduyunsync.db');
+var db = new sqlite3.Database('./baidupansync.db');
 
 var util = require('../util.js');
 
@@ -43,19 +43,19 @@ function create_table() {
     //用户配容量表
     var create_quota_sql = "CREATE TABLE IF NOT EXISTS ";
     create_quota_sql += "quota";
-    create_quota_sql += " (" + "id INTEGER PRIMARY KEY ,";
-    create_quota_sql += " username TEXT, ";
+    create_quota_sql += " (" + "username TEXT PRIMARY KEY, ";
     create_quota_sql += " quota INTEGER, ";
-    create_quota_sql += " used INTEGER ";
+    create_quota_sql += " used INTEGER ,";
+    create_quota_sql += " time DATETIME";
     create_quota_sql += " ) ;";
 
     console.log("sql quota:" + create_quota_sql);
     db.run(create_quota_sql);
 
     //用户同步的所有目录文件
-    var create_pcsfile_sqll  = "CREATE TABLE IF NOT EXISTS ";
+    var create_pcsfile_sqll = "CREATE TABLE IF NOT EXISTS ";
     create_pcsfile_sqll += "files";
-    create_pcsfile_sqll += " fs_id INTEGER PRIMARY KEY ,";
+    create_pcsfile_sqll += " (" + " fs_id INTEGER PRIMARY KEY ,";
     create_pcsfile_sqll += " path TEXT ,";
     create_pcsfile_sqll += " ctime INTEGER ,";
     create_pcsfile_sqll += " mtime INTEGER ,";
@@ -103,7 +103,7 @@ var User = function () {
     this.sync_path;
     this.sync_start;
     this.sync_end;
-}
+};
 
 exports.user = User;
 
@@ -111,10 +111,13 @@ function local_get_users(username, res) {
 
     var sql = "SELECT * FROM user ";
     if (username != '') {
-        sql += " WHRER usename=" + username;
+        sql += " WHERE username=" + username;
     }
+    console.log(util.format_time() + sql);
     db.all(sql, function (err, rows) {
-
+        if (err) {
+            console.log(util.format_time() + err);
+        }
         if (res != undefined) {
             res.call(res, rows);
         }
@@ -153,33 +156,42 @@ var Quota = function () {
     this.quota;
     this.used;
 
-}
+};
 
 exports.quota = Quota;
 
 function insert_or_update_quota(username, param, res) {
 
     if (username != '') {
-        var sql = "SELECT * FROM  WHERE username=" + username;
-        db.all(sql, function (err, rows) {
-            if (err && rows) {
-                //更新数据
-                db.run('UPDATE quota SET quota=? used=? WHERE username=?', param.quota, param.used, username, function (err) {
-                    if (err) {
-                        console.log('update quota error');
-                    } else {
-                        res.call(res);
-                    }
-                });
+//        var sql = "SELECT * FROM  WHERE username=" + username;
+//        db.all(sql, function (err, rows) {
+//            if (err && rows) {
+//                //更新数据
+//
+//                db.run('UPDATE quota SET quota=? used=? WHERE username=?', param.quota, param.used, username, function (err) {
+//                    if (err) {
+//                        console.log('update quota error');
+//                    } else {
+//                        res.call(res);
+//                    }
+//                });
+//            } else {
+//                //插入数据
+//                db.run('INSERT INTO quota (username,quota,used) VALUES(?,?,?)', param.quota, param.used, username, function (err) {
+//                    if (err) {
+//                        console.log('insert quota error');
+//                    } else {
+//                        res.call(res);
+//                    }
+//                });
+//            }
+//        });
+        var sql =  "REPLACE INTO quota(username,quota,used,time) VALUES(?,?,?,datetime('now'))" ;
+        db.run(sql,username,param.quota, param.used, function (err) {
+            if (err) {
+                console.log('insert quota error');
             } else {
-                //插入数据
-                db.run('INSERT INTO quota (username,quota,used) VALUES(?,?,?)', param.quota, param.used, username, function (err) {
-                    if (err) {
-                        console.log('insert quota error');
-                    } else {
-                        res.call(res);
-                    }
-                });
+                res.call(res);
             }
         });
 
@@ -191,11 +203,33 @@ function insert_or_update_quota(username, param, res) {
 
 exports.insert_or_update_quota = insert_or_update_quota;
 
+
+function view_quota(username, res) {
+
+    var sql = "SELECT * FROM quota ";
+    if (username != '') {
+        sql += " WHERE username=" + username;
+    }
+    console.log(util.format_time() + sql);
+    db.all(sql, function (err, rows) {
+        if (err) {
+            console.log(util.format_time() + err);
+        }
+        if (res != undefined) {
+            res.call(res, rows);
+        }
+
+    });
+
+}
+
+exports.view_quota = view_quota;
+
 /**
  * 文件信息
  * @constructor
  */
-var PCSFile = function(){
+var PCSFile = function () {
 
     this.fs_id; //文件或目录在PCS的临时唯一标识id
     this.path; //文件或目录的绝对路径。
@@ -214,10 +248,10 @@ exports.pcsfile = PCSFile;
  * 插入或者更新一条数据
  * @param pcsfile
  */
-function pcsfile_replace(pcsfile){
+function pcsfile_replace(pcsfile) {
     var sql = "REPLACE INTO files(fs_id,path,ctime,mtime,md5,size,isdir,username) VALUES (?,?,?,?,?,?,?,?)";
-    db.run(sql,pcsfile.fs_id,pcsfile.path,pcsfile.ctime,pcsfile.mtime,pcsfile.md5,pcsfile.size,pcsfile.isdir,pcsfile.username,function(err){
-        if(err){
+    db.run(sql, pcsfile.fs_id, pcsfile.path, pcsfile.ctime, pcsfile.mtime, pcsfile.md5, pcsfile.size, pcsfile.isdir, pcsfile.username, function (err) {
+        if (err) {
 
             console.log(util.format_time() + err);
         }

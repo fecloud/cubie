@@ -10,7 +10,7 @@ var WebResult = function () {
     this.error = '';
     this.data;
     this.more;
-}
+};
 
 exports.web_result = WebResult;
 

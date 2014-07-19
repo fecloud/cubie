@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>百度网盘同步</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../css/com.css"/>
+    <link rel="stylesheet" href="../css/status.css"/>
+    <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
+    <style type="text/css">
+        .content, .show-operate {
+            color: #007aff;
+        }
+
+        .idown {
+            margin-left: 10px;
+            margin-top: -2px;
+            height: 13px;
+            -moz-transform: rotate(-90deg);
+            -webkit-transform: rotate(-90deg);
+        }
+
+        .list-item {
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            back_bind();
+
+
+            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=list_user&value=/', success: function (data) {
+
+                var list = data.data;
+                list.forEach(function (user) {
+                    var item_html = "<li><div class=\"list-item\" user= \"" +
+                            user.username +
+                            "\"><div class=\"content\">帐户</div><div class=\"show-operate\">" +
+                            user.username +
+                            "<i class=\"idown\"></i></div></div> </li>";
+                    $('#content').append(item_html);
+                    $('.list-item').bind('click', function (e) {
+
+                        window.location.href= 'account.html?user=' + $(e.target).closest('.list-item')[0].getAttribute('user');
+
+                    });
+                });
+
+            }});
+
+
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+<div id="page">
+
+    <div id="header">
+
+        <div class="btn back_btn">返回</div>
+        <h1>百度网盘同步</h1>
+
+        <div style=" width: 50px;height: 30px;"></div>
+
+    </div>
+
+    <ul id="content" class="list group">
+
+        <li></li>
+
+
+    </ul>
+
+
+    <div style="text-align: center;margin: 10px 0 20px 0;" class="ios7_font">
+        Copyright FCloud, Inc
+    </div>
+
+</div>
+
+</body>
+</html>
