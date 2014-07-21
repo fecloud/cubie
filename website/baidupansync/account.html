@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>帐户</title>
+    <title>帐号</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport"
@@ -52,9 +52,9 @@
             });
 
             $('#delete').bind('click', function () {
-                var r = confirm("确定删除帐户?");
+                var r = confirm("确定删除帐号?");
                 if (r) {
-                    //删除帐户
+                    //删除帐号
 
                     $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=del_user&value=' + uid, success: function (data) {
 
@@ -87,7 +87,7 @@
     <div id="header">
 
         <div class="btn back_btn">返回</div>
-        <h1>帐户</h1>
+        <h1>帐号</h1>
 
         <div style=" width: 50px;height: 30px;"></div>
 
@@ -97,7 +97,7 @@
         <li></li>
         <li>
             <div class="list-item">
-                <div class="content">帐户名称</div>
+                <div class="content">帐号名称</div>
                 <div class="show-operate text_right" id="uname">...</div>
             </div>
         </li>
@@ -157,7 +157,7 @@
         <li></li>
         <li>
             <div class="list-item">
-                <div class="content color_red" style="text-align: center;cursor: pointer" id="delete">删除帐户</div>
+                <div class="content color_red" style="text-align: center;cursor: pointer" id="delete">删除帐号</div>
             </div>
         </li>
 
