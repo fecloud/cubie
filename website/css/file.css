@@ -12,8 +12,8 @@
 }
 
 .tools_bar {
-    border: solid 1px #DFDFDF;
-    border-top: solid 1px #FFF;
+    /*border: solid 1px #DFDFDF;*/
+	border-bottom: solid 1px #c8c7cc;
     position: relative;
     overflow: hidden;
     height: 44px;
