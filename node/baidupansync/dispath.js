@@ -17,15 +17,41 @@ route.list_user = function (req, res, params) {
 
 };
 
-route.view_user = function(req, res, params){
+route.view_user = function (req, res, params) {
 
-    sync.view_user(req,res,params);
+    sync.view_user(req, res, params);
 
 };
 
-route.view_quota  = function(req, res, params){
+route.view_quota = function (req, res, params) {
 
     sync.view_quota(req, res, params);
+
+};
+
+route.get_authorization_url = function (req, res, params) {
+
+    sync.get_authorization_url(req, res, params);
+
+};
+
+route.get_user_access_token = function (req, res, params) {
+
+    sync.get_user_access_token(req, res, params);
+
+};
+
+
+route.add_user = function (req, res, params) {
+
+    sync.add_user(req, res, params);
+
+};
+
+
+route.del_user = function (req, res, params) {
+
+    sync.del_user(req, res, params);
 
 };
 

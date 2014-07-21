@@ -177,7 +177,8 @@ a {
 }
 
 .list-item {
-    padding-left: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
     height: 44px;
     display: -moz-box;
     display: -webkit-box;
@@ -270,7 +271,7 @@ h3 {
 }
 
 .show-operate {
-    width: 50px;
+    width: 20px;
     height: 44px;
     line-height: 44px;
     text-align: center;
@@ -303,4 +304,8 @@ h3 {
 .idown, .iup {
     width: 11px;
     height: 7px;
+}
+
+.color_red{
+    color: red;
 }

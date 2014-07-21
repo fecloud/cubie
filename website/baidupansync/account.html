@@ -14,7 +14,9 @@
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <style type="text/css">
-
+        .group:last-child {
+            margin-bottom: 40px;
+        }
     </style>
     <script type="text/javascript">
 
@@ -22,29 +24,57 @@
 
             back_bind();
 
-            var user = getArgs('user');
-            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_user&value=' + user, success: function (data) {
+            var uid = getArgs('uid');
+            var uname = getArgs('uname');
+            $('#uname').html(uname);
+//            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_user&value=' + uid, success: function (data) {
+//
+//                var userinfo = data.data;
+//                if (userinfo) {
+//                    $('#username').html(userinfo.uname);
+//                }
+//
+//            }});
 
-                var userinfo = data.data;
-                if (userinfo) {
-                    $('#username').html(userinfo.username);
-                }
-
-            }});
-
-            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_quota&value=' + user, success: function (data) {
+            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_quota&value=' + uid, success: function (data) {
 
                 var quotainfo = data.data;
-                if (quotainfo) {
-                    $('#quota').html(renderSize(quotainfo.quota));
-                    $('#used').html(renderSize(quotainfo.used));
-                    $('#time').html(quotainfo.time);
+                if (undefined != quotainfo) {
+                    var obj_quotainfo = JSON.parse(quotainfo);
+                    if (quotainfo) {
+                        $('#quota').html(renderSize(obj_quotainfo.quota));
+                        $('#used').html(renderSize(obj_quotainfo.used));
+                        $('#time').html(data.time);
+                    }
                 }
 
-            }});
+            }
+            });
+
+            $('#delete').bind('click', function () {
+                var r = confirm("确定删除帐户?");
+                if (r) {
+                    //删除帐户
+
+                    $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=del_user&value=' + uid, success: function (data) {
+
+                        if (data) {
+                            window.history.back();
+                            window.location.reload();
+                        } else {
+
+                            alert('删除失败!');
+
+                        }
+
+                    }});
+                }
+
+            });
 
 
-        });
+        })
+        ;
 
     </script>
 
@@ -68,7 +98,7 @@
         <li>
             <div class="list-item">
                 <div class="content">帐户名称</div>
-                <div class="show-operate text_right" id="username">...</div>
+                <div class="show-operate text_right" id="uname">...</div>
             </div>
         </li>
 
@@ -99,7 +129,7 @@
     </ul>
 
 
-    <ul id="content" class="list group">
+    <ul class="list group">
         <li></li>
         <li>
             <div class="list-item">
@@ -111,20 +141,27 @@
         <li>
             <div class="list-item">
                 <div class="content">百度网盘文件数</div>
-                <div class="show-operate text_right" >...</div>
+                <div class="show-operate text_right">...</div>
             </div>
         </li>
         <li>
             <div class="list-item">
                 <div class="content">本地文件数</div>
-                <div class="show-operate text_right" >...</div>
+                <div class="show-operate text_right">...</div>
             </div>
         </li>
 
     </ul>
-    <div style="text-align: center;margin: 10px 0 20px 0;" class="ios7_font">
-        Copyright FCloud, Inc
-    </div>
+
+    <ul class="list group">
+        <li></li>
+        <li>
+            <div class="list-item">
+                <div class="content color_red" style="text-align: center;cursor: pointer" id="delete">删除帐户</div>
+            </div>
+        </li>
+
+    </ul>
 
 </div>
 

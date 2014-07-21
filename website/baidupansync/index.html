@@ -9,24 +9,40 @@
     <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="../css/com.css"/>
+    <link rel="stylesheet" href="../css/file.css"/>
     <link rel="stylesheet" href="../css/status.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <style type="text/css">
         .content, .show-operate {
-            color: #007aff;
+            /*color: #007aff;*/
         }
 
         .idown {
-            margin-left: 10px;
+            margin-left: 5px;
             margin-top: -2px;
             height: 13px;
+            margin-right: -5px;
+            width: 11px;
             -moz-transform: rotate(-90deg);
             -webkit-transform: rotate(-90deg);
         }
 
         .list-item {
             cursor: pointer;
+        }
+
+        .user_icon {
+            width: 30px;
+            height: 30px;
+            margin-top: 7px;
+            line-height: 30px;
+            background-image: url("http://tb.himg.baidu.com/sys/portraitn/item/");
+            -webkit-background-size: 30px 30px;
+            background-size: 30px 30px;
+            border: 0px solid #000;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
         }
     </style>
     <script type="text/javascript">
@@ -40,15 +56,17 @@
 
                 var list = data.data;
                 list.forEach(function (user) {
-                    var item_html = "<li><div class=\"list-item\" user= \"" +
-                            user.username +
-                            "\"><div class=\"content\">帐户</div><div class=\"show-operate\">" +
-                            user.username +
+                    var item_html = "<li><div class=\"list-item\" uid= \"" +
+                            user.uid +
+                            "\"  uname=\"" +
+                            user.uname +
+                            "\"><div class=\"content\"><i class=\"file-icon user_icon\" style='background-image: url(http://tb.himg.baidu.com/sys/portraitn/item/" + user.portrait + ");'></i></div><div class=\"show-operate\">" +
+                            user.uname +
                             "<i class=\"idown\"></i></div></div> </li>";
-                    $('#content').append(item_html);
+                    $('#add_account').before(item_html);
                     $('.list-item').bind('click', function (e) {
-
-                        window.location.href= 'account.html?user=' + $(e.target).closest('.list-item')[0].getAttribute('user');
+                        var item = $(e.target).closest('.list-item')[0];
+                        window.location.href = 'account.html?uid=' + item.getAttribute('uid') + "&uname=" + item.getAttribute('uname');
 
                     });
                 });
@@ -80,12 +98,16 @@
         <li></li>
 
 
+        <li id="add_account">
+            <a href="add_account.html">
+                <div class="list-item" style="color: #000000;">
+                    <div class="content" style="color: #000000;">添加帐户</div>
+                </div>
+            </a>
+        </li>
+
     </ul>
 
-
-    <div style="text-align: center;margin: 10px 0 20px 0;" class="ios7_font">
-        Copyright FCloud, Inc
-    </div>
 
 </div>
 

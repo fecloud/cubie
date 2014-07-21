@@ -69,28 +69,28 @@ stop_arduino(){
 
 }
 
-start_baiduyunsync(){
+start_baidupansync(){
 
-    pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
+    pid=`ps x|grep httpd.js |grep baidupansync |awk '{print $1}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG baiduyunsync >/var/log/httpd.baiduyunsync.log 2>&1 &
-        pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
-        echo "$PROG baiduyunsync started $pid"
-        echo $pid > "$PID_PATH/$PROG.baiduyunsync.pid"
+        $PROG_PATH/$PROG baidupansync >/var/log/httpd.baidupansync.log 2>&1 &
+        pid=`ps x|grep httpd.js |grep baidupansync |awk '{print $1}' | head -n 1`
+        echo "$PROG baidupansync started $pid"
+        echo $pid > "$PID_PATH/$PROG.baidupansync.pid"
     else
-        echo "Error! $PROG baiduyunsync is currently running!"
+        echo "Error! $PROG baidupansync is currently running!"
     fi
 
 }
 
-stop_baiduyunsync(){
+stop_baidupansync(){
 
-    pid=`ps x|grep httpd.js |grep baiduyunsync |awk '{print $1}' | head -n 1`
+    pid=`ps x|grep httpd.js |grep baidupansync |awk '{print $1}' | head -n 1`
     if [ -n "$pid" ]; then
-        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.baiduyunsync.pid"
-        echo "$PROG baiduyunsync stopped"
+        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.baidupansync.pid"
+        echo "$PROG baidupansync stopped"
     else
-        echo "Error! $PROG.baiduyunsync not started!" 
+        echo "Error! $PROG.baidupansync not started!" 
     fi
 
 }
@@ -130,8 +130,8 @@ start() {
         arduino)
             start_arduino
         ;;
-        baiduyunsync)
-            start_baiduyunsync
+        baidupansync)
+            start_baidupansync
         ;;
         status)
             start_status
@@ -140,7 +140,7 @@ start() {
             echo "start all"
             start_fm
             start_arduino
-            start_baiduyunsync
+            start_baidupansync
             start_status
         ;;
     esac
@@ -156,8 +156,8 @@ stop() {
         arduino)
             stop_arduino
         ;;
-        baiduyunsync)
-            stop_baiduyunsync
+        baidupansync)
+            stop_baidupansync
         ;;
         status)
             stop_status
@@ -166,7 +166,7 @@ stop() {
             echo "stop all"
             stop_fm
             stop_arduino
-            stop_baiduyunsync
+            stop_baidupansync
             stop_status
         ;;
     esac
@@ -196,7 +196,7 @@ case "$1" in
         exit 0
     ;;
     **)
-        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baiduyunsync | status ]" 1>&2
+        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baidupansync | status ]" 1>&2
         exit 1
     ;;
 esac

@@ -1,7 +1,9 @@
 /**
  * Created by Feng OuYang on 2014-07-08.
  */
+var http = require('http');
 var https = require('https');
+
 
 Date.prototype.format = function (format) {
     var o = {
@@ -20,7 +22,7 @@ Date.prototype.format = function (format) {
                 RegExp.$1.length == 1 ? o[k] :
                 ("00" + o[k]).substr(("" + o[k]).length));
     return format;
-} ;
+};
 
 /**
  * 格式化时间
@@ -47,20 +49,19 @@ function resultClient(req, res, result) {
 exports.result_client = resultClient;
 
 /**
- *
+ * https get
  * @param url
  * @param sucess
  * @param error
  */
 function https_get(url, sucess, error) {
-
     https.get(url, function (res) {
-        console.log("statusCode: ", res.statusCode);
-       // console.log("headers: ", res.headers);
+        console.log(format_time() + "url:" + url + " statusCode: ", res.statusCode);
+//       console.log("headers: ", res.headers);
 
         res.on('data', function (d) {
             if (sucess != undefined) {
-               sucess.call(sucess,d);
+                sucess.call(sucess, d);
             }
         });
 
@@ -75,6 +76,30 @@ function https_get(url, sucess, error) {
 
 exports.https_get = https_get;
 
-//function https(url){
-//
-//}
+/**
+ * http get
+ * @param url
+ * @param sucess
+ * @param error
+ */
+function http_get(url, sucess, error) {
+    http.get(url, function (res) {
+        console.log(format_time() + "url:" + url + " statusCode: ", res.statusCode);
+        console.log("headers: ", res.headers);
+
+        res.on('data', function (d) {
+            if (sucess != undefined) {
+                sucess.call(sucess, d);
+            }
+        });
+
+    }).on('error', function (e) {
+        if (error != undefined) {
+            error.call(error, e);
+        }
+        console.error(e);
+    });
+
+}
+
+exports.http_get = http_get;
