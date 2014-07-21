@@ -22,7 +22,7 @@
 .input_bar {
     margin-left: 10px;
     margin-bottom: 6px;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     margin-top: 6px;
     border: solid 1px #DFDFDF;
     -webkit-box-flex: 1;
