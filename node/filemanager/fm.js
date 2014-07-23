@@ -165,10 +165,10 @@ function delete_file(params) {
         var st = fs.lstatSync(path);
         //删除文件
         if (st.isFile()) {
-            console.log(util.format_time() + 'delete file ' + path);
+            uitl.debug(util.format_time() + 'delete file ' + path);
             result.data = fs.unlinkSync(path);
         } else {
-            console.log(util.format_time() + 'delete folder ' + path);
+            uitl.debug(util.format_time() + 'delete folder ' + path);
             result.data = delete_folder(path);
         }
 
@@ -203,12 +203,12 @@ function save_file(req, res, params) {
 
         form.parse(req, function (err, fields, files) {
 
-            // console.log(files);
+            // uitl.debug(files);
             if (params.files) {
                 var renamefiles = JSON.parse(params.files);
                 renamefiles.forEach(function (name) {
                     fs.rename(files[name].path, save_dir + name);
-                    console.log(util.format_time() + "rename " + files[name].path + " to " + save_dir + name);
+                    uitl.debug(util.format_time() + "rename " + files[name].path + " to " + save_dir + name);
                 });
                 result.data = renamefiles;
             } else {
@@ -235,7 +235,7 @@ function new_dir(req, res, params) {
     result.action = "newfolder";
     var path = webroot + params.value;
     result.data = fs.mkdir(path, function () {
-        console.log(util.format_time() + 'new folder:' + path);
+        uitl.debug(util.format_time() + 'new folder:' + path);
         util.result_client(req, res, result);
     });
 
@@ -257,7 +257,7 @@ function rename(req, res, params) {
     var path = webroot + params.value;
     var target = webroot + params.target;
 
-    console.log(util.format_time() + 'path:' + path + " target:" + target);
+    uitl.debug(util.format_time() + 'path:' + path + " target:" + target);
 
     fs.rename(path, target, function (err) {
         if (err) {

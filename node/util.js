@@ -3,6 +3,14 @@
  */
 var http = require('http');
 var https = require('https');
+var log4js = require('log4js');
+
+log4js.loadAppender('file');
+//log4js.addAppender(log4js.appenders.console());
+log4js.addAppender(log4js.appenders.file('/var/log/httpd.' + process.argv[2] + ".log"), 'cheese');
+
+var logger = log4js.getLogger();
+logger.setLevel('trace');
 
 
 Date.prototype.format = function (format) {
@@ -19,7 +27,7 @@ Date.prototype.format = function (format) {
         (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o)if (new RegExp("(" + k + ")").test(format))
         format = format.replace(RegExp.$1,
-                RegExp.$1.length == 1 ? o[k] :
+            RegExp.$1.length == 1 ? o[k] :
                 ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 };
@@ -55,9 +63,9 @@ exports.result_client = resultClient;
  * @param error
  */
 function https_get(url, sucess, error) {
-    https.get(url, function (res) {
-        console.log(format_time() + "url:" + url + " statusCode: ", res.statusCode);
-//       console.log("headers: ", res.headers);
+    https.get(url,function (res) {
+        uitl.debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
+//       uitl.debug("headers: ", res.headers);
 
         res.on('data', function (d) {
             if (sucess != undefined) {
@@ -66,11 +74,11 @@ function https_get(url, sucess, error) {
         });
 
     }).on('error', function (e) {
-        if (error != undefined) {
-            error.call(error, e);
-        }
-        console.error(e);
-    });
+            if (error != undefined) {
+                error.call(error, e);
+            }
+            console.error(e);
+        });
 
 }
 
@@ -83,9 +91,9 @@ exports.https_get = https_get;
  * @param error
  */
 function http_get(url, sucess, error) {
-    http.get(url, function (res) {
-        console.log(format_time() + "url:" + url + " statusCode: ", res.statusCode);
-        console.log("headers: ", res.headers);
+    http.get(url,function (res) {
+        uitl.debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
+        uitl.debug("headers: ", res.headers);
 
         res.on('data', function (d) {
             if (sucess != undefined) {
@@ -94,12 +102,62 @@ function http_get(url, sucess, error) {
         });
 
     }).on('error', function (e) {
-        if (error != undefined) {
-            error.call(error, e);
-        }
-        console.error(e);
-    });
+            if (error != undefined) {
+                error.call(error, e);
+            }
+            console.error(e);
+        });
 
 }
 
 exports.http_get = http_get;
+
+function trace(message) {
+
+    logger.trace(message);
+
+}
+
+exports.trace = trace;
+
+
+function debug(message) {
+
+    logger.debug(message);
+
+}
+
+exports.debug = debug;
+
+function info(message) {
+
+    logger.info(message);
+
+}
+
+exports.info = info;
+
+function warn(message) {
+
+    logger.warn(message);
+
+}
+
+exports.warn = warn;
+
+function error(message) {
+
+    logger.error(message);
+
+}
+
+exports.error = error;
+
+function fatal(message) {
+
+    logger.fatal(message);
+
+}
+
+exports.fatal = fatal;
+

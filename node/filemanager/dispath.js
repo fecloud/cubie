@@ -58,7 +58,7 @@ var webroot = process.argv[3];
 
 if (webroot) {
 
-    console.log("webroot:" + webroot);
+    uitl.debug("webroot:" + webroot);
 
 } else {
 

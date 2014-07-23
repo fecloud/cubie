@@ -3,6 +3,9 @@
 var http = require('http');
 var url = require('url');
 
+
+var uitl = require('./util.js');
+
 var modules = [
 
     {'name': 'fm', 'port': 3000},
@@ -52,7 +55,7 @@ function start_http_module(m) {
         }
 
     }).listen(m.port, '127.0.0.1');
-    console.log(m.name + ' service running at http://127.0.0.1:' + m.port);
+    uitl.debug(m.name + ' service running at http://127.0.0.1:' + m.port);
 }
 
 
@@ -68,7 +71,7 @@ if (start_module) {
 
     });
     if (found_module) {
-        console.log("start_module:" + start_module);
+        uitl.debug("start_module:" + start_module);
 
         set_route(found_module);
 
@@ -76,12 +79,12 @@ if (start_module) {
 
     } else {
         console.error("not found module name ,please check !");
-        console.log('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
+        uitl.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
     }
 
 } else {
     console.error("not setting start_module name ,please set !");
-    console.log('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
+    uitl.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
     process.exit(1);
 }
 

@@ -18,9 +18,9 @@ process.on('exit', function (code) {
     db.close();
 
     setTimeout(function () {
-        console.log('This will not run');
+        uitl.debug('This will not run');
     }, 0);
-    console.log('About to exit with code:', code);
+    uitl.debug('About to exit with code:', code);
 });
 
 /**
@@ -75,7 +75,7 @@ exports.list_temperature = list_temperature;
 */
 function insert(temperature) {
 
-    console.log(util.format_time() + " insert:" + temperature);
+    uitl.debug(util.format_time() + " insert:" + temperature);
 
     var stmt = db.prepare("INSERT INTO " + table_name + " (temperature) VALUES (?) ");
 
@@ -92,7 +92,7 @@ function create_table() {
     create_sql += " (" + "id INTEGER PRIMARY KEY ,";
     create_sql += " temperature DOUBLE NOT NULL, ";
     create_sql += "time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ) ;";
-    console.log("sql:" + create_sql);
+    uitl.debug("sql:" + create_sql);
     db.run(create_sql);
 }
 
