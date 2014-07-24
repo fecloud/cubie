@@ -25,7 +25,7 @@ route.default = function (req, res, params) {
 
     var result = new common.web_result();
     result.error = 'action not found!';
-    console.error(util.format_time() + "action not found!");
+    util.error(util.format_time() + "action not found!");
     util.result_client(req, res, result);
 }
 

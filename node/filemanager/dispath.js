@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var common = require('./../common.js');
-var util = require('./../util.js');
+var util = require('../util.js');
 var fm = require('./fm.js');
 
 var route = {};
@@ -48,7 +48,7 @@ route.default = function (req, res, params) {
 
     var result = new common.web_result();
     result.error = 'action not found!';
-    console.error(util.format_time() + "action not found!");
+    util.error(util.format_time() + "action not found!");
     util.result_client(req, res, result);
 };
 
@@ -58,11 +58,11 @@ var webroot = process.argv[3];
 
 if (webroot) {
 
-    uitl.debug("webroot:" + webroot);
+    util.debug("webroot:" + webroot);
 
 } else {
 
-    console.error("not setting webroot ,please set !");
+    util.error("not setting webroot ,please set !");
     process.exit(1);
 
 }

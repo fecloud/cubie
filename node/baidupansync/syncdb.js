@@ -4,7 +4,7 @@
 var sqlite3 = require('sqlite3').verbose();
 
 
-var uitl = require('../util.js');
+var util = require('../util.js');
 
 var db = new sqlite3.Database('/data/app/data/baidupansync.db');
 
@@ -15,9 +15,9 @@ process.on('exit', function (code) {
     db.close();
 
     setTimeout(function () {
-        uitl.debug('This will not run');
+        util.debug('This will not run');
     }, 0);
-    uitl.debug('About to exit with code:', code);
+    util.debug('About to exit with code:', code);
 });
 
 exports.db = db;
@@ -43,7 +43,7 @@ function create_table() {
     create_user_sql += " sync_end INTEGER ,";
     create_user_sql += " time DATETIME";
     create_user_sql += " ) ;";
-    uitl.debug("sql user:" + create_user_sql);
+    util.debug("sql user:" + create_user_sql);
     db.run(create_user_sql);
 
     //用户配容量表
@@ -55,7 +55,7 @@ function create_table() {
     create_quota_sql += " time DATETIME";
     create_quota_sql += " ) ;";
 
-    uitl.debug("sql quota:" + create_quota_sql);
+    util.debug("sql quota:" + create_quota_sql);
     db.run(create_quota_sql);
 
     //用户同步的所有目录文件
@@ -71,7 +71,7 @@ function create_table() {
     create_pcsfile_sqll += " username TEXT ";
     create_pcsfile_sqll += " ) ;";
 
-    uitl.debug("sql files:" + create_pcsfile_sqll);
+    util.debug("sql files:" + create_pcsfile_sqll);
     db.run(create_pcsfile_sqll);
 
 }
@@ -106,10 +106,10 @@ function local_get_users(uid, res, error) {
     if (uid != '') {
         sql += " WHERE uid=" + uid;
     }
-    uitl.debug(util.format_time() + sql);
+    util.debug(util.format_time() + sql);
     db.all(sql, function (err, rows) {
         if (err) {
-            uitl.debug(util.format_time() + err);
+            util.debug(util.format_time() + err);
             if (error != undefined) {
                 error.call(err);
             }
@@ -149,12 +149,12 @@ exports.get_users = get_users;
  */
 function insert_user(user, res, error) {
     var sql = "REPLACE INTO user(uid,uname,portrait,expires_in,refresh_token,access_token,session_secret,session_key,time) VALUES (?,?,?,?,?,?,?,?,datetime('now'))";
-    uitl.debug(util.format_time() + sql);
+    util.debug(util.format_time() + sql);
     db.all(sql, user.uid, user.uname, user.portrait, user.expires_in, user.refresh_token, user.access_token, user.session_secret, user.session_key,
         function (err, rows) {
 
             if (err) {
-                uitl.debug(util.format_time() + err);
+                util.debug(util.format_time() + err);
                 if (error != undefined) {
                     error.call(err);
                 }
@@ -177,12 +177,12 @@ exports.insert_user = insert_user;
 function del_user(uid, res, error) {
 
     var sql = "DELETE FROM user WHERE uid=?";
-    uitl.debug(util.format_time() + sql);
+    util.debug(util.format_time() + sql);
     db.all(sql, uid,
         function (err, rows) {
 
             if (err) {
-                uitl.debug(util.format_time() + err);
+                util.debug(util.format_time() + err);
                 if (error != undefined) {
                     error.call(err);
                 }
@@ -227,7 +227,7 @@ function pcsfile_replace(pcsfile) {
     db.run(sql, pcsfile.fs_id, pcsfile.path, pcsfile.ctime, pcsfile.mtime, pcsfile.md5, pcsfile.size, pcsfile.isdir, pcsfile.username, function (err) {
         if (err) {
 
-            uitl.debug(util.format_time() + err);
+            util.debug(util.format_time() + err);
         }
 
     });

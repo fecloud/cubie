@@ -60,7 +60,7 @@ route.default = function (req, res, params) {
 
     var result = new common.web_result();
     result.error = 'action not found!';
-    console.error("action not found!");
+    util.error("action not found!");
     util.result_client(req, res, result);
 };
 

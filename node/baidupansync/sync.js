@@ -46,7 +46,7 @@ sync_record.on('dir', function (pcsfile) {
 //    syncdb.get_users(function (rows) {
 //
 //            if (rows != undefined) {
-//                uitl.debug(util.format_time() + "select " + rows.length + " user");
+//                util.debug(util.format_time() + "select " + rows.length + " user");
 //                rows.forEach(function (row) {
 //
 //                    //进入主流程
@@ -115,7 +115,7 @@ function view_quota(req, res, params) {
             util.https_get(url, function (data) {
                 result.data = data.toString();
                 result.time = new Date().format("yyyy-MM-dd hh:mm:ss");
-                uitl.debug(util.format_time() + "baidu get quota:" + data.toString());
+                util.debug(util.format_time() + "baidu get quota:" + data.toString());
                 util.result_client(req, res, result);
 
             }, function () {
@@ -168,7 +168,7 @@ function get_user_access_token(req, res, params) {
     var url = node_util.format("%s?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=oob", TOKEN_URL, params.value, APP_KEY, SECRET_KEY);
     util.https_get(url, function (data) {
         result.data = data.toString();
-        uitl.debug(util.format_time() + "baidu get token:" + data.toString());
+        util.debug(util.format_time() + "baidu get token:" + data.toString());
         util.result_client(req, res, result);
 
     }, function () {
@@ -196,7 +196,7 @@ function add_user(req, res, params) {
         var url = node_util.format("%s?access_token=%s", USERINFO_URL, baiduvalidate.access_token);
         util.https_get(url, function (data) {
             result.data = data.toString();
-            uitl.debug(util.format_time() + "baidu get userinfo:" + data.toString());
+            util.debug(util.format_time() + "baidu get userinfo:" + data.toString());
             var baidu_user = JSON.parse(data.toString());
             var user = new syncdb.user();
             user.uid = baidu_user.uid;

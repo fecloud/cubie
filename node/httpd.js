@@ -4,7 +4,7 @@ var http = require('http');
 var url = require('url');
 
 
-var uitl = require('./util.js');
+var util = require('./util.js');
 
 var modules = [
 
@@ -38,7 +38,7 @@ function start_http_module(m) {
      */
     http.createServer(function (req, res) {
 
-        console.info(util.format_time() + 'url:' + req.url);
+        util.info(util.format_time() + 'url:' + req.url);
         var params = url.parse(req.url, true).query;
 
         if (params && params.action && params.value) {
@@ -55,7 +55,7 @@ function start_http_module(m) {
         }
 
     }).listen(m.port, '127.0.0.1');
-    uitl.debug(m.name + ' service running at http://127.0.0.1:' + m.port);
+    util.debug(m.name + ' service running at http://127.0.0.1:' + m.port);
 }
 
 
@@ -71,20 +71,20 @@ if (start_module) {
 
     });
     if (found_module) {
-        uitl.debug("start_module:" + start_module);
+        util.debug("start_module:" + start_module);
 
         set_route(found_module);
 
         start_http_module(found_module);
 
     } else {
-        console.error("not found module name ,please check !");
-        uitl.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
+        util.error("not found module name ,please check !");
+        util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
     }
 
 } else {
-    console.error("not setting start_module name ,please set !");
-    uitl.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
+    util.error("not setting start_module name ,please set !");
+    util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status] args');
     process.exit(1);
 }
 

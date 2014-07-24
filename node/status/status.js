@@ -80,7 +80,7 @@ function uptime(req, res, params) {
             var out = stdout;
             if (out && out != '') {
                 var arr = out.match(/\d+\.+\d+/g);
-                uitl.debug(arr);
+                util.debug(arr);
                 if (arr != null) {
                     result.data = arr.join(" ");
                 }
@@ -111,7 +111,7 @@ function df(req, res, params) {
             if (out && out != '') {
                 var arr = out.split(" ");
                 var re_arr = [];
-                uitl.debug(arr);
+                util.debug(arr);
                 if (null != arr) {
                     arr.forEach(function (a) {
                         if (a != '') {
@@ -145,7 +145,7 @@ function start_service(req, res, params) {
             var out = stdout;
             if (out && out != '') {
                 var arr = out.match(/\d+\.+\d+/g);
-                uitl.debug(arr);
+                util.debug(arr);
                 if (arr != null) {
                     result.data = arr.join(" ");
                 }
@@ -174,7 +174,7 @@ function stop_service(req, res, params) {
             var out = stdout;
             if (out && out != '') {
                 var arr = out.match(/\d+\.+\d+/g);
-                uitl.debug(arr);
+                util.debug(arr);
                 if (arr != null) {
                     result.data = arr.join(" ");
                 }

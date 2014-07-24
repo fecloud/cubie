@@ -5,12 +5,13 @@ var http = require('http');
 var https = require('https');
 var log4js = require('log4js');
 
+log4js.replaceConsole(true);
 log4js.loadAppender('file');
-//log4js.addAppender(log4js.appenders.console());
-log4js.addAppender(log4js.appenders.file('/var/log/httpd.' + process.argv[2] + ".log"), 'cheese');
+//log4js.addAppender(log4js.appenders.util());
+log4js.addAppender(log4js.appenders.file('/var/log/httpd.' + process.argv[2] + ".log"));
 
 var logger = log4js.getLogger();
-logger.setLevel('trace');
+logger.setLevel('TRACE');
 
 
 Date.prototype.format = function (format) {
@@ -64,8 +65,8 @@ exports.result_client = resultClient;
  */
 function https_get(url, sucess, error) {
     https.get(url,function (res) {
-        uitl.debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
-//       uitl.debug("headers: ", res.headers);
+        debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
+//       util.debug("headers: ", res.headers);
 
         res.on('data', function (d) {
             if (sucess != undefined) {
@@ -77,7 +78,7 @@ function https_get(url, sucess, error) {
             if (error != undefined) {
                 error.call(error, e);
             }
-            console.error(e);
+            error(e);
         });
 
 }
@@ -92,8 +93,8 @@ exports.https_get = https_get;
  */
 function http_get(url, sucess, error) {
     http.get(url,function (res) {
-        uitl.debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
-        uitl.debug("headers: ", res.headers);
+        debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
+        debug("headers: ", res.headers);
 
         res.on('data', function (d) {
             if (sucess != undefined) {
@@ -105,7 +106,7 @@ function http_get(url, sucess, error) {
             if (error != undefined) {
                 error.call(error, e);
             }
-            console.error(e);
+            error(e);
         });
 
 }
