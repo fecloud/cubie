@@ -2,6 +2,7 @@
 
 # Package Files #
 *.jar
+*.db
 *.war
 *.ear
 /target
