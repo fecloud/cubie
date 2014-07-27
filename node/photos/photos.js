@@ -1,14 +1,20 @@
 /**
- * Created by Feng OuYang on 2014-07-08.
+ * Created with JetBrains WebStorm.
+ * User: ouyangfeng
+ * Date: 7/27/14
+ * Time: 21:29
+ * To change this template use File | Settings | File Templates.
  */
 var fs = require("fs");
 var formidable = require("formidable");
 
 var common = require('./../common.js');
 var util = require('./../util.js');
+
 var File = common.file;
 
-var webroot = process.argv[3];
+var base_photos = process.argv[3];
+
 
 
 function list_dir_files(dir, base) {
@@ -53,18 +59,16 @@ function list_dir_files(dir, base) {
     }
 }
 
-/**
- * 返回当前目录的子目录以及文件
- */
-function list_dir(params) {
+
+function list_photos(params) {
     var result = new common.web_result();
-    result.action = "list";
+    result.action = "list_photos";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
         if (params.value.substring(params.value.length - 1) != '/') {
             params.value = params.value + '/';
         }
-        var dir = webroot + params.value;
+        var dir = base_photos + params.value;
 
         var array_files = list_dir_files(dir, params.value);
 
@@ -106,66 +110,56 @@ function list_dir(params) {
 exports.list_dir = list_dir;
 
 /**
- * 删除文件夹
- * @param path
+ * 返回当前目录的子目录以及文件
  */
-function delete_folder(path) {
+function list_dir(params) {
+    var result = new common.web_result();
+    result.action = "list";
+    if (params.value) {
+        //如果客户端传来的数据没有加/,自动加上
+        if (params.value.substring(params.value.length - 1) != '/') {
+            params.value = params.value + '/';
+        }
+        var dir = base_photos + params.value;
 
-    var files = [];
+        var array_files = list_dir_files(dir, params.value);
 
-    if (fs.existsSync(path)) {
+        //有按页加载
+        if (params.skip != undefined) {
 
-        files = fs.readdirSync(path);
+            if (array_files.length >= params.skip) {
+                var page_array = [];
+                for (var i = params.skip; i < array_files.length; i++) {
 
-        files.forEach(function (file, index) {
+                    page_array.push(array_files[i]);
 
-            var curPath = path + "/" + file;
+                    if (params.num != undefined && (i - params.skip == (params.num -1) )) {
 
-            if (fs.statSync(curPath).isDirectory()) { // recurse
+                        result.data = page_array;
+                        if (i < array_files.length -1 ) {
+                            result.more = true;
+                        }
+                        return result;
+                    }
 
-                delete_folder(curPath);
+                }
+                result.data = page_array;
+                result.more = false;
 
-            } else { // delete file
-
-                fs.unlinkSync(curPath);
-
+            } else {
+                result.data = [];
+                result.more = false;
             }
 
-        });
-
-        fs.rmdirSync(path);
-
-    }
-
-}
-
-/**
- * 删除文件
- */
-function delete_file(params) {
-    var result = new common.web_result();
-    result.action = "delete";
-
-    var path = webroot + params.value;
-    //&& fs.existsSync(params.value)
-    if (params && params.value && fs.existsSync(path)) {
-        var st = fs.lstatSync(path);
-        //删除文件
-        if (st.isFile()) {
-            util.debug(util.format_time() + 'delete file ' + path);
-            result.data = fs.unlinkSync(path);
         } else {
-            util.debug(util.format_time() + 'delete folder ' + path);
-            result.data = delete_folder(path);
+            result.data = array_files;
         }
 
-    } else {
-        result.error = "check path!";
     }
     return result;
 }
 
-exports.delete_file = delete_file;
+exports.list_dir = list_dir;
 
 /**
  * 保存文件
@@ -173,13 +167,13 @@ exports.delete_file = delete_file;
  * @param res
  * @returns {Result}
  */
-function save_file(req, res, params) {
+function save_photos(req, res, params) {
     var result = new common.web_result();
-    result.action = "upload";
+    result.action = "upload_photos";
     if (!params.value) {
         result.error = 'require save path!';
     } else {
-        var save_dir = webroot + params.value;
+        var save_dir = base_photos + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
             save_dir.value = save_dir + '/';
         }
@@ -209,85 +203,27 @@ function save_file(req, res, params) {
     return result;
 }
 
-exports.save_file = save_file;
+exports.save_photos = save_photos;
+
+
+
+
 
 /**
  * 新建文件夹
  * @param params
  * @returns {exports.web_result}
  */
-function new_dir(req, res, params) {
+function new_photos(req, res, params) {
 
     var result = new common.web_result();
-    result.action = "newfolder";
-    var path = webroot + params.value;
+    result.action = "new_photos";
+    var path = base_photos + params.value;
     result.data = fs.mkdir(path, function () {
-        util.debug(util.format_time() + 'new folder:' + path);
+        util.debug(util.format_time() + 'new photos:' + path);
         util.result_client(req, res, result);
     });
 
 }
 
-exports.new_dir = new_dir;
-
-
-/**
- * 重命名
- * @param req
- * @param res
- * @param params
- */
-function rename(req, res, params) {
-
-    var result = new common.web_result();
-    result.action = 'rename';
-    var path = webroot + params.value;
-    var target = webroot + params.target;
-
-    util.debug(util.format_time() + 'path:' + path + " target:" + target);
-
-    fs.rename(path, target, function (err) {
-        if (err) {
-            result.error = err;
-        } else {
-            result.data = 'true';
-        }
-        util.result_client(req, res, result);
-    });
-
-}
-
-exports.rename = rename;
-
-
-/**
- *
- * @param req
- * @param res
- * @param params
- */
-function search_dir(req, res, params) {
-
-    var result = new common.web_result();
-    result.action = 'search_dir';
-    if (params.query != undefined) {
-        var file_list = list_dir(params);
-        if (file_list.error == '') {
-            var file_array = [];
-            file_list.data.forEach(function (name) {
-
-                if (name.name.toLowerCase().indexOf(params.query.toLowerCase()) > -1) {
-                    file_array.push(name)
-                }
-
-            });
-            result.data = file_array;
-        }
-    } else {
-        result.error = 'require query!';
-    }
-
-    util.result_client(req, res, result);
-}
-
-exports.search = search_dir;
+exports.new_dir = new_photos;
