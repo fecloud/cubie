@@ -10,7 +10,27 @@
     <link rel="stylesheet" href="../css/com.css"/>
     <link rel="stylesheet" href="../css/photos.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-    <!--<script type="text/javascript" src="/js/index.js"></script>-->
+    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.ajax({url: status_photos + parseInt(Math.random() * 10000000) + '.php?action=list_photos&value=/', success: function (data) {
+
+                if (data && data.data) {
+                    data.data.forEach(function (album) {
+
+                        var h = "<div><a class=\"photos\" href=\"#\"><div class=\"album\"></div><div class=\"album_desc\"><h3>" + album.name + "</h3><span>" + album.num +"</span></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></div>";
+                        $('#content').append(h);
+                    });
+                }
+
+
+            }});
+
+        });
+
+    </script>
 
 
 </head>
@@ -38,97 +58,87 @@
     </div>
     <div id="content">
 
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
 
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
-        <div>
-            <a class="photos" href="#">
-                <div class="album"></div>
-                <div class="album_desc">
-                    <h3>相册名</h3>
-                    <span>120</span>
-                </div>
-                <div class="show-operate"><i class="idown"></i></div>
-            </a>
-        </div>
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<a class="photos" href="#">-->
+                <!--<div class="album"></div>-->
+                <!--<div class="album_desc">-->
+                    <!--<h3>相册名</h3>-->
+                    <!--<span>120</span>-->
+                <!--</div>-->
+                <!--<div class="show-operate"><i class="idown"></i></div>-->
+            <!--</a>-->
+        <!--</div>-->
     </div>
 
 

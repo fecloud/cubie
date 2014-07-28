@@ -158,3 +158,4 @@ function roundFun(numberRound, roundDigit) {
 var fm_service = "/service/fm/";
 var baidupansync = "/service/baidupansync/";
 var status_service = "/service/status/";
+var status_photos = "/service/photos/";
