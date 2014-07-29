@@ -360,7 +360,7 @@ exports.get_pic_albume = get_pic_albume;
  * @param res
  * @param param
  */
-function get_album_pics(req, res, param){
+function get_album_pics(req, res, params){
 
     var result = new common.web_result();
     result.action = "get_album_pics";
