@@ -294,6 +294,23 @@ function get_pic(req, res, param) {
                             'Content-Type': 'text/plain'
                         });
                         res.end(err.toString());
+                    }else {
+                        //rezie成功
+                        util.debug("get pic gm rezie success");
+                        fs.readFile(tofile, "binary", function (err, file) {
+                            if (err) {
+                                res.writeHead(500, {
+                                    'Content-Type': 'text/plain'
+                                });
+                                res.end(err.toString());
+                            } else {
+                                res.writeHead(200, {
+                                    'Content-Type': 'image/jpeg'
+                                });
+                                res.write(file, "binary");
+                                res.end();
+                            }
+                        });
                     }
 
                 });
