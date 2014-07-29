@@ -17,7 +17,6 @@
             padding: 0px;
             padding-top: 10px;
             margin-left: -5px;
-
         }
 
     </style>
@@ -36,7 +35,7 @@
                 if (data && data.data) {
                     data.data.forEach(function (pic) {
 
-                        var h = "<div style=\"background: url(" +
+                        var h = "<div style=\"background-image: url(" +
                                 photos_service + 'album.php?action=get_pic_albume&value=/&w=76&h=76&file=' + Base64.encode(pic.path) +
                                 ");\" class=\"album-item\"></div>";
                         $('#content').append(h);
