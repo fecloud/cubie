@@ -43,9 +43,9 @@ route.search_photos = function (req, res, params) {
     fm.search(req, res, params);
 };
 
-route.get_pic = function(req, res, params){
+route.get_pic_albume = function(req, res, params){
 
-    photos.get_pic(req, res, params);
+    photos.get_pic_albume(req, res, params);
 
 }
 

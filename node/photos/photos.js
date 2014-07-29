@@ -347,6 +347,6 @@ function get_pic_albume(req, res, param) {
 
 }
 
-exports.get_pic = get_pic;
+exports.get_pic_albume = get_pic_albume;
 
 
