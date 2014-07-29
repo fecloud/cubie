@@ -391,7 +391,7 @@ function get_album_pics(req, res, params){
                         if (i < array_files.length - 1) {
                             result.more = true;
                         }
-                        return result;
+                         util.result_client(req,res,result);
                     }
 
                 }
@@ -408,7 +408,7 @@ function get_album_pics(req, res, params){
         }
 
     }
-    return result;
+    util.result_client(req,res,result);
 
 }
 

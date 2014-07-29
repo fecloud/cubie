@@ -12,6 +12,15 @@
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../js/base64.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
+    <style type="text/css">
+        #content {
+            padding: 0px;
+            padding-top: 10px;
+            margin-left: -5px;
+
+        }
+
+    </style>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -22,14 +31,14 @@
 
             document.title = name;
             $('#ti').html(name);
-            $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_album_pics&value=' + path , success: function (data) {
+            $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_album_pics&value=' + path, success: function (data) {
 
                 if (data && data.data) {
                     data.data.forEach(function (pic) {
 
-                        var h = "<div style=\"background: url(";
-                            photos_service +  'album.php?action=get_pic_albume&value=/&w=76&h=76&file=' + Base64.encode(pic.path);
-                         + ");\" class=\"album\"></div>";
+                        var h = "<div style=\"background: url(" +
+                                photos_service + 'album.php?action=get_pic_albume&value=/&w=76&h=76&file=' + Base64.encode(pic.path) +
+                                ");\" class=\"album-item\"></div>";
                         $('#content').append(h);
                     });
                 }
@@ -68,9 +77,9 @@
     <div id="content">
 
 
-        <div class="album-item">
+        <!--<div class="album-item">-->
 
-        </div>
+        <!--</div>-->
 
     </div>
 </div>
