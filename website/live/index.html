@@ -1,64 +1,72 @@
-<!DOCTYPE html>
+
+
+
+
+
+<!doctype html>
 <html>
 <head>
-    <title>远程监控</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <!--<meta name="viewport"-->
-    <!--content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>-->
-    <!--<link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>-->
-    <!--<meta name="format-detection" content="telephone=no"/>-->
-    <!--<link rel="stylesheet" href="/css/index.css"/>-->
-    <!--<link rel="stylesheet" href="../css/com.css"/>-->
-    <!--<script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>-->
-    <script src="http://jwpsrv.com/library/+yotet5CEeKL4RIxOQulpA.js"></script>
-    <script>jwplayer.key = "rytNXDdMmiI9UxyjCqNvHK67C8N/r5IpvvQIJA==";</script>
-    <script type="text/javascript" src="../js/jwplayer.js"></script>
-    <script type="text/javascript" src="../js/jwplayer.html5.js"></script>
-    <style type="text/css">
 
-        body {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            margin: 0 auto;
+    <title>Basic RTMP with hddn : Flowplayer</title>
+
+    <link rel="shortcut icon" href="http://flash.flowplayer.org/favicon.ico">
+    <!-- standalone page styling. can be removed -->
+    <style>
+        body{
+            width:982px;
+            margin:50px auto;
+            font-family:sans-serif;
         }
-
-        #con {
-            position: absolute;
-            width: 640px;
-            height: 360px;
-            left: 50%;
-            top: 50%;
-            margin-left: -320px;
-            margin-top: -180px;
-            border: solid 1px #c8c7cc;
+        a:active {
+            outline:none;
         }
+        :focus { -moz-outline-style:none; }
 
+        .palert {
+            padding: 12px;
+            color: black;
+            background-color: #ededed;
+            box-shadow: none;
+        }
     </style>
 
 
+
+    <!-- flowplayer javascript component -->
+    <script src="http://releases.flowplayer.org/js/flowplayer-3.2.13.min.js"></script>
+
 </head>
+
 <body>
-<div id="con">
-    <div id="live"></div>
+<!-- widescreen container, 560x240 (clip dimensions) * 1.15, center splash -->
+<div id="wowza" style="width:640px;height:320px;margin:0 auto;text-align:center">
+    <!--<img src="/media/img/player/splash_black.jpg" height="276" width="548" />-->
 </div>
-<script type="text/javascript">
-    jwplayer("live").setup({ autostart: true,
-        playlist: [
-            {
+<script>
 
-                sources: [
-                    {
-                        file: "rtmp://www.fcloud.tk/live/cubie"
-                    }
-                ]
+    $f("wowza", "http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf", {
+
+        clip: {
+            url: 'cubie',
+            live: true,
+            // configure clip to use influxis as our provider, it uses our rtmp plugin
+            provider: 'influxis'
+        },
+
+        // streaming plugins are configured under the plugins node
+        plugins: {
+
+            // here is our rtpm plugin configuration
+            influxis: {
+                url: "flowplayer.rtmp-3.2.13.swf",
+
+                // netConnectionUrl defines where the streams are found
+                netConnectionUrl: 'rtmp://10.0.0.2/live'
             }
-        ],
-        height: 360,
-        primary: "flash",
-        width: 640
+        }
     });
-
 </script>
+
 </body>
+
 </html>
