@@ -21,7 +21,7 @@
                 if (data && data.data) {
                     data.data.forEach(function (album) {
 
-                        var h = "<div><a class=\"photos\" href=\"album.html?path="+ album.path +"&name="+ album.name +"\"><div style=\"background: url(";
+                        var h = "<div><a class=\"photos\" href=\"album.html?path="+ album.path +"&name="+ album.name +"\"><div style=\"background-image: url(";
                         if (album.first) {
                             h += photos_service +  'album.php?action=get_pic_albume&value=/&w=80&h=80&file=' + Base64.encode(album.first.path);
                         } else {
