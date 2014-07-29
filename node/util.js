@@ -6,9 +6,9 @@ var https = require('https');
 var log4js = require('log4js');
 
 log4js.replaceConsole(true);
-log4js.loadAppender('file');
+//log4js.loadAppender('file');
 //log4js.addAppender(log4js.appenders.util());
-log4js.addAppender(log4js.appenders.file('/var/log/httpd.' + process.argv[2] + ".log"));
+//log4js.addAppender(log4js.appenders.file('/var/log/httpd.' + process.argv[2] + ".log"));
 
 var logger = log4js.getLogger();
 logger.setLevel('TRACE');
