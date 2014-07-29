@@ -284,7 +284,7 @@ function get_pic(req, res, param) {
     var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
     util.debug("tofile:" + tofile);
     if (!fs.existsSync(tofile)) {
-
+        util.debug("get pic gm rezie");
         try {
             gm(base_photos + file)
                 .resize(w, h)
@@ -303,24 +303,24 @@ function get_pic(req, res, param) {
             });
             res.end(err.toString());
         }
+    } else {
+        util.debug("get pic not gm rezie");
+        fs.readFile(tofile, "binary", function (err, file) {
+            if (err) {
+                res.writeHead(500, {
+                    'Content-Type': 'text/plain'
+                });
+                res.end(err.toString());
+            } else {
+                res.writeHead(200, {
+                    'Content-Type': 'image/jpeg'
+                });
+                res.write(file, "binary");
+                res.end();
+            }
+        });
     }
 
-    util.debug("get pic " + fs.existsSync(tofile));
-
-    fs.readFile(tofile, "binary", function (err, file) {
-        if (err) {
-            res.writeHead(500, {
-                'Content-Type': 'text/plain'
-            });
-            res.end(err.toString());
-        } else {
-            res.writeHead(200, {
-                'Content-Type': 'image/jpeg'
-            });
-            res.write(file, "binary");
-            res.end();
-        }
-    });
 
 }
 
