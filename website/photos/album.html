@@ -16,24 +16,29 @@
 
         $(document).ready(function () {
 
-            $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=list_photos&value=/', success: function (data) {
+            var path = getArgs('path');
+            var name = getArgs('name');
 
-                if (data && data.data) {
-                    data.data.forEach(function (album) {
-
-                        var h = "<div><a class=\"photos\" href=\"album.html?path="+ album.path +"&name="+ album.name +"\"><div style=\"background: url(";
-                        if (album.first) {
-                            h += photos_service +  'album.php?action=get_pic_albume&value=/&w=80&h=80&file=' + Base64.encode(album.first.path);
-                        } else {
-
-                        }
-                        h += ");\" class=\"album\"></div><div class=\"album_desc\"><h3>" + album.name + "</h3><span>" + album.num + "</span></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></div>";
-                        $('#content').append(h);
-                    });
-                }
-
-
-            }});
+            document.title = name;
+            $('#ti').html(name);
+//            $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=list_photos&value=/', success: function (data) {
+//
+//                if (data && data.data) {
+//                    data.data.forEach(function (album) {
+//
+//                        var h = "<div><a class=\"photos\" href=\"#\"><div style=\"background: url(";
+//                        if (album.first) {
+//                            h += photos_service + 'album.php?action=get_pic_albume&value=/&w=80&h=80&file=' + Base64.encode(album.first.path);
+//                        } else {
+//
+//                        }
+//                        h += ");\" class=\"album\"></div><div class=\"album_desc\"><h3>" + album.name + "</h3><span>" + album.num + "</span></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></div>";
+//                        $('#content').append(h);
+//                    });
+//                }
+//
+//
+//            }});
 
         });
 
@@ -50,11 +55,15 @@
         <!--<a href="/file/">-->
 
         <div class="btn back_btn">返回</div>
-        <h1>我的相册</h1>
+        <h1 id="ti">我的相册</h1>
 
         <div class="btn upload_btn" style="float: right ;overflow: hidden;">
 
-
+            <form id="form1" enctype="multipart/form-data" method="post"
+                  action="uploa.php?action=upload&value=/">
+                <input type="file" name="upload" class="upload" id="upload" multiple="multiple"/>
+                <span class="u_span">上传</span>
+            </form>
         </div>
 
         <!--</a>-->
