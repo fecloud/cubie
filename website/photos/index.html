@@ -22,7 +22,7 @@
 
                         var h = "<div><a class=\"photos\" href=\"#\"><div style=\"background: url(";
                         if (album.first) {
-                            h += photos_service +  'album.php?action=get_pic_albume&value=/&w=80&h=80&file=' + album.first.path;
+                            h += photos_service +  'album.php?action=get_pic_albume&value=/&w=80&h=80&file=' + $.base64Encode(album.first.path);
                         } else {
 
                         }
