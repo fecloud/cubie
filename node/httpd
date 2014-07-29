@@ -172,6 +172,7 @@ start() {
             start_arduino
             start_baidupansync
             start_status
+            start_photos
         ;;
     esac
 
@@ -201,6 +202,7 @@ stop() {
             stop_arduino
             stop_baidupansync
             stop_status
+            stop_photos
         ;;
     esac
 
