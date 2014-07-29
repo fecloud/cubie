@@ -275,7 +275,7 @@ function get_max_date(dir, base) {
 
 
 function read_album_res(req, res, tofile,gm) {
-    util.debug("read_album_res file:" + file);
+    util.debug("read_album_res file:" + tofile);
 
     if(gm){
         var date = new Date().toTimeString();
