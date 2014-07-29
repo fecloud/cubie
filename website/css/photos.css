@@ -71,3 +71,13 @@ body {
     -moz-transform: rotate(-90deg);
     -webkit-transform: rotate(-90deg);
 }
+
+.album-item {
+    width: 76px;
+    height: 76px;
+    position: relative;
+    float: left;
+    left: 5px;
+    background-repeat: no-repeat;
+    background-size: 76px 76px;
+}

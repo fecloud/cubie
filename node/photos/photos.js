@@ -242,7 +242,12 @@ function new_photos(req, res, params) {
 
 exports.new_dir = new_photos;
 
-
+/**
+ * 取得相册最后上传的一张图片
+ * @param dir
+ * @param base
+ * @returns {*}
+ */
 function get_max_date(dir, base) {
     if (fs.existsSync(dir)) {
         var files = fs.readdirSync(dir);
@@ -348,5 +353,65 @@ function get_pic_albume(req, res, param) {
 }
 
 exports.get_pic_albume = get_pic_albume;
+
+/**
+ * 取相册里所有图片
+ * @param req
+ * @param res
+ * @param param
+ */
+function get_album_pics(req, res, param){
+
+    var result = new common.web_result();
+    result.action = "get_album_pics";
+    if (params.value) {
+        //如果客户端传来的数据没有加/,自动加上
+        if (params.value.substring(params.value.length - 1) != '/') {
+            params.value = params.value + '/';
+        }
+        var dir = base_photos + params.value;
+
+        var array_files = list_dir_files(dir, params.value, true, false);
+
+
+        //有按页加载
+        if (params.skip != undefined) {
+
+            if (array_files.length >= params.skip) {
+                var page_array = [];
+                var album;
+                for (var i = params.skip; i < array_files.length; i++) {
+                    album = array_files[i];
+
+                    page_array.push(album);
+
+                    if (params.num != undefined && (i - params.skip == (params.num - 1) )) {
+
+                        result.data = page_array;
+                        if (i < array_files.length - 1) {
+                            result.more = true;
+                        }
+                        return result;
+                    }
+
+                }
+                result.data = page_array;
+                result.more = false;
+
+            } else {
+                result.data = [];
+                result.more = false;
+            }
+
+        } else {
+            result.data = array_files;
+        }
+
+    }
+    return result;
+
+}
+
+exports.get_album_pics = get_album_pics;
 
 

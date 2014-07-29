@@ -49,6 +49,11 @@ route.get_pic_albume = function(req, res, params){
 
 }
 
+route.get_album_pics = function(req, res, params){
+
+    photos.get_album_pics(req, res, params);
+
+}
 
 route.default = function (req, res, params) {
 
