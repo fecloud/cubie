@@ -274,7 +274,39 @@ function get_max_date(dir, base) {
 }
 
 
-function get_pic(req, res, param) {
+function read_album_res(req, res, file,gm) {
+    util.debug("read_album_res file:" + file);
+
+    if(gm){
+        var date = new Date().toTimeString();
+        var b = new Buffer(date);
+        var s = b.toString('base64');
+        res.setHeader("ETag",s);
+        res.setHeader("Last-Modified",date);
+    }
+    fs.readFile(tofile, "binary", function (err, file) {
+        if (err) {
+            res.writeHead(500, {
+                'Content-Type': 'text/plain'
+            });
+            res.end(err.toString());
+        } else {
+            res.writeHead(200, {
+                'Content-Type': 'image/jpeg'
+            });
+            res.write(file, "binary");
+            res.end();
+        }
+    });
+}
+
+/**
+ * 取缩略图服务
+ * @param req
+ * @param res
+ * @param param
+ */
+function get_pic_albume(req, res, param) {
 
     var file = param.file;
     var w = param.w;
@@ -294,23 +326,10 @@ function get_pic(req, res, param) {
                             'Content-Type': 'text/plain'
                         });
                         res.end(err.toString());
-                    }else {
+                    } else {
                         //rezie成功
                         util.debug("get pic gm rezie success");
-                        fs.readFile(tofile, "binary", function (err, file) {
-                            if (err) {
-                                res.writeHead(500, {
-                                    'Content-Type': 'text/plain'
-                                });
-                                res.end(err.toString());
-                            } else {
-                                res.writeHead(200, {
-                                    'Content-Type': 'image/jpeg'
-                                });
-                                res.write(file, "binary");
-                                res.end();
-                            }
-                        });
+                        read_album_res(req, res, tofile,true);
                     }
 
                 });
@@ -322,20 +341,7 @@ function get_pic(req, res, param) {
         }
     } else {
         util.debug("get pic not gm rezie");
-        fs.readFile(tofile, "binary", function (err, file) {
-            if (err) {
-                res.writeHead(500, {
-                    'Content-Type': 'text/plain'
-                });
-                res.end(err.toString());
-            } else {
-                res.writeHead(200, {
-                    'Content-Type': 'image/jpeg'
-                });
-                res.write(file, "binary");
-                res.end();
-            }
-        });
+        read_album_res(req, res, tofile);
     }
 
 
