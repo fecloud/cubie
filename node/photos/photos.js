@@ -371,7 +371,7 @@ function get_album_pics(req, res, params){
         }
         var dir = base_photos + params.value;
 
-        var array_files = list_dir_files(dir, params.value, true, false);
+        var array_files = list_dir_files(dir, params.value, false, true);
 
 
         //有按页加载
