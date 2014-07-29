@@ -293,7 +293,7 @@ function get_pic(req, res, param) {
                         res.writeHead(500, {
                             'Content-Type': 'text/plain'
                         });
-                        res.end(err);
+                        res.end(err.toString());
                     }
 
                 });
