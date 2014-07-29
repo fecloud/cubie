@@ -15,6 +15,7 @@
 PROG="httpd.js"
 PROG_PATH="nodejs /data/app/node" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
 FM_ARGS="/data/f/"
+PH_ARGS="/data/f/photos/  /data/f/img_cache/"
 PID_PATH="/var/run/"
 
 start_fm(){
@@ -104,7 +105,7 @@ start_status(){
         echo "$PROG status started $pid"
         echo $pid > "$PID_PATH/$PROG.status.pid"
     else
-        echo "Error! $PROG status status is currently running!"
+        echo "Error! $PROG status is currently running!"
     fi
 
 }
@@ -117,6 +118,32 @@ stop_status(){
         echo "$PROG status stopped"
     else
         echo "Error! $PROG.status not started!"
+    fi
+
+}
+
+start_photos(){
+
+    pid=`ps x|grep httpd.js |grep photos |awk '{print $1}' | head -n 1`
+    if [ -z "$pid" ]; then
+        $PROG_PATH/$PROG photos $PH_ARGS >/var/log/httpd.photos.log 2>&1 &
+        pid=`ps x|grep httpd.js |grep photos |awk '{print $1}' | head -n 1`
+        echo "$PROG photos started $pid"
+        echo $pid > "$PID_PATH/$PROG.photos.pid"
+    else
+        echo "Error! $PROG photos is currently running!"
+    fi
+
+}
+
+stop_photos(){
+
+    pid=`ps x|grep httpd.js |grep photos |awk '{print $1}' | head -n 1`
+    if [ -n "$pid" ]; then
+        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.photos.pid"
+        echo "$PROG photos stopped"
+    else
+        echo "Error! $PROG.photos not started!"
     fi
 
 }
@@ -135,6 +162,9 @@ start() {
         ;;
         status)
             start_status
+        ;;
+        photos)
+            start_photos
         ;;
         **)
             echo "start all"
@@ -161,6 +191,9 @@ stop() {
         ;;
         status)
             stop_status
+        ;;
+         photos)
+            stop_photos
         ;;
         **)
             echo "stop all"
@@ -196,7 +229,7 @@ case "$1" in
         exit 0
     ;;
     **)
-        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baidupansync | status ]" 1>&2
+        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baidupansync | status | photos ]" 1>&2
         exit 1
     ;;
 esac
