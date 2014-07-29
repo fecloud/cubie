@@ -31,7 +31,8 @@ body {
     height: 80px;
     width: 80px;
     background-color: #333333;
-    display: block;
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
 
 }
 .album_desc {
