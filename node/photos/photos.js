@@ -308,7 +308,7 @@ function read_album_res(req, res, tofile,gm) {
  */
 function get_pic_albume(req, res, param) {
 
-    var file = new Buffer(param.value, 'base64');
+    var file = new Buffer(param.file, 'base64');
     var w = param.w;
     var h = param.h;
     var md5 = crypto.createHash('md5');
