@@ -20,13 +20,13 @@
                 if (data && data.data) {
                     data.data.forEach(function (album) {
 
-                        var h = "<div><a class=\"photos\" href=\"#\"><img src='";
+                        var h = "<div><a class=\"photos\" href=\"#\"><div style=\"background-image: url(\"";
                         if (album.first) {
                             h += photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_pic&value=/&w=80&h80&file=' + album.first.path;
                         } else {
 
                         }
-                        h += "' class=\"album\"></a><div class=\"album_desc\"><h3>" + album.name + "</h3><span>" + album.num + "</span></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></div>";
+                        h += "\");\" class=\"album\"></div><div class=\"album_desc\"><h3>" + album.name + "</h3><span>" + album.num + "</span></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></div>";
                         $('#content').append(h);
                     });
                 }
