@@ -281,7 +281,7 @@ function get_pic(req, res, param) {
     var h = param.h;
     var md5 = crypto.createHash('md5');
     md5.update(node_util.format("%s_%s_%s", file, w, h));
-    var tofile = img_cache + "/" + md5.digest('hex')+ ".jpg";
+    var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
     util.debug("tofile:" + tofile);
     if (!fs.existsSync(tofile)) {
 
@@ -304,6 +304,8 @@ function get_pic(req, res, param) {
             res.end(err.toString());
         }
     }
+
+    util.debug("get pic " + fs.existsSync(tofile));
 
     fs.readFile(tofile, "binary", function (err, file) {
         if (err) {
