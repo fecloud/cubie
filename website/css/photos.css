@@ -78,6 +78,7 @@ body {
     position: relative;
     float: left;
     margin-left: 5px;
+    margin-bottom: 5px;
     background-repeat: no-repeat;
     background-size: 76px 76px;
 }
