@@ -279,15 +279,15 @@ function get_max_date(dir, base) {
 }
 
 
-function read_album_res(req, res, tofile,gm) {
+function read_album_res(req, res, tofile, gm) {
     util.debug("read_album_res file:" + tofile);
 
-    if(gm){
+    if (gm) {
         var date = new Date().toTimeString();
         var b = new Buffer(date);
         var s = b.toString('base64');
-        res.setHeader("ETag",s);
-        res.setHeader("Last-Modified",date);
+        res.setHeader("ETag", s);
+        res.setHeader("Last-Modified", date);
     }
     fs.readFile(tofile, "binary", function (err, file) {
         if (err) {
@@ -334,7 +334,7 @@ function get_pic_albume(req, res, param) {
                     } else {
                         //rezie成功
                         util.debug("get pic gm rezie success");
-                        read_album_res(req, res, tofile,true);
+                        read_album_res(req, res, tofile, true);
                     }
 
                 });
@@ -360,7 +360,7 @@ exports.get_pic_albume = get_pic_albume;
  * @param res
  * @param param
  */
-function get_album_pics(req, res, params){
+function get_album_pics(req, res, params) {
 
     var result = new common.web_result();
     result.action = "get_album_pics";
@@ -391,7 +391,7 @@ function get_album_pics(req, res, params){
                         if (i < array_files.length - 1) {
                             result.more = true;
                         }
-                         util.result_client(req,res,result);
+                        util.result_client(req, res, result);
                     }
 
                 }
@@ -408,7 +408,7 @@ function get_album_pics(req, res, params){
         }
 
     }
-    util.result_client(req,res,result);
+    util.result_client(req, res, result);
 
 }
 
@@ -437,7 +437,7 @@ function auto_thumbnail(path) {
 
             } else { // thumbnail file
 
-                thumbnailpic(curPath,160,160);
+                thumbnailpic(curPath, 160, 160);
             }
 
         });
@@ -446,14 +446,16 @@ function auto_thumbnail(path) {
 
 }
 
-function thumbnailpic(file,w,h,func){
+function thumbnailpic(file, w, h, func) {
 
     var md5 = crypto.createHash('md5');
     var rel_file = file.substring(base_photos.length);
     util.debug("rel_file:" + rel_file);
-    md5.update(node_util.format("%s_%s_%s",rel_file , w, h));
+    var rel_md5 = node_util.format("%s_%s_%s", rel_file, w, h);
+    util.debug("rel_md5:" + rel_md5);
+    md5.update(rel_md5);
     var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
-    pic_rezie.req_rezie(file,tofile,w,h);
+    pic_rezie.req_rezie(file, tofile, w, h);
 
 }
 
