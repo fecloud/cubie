@@ -181,7 +181,7 @@ function save_file(req, res, params) {
     } else {
         var save_dir = webroot + "/" + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
-            save_dir.value = save_dir + '/';
+            save_dir = save_dir + '/';
         }
         // parse a file upload
         var form = new formidable.IncomingForm();
