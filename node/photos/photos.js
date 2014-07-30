@@ -192,7 +192,7 @@ function save_photos(req, res, params) {
     if (!params.value) {
         result.error = 'require save path!';
     } else {
-        var save_dir = base_photos + params.value;
+        var save_dir = base_photos + "/" + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
             save_dir.value = save_dir + '/';
         }

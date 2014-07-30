@@ -179,7 +179,7 @@ function save_file(req, res, params) {
     if (!params.value) {
         result.error = 'require save path!';
     } else {
-        var save_dir = webroot + params.value;
+        var save_dir = webroot + "/" + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
             save_dir.value = save_dir + '/';
         }
