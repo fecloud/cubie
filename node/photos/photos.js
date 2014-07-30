@@ -449,7 +449,9 @@ function auto_thumbnail(path) {
 function thumbnailpic(file,w,h,func){
 
     var md5 = crypto.createHash('md5');
-    md5.update(node_util.format("%s_%s_%s", file.substring(base_photos.length), w, h));
+    var rel_file = file.substring(base_photos.length);
+    util.debug("rel_file:" + rel_file);
+    md5.update(node_util.format("%s_%s_%s",rel_file , w, h));
     var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
     pic_rezie.req_rezie(file,tofile,w,h);
 
