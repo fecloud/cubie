@@ -27,12 +27,13 @@ emitter.on("req", function (file, tofile, w, h, func) {
                         if (func)
                             func.call(func, false);
 
-                        util.debug("gm rezie " + file + " tofile" + tofile + " error");
-                    }
-                    if (func)
-                        func.call(func, true);
+                        util.debug("gm rezie " + file + " tofile" + tofile + " error " + err.toString());
+                    } else {
+                        if (func)
+                            func.call(func, true);
 
-                    util.debug("gm rezie " + file + " tofile" + tofile + " success");
+                        util.debug("gm rezie " + file + " tofile" + tofile + " success");
+                    }
                 });
         }
     } catch (error) {
