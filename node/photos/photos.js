@@ -450,10 +450,10 @@ function thumbnailpic(file, w, h, func) {
 
     var md5 = crypto.createHash('md5');
     var rel_file = file.substring(base_photos.length);
-    util.debug("rel_file:" + rel_file);
+//    util.debug("rel_file:" + rel_file);
     var rel_md5 = node_util.format("%s_%s_%s", rel_file, w, h);
-    util.debug("rel_md5:" + rel_md5);
-    md5.update(rel_md5);
+//    util.debug("rel_md5:" + rel_md5);
+    md5.update(rel_md5,"utf-8");
     var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
     pic_rezie.req_rezie(file, tofile, w, h);
 
