@@ -27,7 +27,7 @@ emitter.on("req", function (file, tofile, w, h, func) {
                         if (func)
                             func.call(func, false);
 
-                        util.debug("gm rezie " + file + " tofile" + tofile + " error " + err.toString());
+                        util.debug("gm rezie " + file + " tofile" + tofile + " error " + err);
                     } else {
                         if (func)
                             func.call(func, true);
