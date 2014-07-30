@@ -26,7 +26,7 @@
                         if (album.first) {
                             h += thum + $.md5(album.first.path+ "_160_160") + ".jpg" ;
                         } else {
-
+                            h += "/img/empty_photos.png";
                         }
                         h += ");\" class=\"album\"></div><div class=\"album_desc\"><h3>" + album.name + "</h3><span>" + album.num + "</span></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></div>";
                         $('#content').append(h);
