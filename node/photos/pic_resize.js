@@ -23,11 +23,11 @@ emitter.on("req", function (file, tofile, w, h, func) {
             gm(file)
                 .resize(w, h)
                 .write(tofile, function (err) {
-                    if (!err) {
+                    if (err) {
                         if (func)
                             func.call(func, false);
 
-                        util.debug("gm rezie " + file + " tofile" + tofile + " error " + err);
+                        util.debug("gm rezie " + file + " tofile" + tofile + " error " + err.toString());
                     } else {
                         if (func)
                             func.call(func, true);
