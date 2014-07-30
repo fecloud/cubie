@@ -9,10 +9,12 @@
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="../css/com.css"/>
     <link rel="stylesheet" href="../css/photos.css"/>
+    <link rel="stylesheet" href="../css/progress.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../js/jquery.md5.js"></script>
     <script type="text/javascript" src="../js/base64.min.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/album.js"></script>
     <style type="text/css">
         #content {
             padding: 0px;
@@ -20,34 +22,6 @@
         }
 
     </style>
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            back_bind();
-            var path = getArgs('path');
-            var name = getArgs('name');
-
-            document.title = name;
-            $('#ti').html(name);
-            $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_album_pics&value=' + path, success: function (data) {
-
-                if (data && data.data) {
-                    data.data.forEach(function (pic) {
-
-                        var h = "<div style=\"background-image: url(" +
-                                thum + $.md5(pic.path + "_160_160") + ".jpg" +
-                                ");\" class=\"album-item\"></div>";
-                        $('#content').append(h);
-                    });
-                }
-
-
-            }});
-
-        });
-
-    </script>
 
 
 </head>
@@ -64,21 +38,28 @@
 
         <div class="btn upload_btn" style="float: right ;overflow: hidden;">
 
-            <form id="form1" enctype="multipart/form-data" method="post"
-                  action="uploa.php?action=upload&value=/">
-                <input type="file" name="upload" class="upload" id="upload" multiple="multiple"/>
-                <span class="u_span">上传</span>
-            </form>
+
         </div>
 
         <!--</a>-->
     </div>
     <div id="content">
 
-
-        <!--<div class="album-item">-->
-
-        <!--</div>-->
+        <div id="li_progress" class="list-item tools_bar">
+            <div class="li_progress content" style="margin-left: 0px">
+                <div id="detail" class="detail"><span id="details"></span>
+                </div>
+                <div id="progress_bar" class="progress_bar"><b></b><span class="progress_num"></span></div>
+            </div>
+        </div>
+        <div class="upload-div">
+            <div class="upload-item">上传图片
+                <input type="file" id="upload" class="upload_file"/>
+            </div>
+            <div class="upload-item upload-item-right">多张图片
+                <input type="file" id="upload-mu" class="upload_file" multiple="multiple"/>
+            </div>
+        </div>
 
     </div>
 </div>

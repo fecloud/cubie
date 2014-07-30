@@ -188,7 +188,7 @@ exports.list_dir = list_dir;
  */
 function save_photos(req, res, params) {
     var result = new common.web_result();
-    result.action = "upload_photos";
+    result.action = "save_photos";
     if (!params.value) {
         result.error = 'require save path!';
     } else {

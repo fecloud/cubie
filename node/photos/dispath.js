@@ -28,8 +28,8 @@ route.new_photos = function (req, res, params) {
     fm.new_dir(req, res, params);
 };
 
-route.upload_photos = function (req, res, params) {
-    fm.save_file(req, res, params);
+route.save_photos = function (req, res, params) {
+    photos.save_photos(req, res, params);
 
 };
 
@@ -38,10 +38,6 @@ route.rename_photos = function (req, res, params) {
     fm.rename(req, res, params);
 };
 
-route.search_photos = function (req, res, params) {
-
-    fm.search(req, res, params);
-};
 
 route.get_pic_albume = function(req, res, params){
 
