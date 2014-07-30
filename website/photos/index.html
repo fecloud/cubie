@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/photos.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../js/base64.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.md5.js"></script>
     <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript">
 
@@ -23,7 +24,7 @@
 
                         var h = "<div><a class=\"photos\" href=\"album.html?path="+ album.path +"&name="+ album.name +"\"><div style=\"background-image: url(";
                         if (album.first) {
-                            h += photos_service +  'album.php?action=get_pic_albume&value=/&w=160&h=160&file=' + Base64.encode(album.first.path);
+                            h += thum + $.md5(album.first.path+ "_160_160");
                         } else {
 
                         }

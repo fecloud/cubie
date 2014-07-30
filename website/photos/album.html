@@ -35,7 +35,7 @@
                     data.data.forEach(function (pic) {
 
                         var h = "<div style=\"background-image: url(" +
-                                photos_service + 'album.php?action=get_pic_albume&value=/&w=152&h=152&file=' + Base64.encode(pic.path) +
+                                thum + $.md5(album.first.path+ "_160_160") +
                                 ");\" class=\"album-item\"></div>";
                         $('#content').append(h);
                     });
