@@ -14,7 +14,7 @@ var gm = require('gm');
 
 var common = require('./../common.js');
 var util = require('./../util.js');
-var pic_rezie = require('pic_resize.js');
+var pic_rezie = require('./pic_resize.js');
 
 var File = common.file;
 
