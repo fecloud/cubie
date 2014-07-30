@@ -13,6 +13,16 @@ $(document).ready(function () {
 
     document.title = name;
     $('#ti').html(name);
+
+
+    $('.upload_file').bind('change', function (b) {
+        fileSelected(b.target);
+    });
+
+});
+
+function load_data(){
+
     $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_album_pics&value=' + path, success: function (data) {
 
         if (data && data.data) {
@@ -27,12 +37,7 @@ $(document).ready(function () {
 
 
     }});
-
-    $('.upload_file').bind('change', function (b) {
-        fileSelected(b.target);
-    });
-
-});
+}
 
 function fileSelected(b) {
     $('#li_progress').fadeIn(2000);
@@ -132,6 +137,8 @@ function uploadComplete(evt) {
             $(window).scrollTop($(window).scrollTop() + 44);
         }, function () {
             $('#bottom_loading').css({display: 'none'});
+            $('#content').html("");
+            load_data();
         });
     }, 3000);
 //            alert(evt.target.responseText);
