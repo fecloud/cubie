@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     document.title = name;
     $('#ti').html(name);
-    $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=save_photos&value=' + path, success: function (data) {
+    $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_album_pics&value=' + path, success: function (data) {
 
         if (data && data.data) {
             data.data.forEach(function (pic) {
@@ -91,7 +91,7 @@ function uploadFile(b) {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", fm_service + Math.random() * 100000 + ".php?action=upload&value=" + path + "&files=" + JSON.stringify(files));
+    xhr.open("POST", fm_service + Math.random() * 100000 + ".php?action=save_photos&value=" + path + "&files=" + JSON.stringify(files));
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }
