@@ -91,7 +91,7 @@ function uploadFile(b) {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", fm_service + Math.random() * 100000 + ".php?action=save_photos&value=" + path + "&files=" + JSON.stringify(files));
+    xhr.open("POST", photos_service + Math.random() * 100000 + ".php?action=save_photos&value=" + path + "&files=" + JSON.stringify(files));
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }
