@@ -87,6 +87,8 @@ function list_photos(params) {
 
         });
 
+        array_files.sort(sortMtime);
+
         //有按页加载
         if (params.skip != undefined) {
 
@@ -457,6 +459,12 @@ function thumbnailpic(file, w, h, func) {
     var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
     pic_rezie.req_rezie(file, tofile, w, h);
 
+}
+
+
+function sortMtime(a, b)
+{
+    return a.mtime - b.mtime
 }
 
 /**
