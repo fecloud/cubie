@@ -43,7 +43,7 @@ emitter.on("req", function (file, tofile, w, h, func) {
         util.debug("gm rezie " + file + " tofile" + tofile + " catch error");
     }
 
-    util.debug("gm rezie " + file + " tofile" + tofile + " finish");
+
 });
 
 /**
