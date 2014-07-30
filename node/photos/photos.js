@@ -211,6 +211,7 @@ function save_photos(req, res, params) {
                     util.debug(util.format_time() + "rename " + files[name].path + " to " + save_dir + name);
                 });
                 result.data = renamefiles;
+                auto_thumbnail(base_photos);
             } else {
                 result.error = "not found files!";
             }
