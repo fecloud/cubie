@@ -133,17 +133,9 @@ function uploadComplete(evt) {
 
     setTimeout(function () {
 
-        count = 0;
-
-        load_data(function () {
-            $('#content').html('');
-            $('#bottom_loading').css({display: 'block'});
-            $(window).scrollTop($(window).scrollTop() + 44);
-        }, function () {
-            $('#bottom_loading').css({display: 'none'});
-            $('#content').html("");
-            load_data();
-        });
+        $('#content').html("");
+        load_data();
+        
     }, 3000);
 //            alert(evt.target.responseText);
 
