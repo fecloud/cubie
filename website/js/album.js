@@ -2,7 +2,7 @@
  * Created by Feng OuYang on 2014-07-30.
  */
 
-var path,name ;
+var path, name;
 
 $(document).ready(function () {
 
@@ -14,6 +14,7 @@ $(document).ready(function () {
     document.title = name;
     $('#ti').html(name);
 
+    load_data();
 
     $('.upload_file').bind('change', function (b) {
         fileSelected(b.target);
@@ -21,7 +22,10 @@ $(document).ready(function () {
 
 });
 
-function load_data(){
+/**
+ * 加载本页数据
+ */
+function load_data() {
 
     $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_album_pics&value=' + path, success: function (data) {
 
