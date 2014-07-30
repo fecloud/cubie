@@ -14,7 +14,7 @@ var gm = require('gm');
 
 var common = require('./../common.js');
 var util = require('./../util.js');
-var pic_rezie = require('../pic_resize.js');
+var pic_rezie = require('pic_resize.js');
 
 var File = common.file;
 
@@ -414,4 +414,49 @@ function get_album_pics(req, res, params){
 
 exports.get_album_pics = get_album_pics;
 
+
+/**
+ * 自动生缩略图
+ * @param path
+ */
+function auto_thumbnail(path) {
+
+    var files = [];
+
+    if (fs.existsSync(path)) {
+
+        files = fs.readdirSync(path);
+
+        files.forEach(function (file, index) {
+
+            var curPath = path + "/" + file;
+
+            if (fs.statSync(curPath).isDirectory()) { // recurse
+
+                auto_thumbnail(curPath);
+
+            } else { // thumbnail file
+
+                thumbnailpic(curPath,160,160);
+            }
+
+        });
+
+    }
+
+}
+
+function thumbnailpic(file,w,h,func){
+
+    var md5 = crypto.createHash('md5');
+    md5.update(node_util.format("%s_%s_%s", file, w, h));
+    var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
+    pic_rezie.req_rezie(file,tofile,w,h);
+
+}
+
+/**
+ * 启动自动生成缩略图
+ */
+auto_thumbnail(base_photos);
 
