@@ -54,11 +54,14 @@ emitter.on("req", function (pic_resize) {
                     }
                 });
         } else {
+
+            util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile + " not need resize");
+
             //已经在在
             if (pic_resize.callbak)
                 pic_resize.callbak.call(pic_resize.callbak, true);
 
-            util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile + " not need resize");
+
         }
     } catch (error) {
         if (pic_resize.callbak)
