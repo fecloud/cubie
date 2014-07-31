@@ -91,7 +91,7 @@ function req_rezie(file, tofile, w, h, func) {
 
         util.debug("emitter work one req next");
         var re = resize_queue.shift();
-        util.debug("get next re" + re);
+        util.debug("get next re " + re);
         if (re) {
             emitter.emit('req', re);
         }
