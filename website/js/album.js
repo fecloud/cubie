@@ -34,7 +34,9 @@ function load_data() {
 
                 var h = "<div style=\"background-image: url(" +
                     thum + $.md5(pic.path + "_160_160") + ".jpg" +
-                    ");\" class=\"album-item\"></div>";
+                    ");\" class=\"album-item\"><a href=\"" +
+                    "/photos" + pic.path
+                    +"\" ></a></div>";
                 $('#content').append(h);
             });
         }

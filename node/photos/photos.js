@@ -209,9 +209,10 @@ function save_photos(req, res, params) {
                 renamefiles.forEach(function (name) {
                     fs.rename(files[name].path, save_dir + name);
                     util.debug(util.format_time() + "rename " + files[name].path + " to " + save_dir + name);
+                    gen_thumbnailpic(save_dir + name);
                 });
                 result.data = renamefiles;
-                auto_thumbnail(base_photos);
+
             } else {
                 result.error = "not found files!";
             }
@@ -440,12 +441,22 @@ function auto_thumbnail(path) {
 
             } else { // thumbnail file
 
-                thumbnailpic(curPath, 160, 160);
+                gen_thumbnailpic(curPath);
             }
 
         });
 
     }
+
+}
+
+/**
+ * 生成缩略160x160
+ * @param file
+ */
+function gen_thumbnailpic(file){
+
+    thumbnailpic(file, 160, 160);
 
 }
 
@@ -472,4 +483,11 @@ function sortMtime(a, b)
  * 启动自动生成缩略图
  */
 auto_thumbnail(base_photos);
+
+//10分钟生成一次
+setInterval(function (){
+
+    auto_thumbnail(base_photos);
+
+},600000);
 
