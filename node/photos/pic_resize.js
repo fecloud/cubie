@@ -103,7 +103,7 @@ function req_rezie(file, tofile, w, h, func) {
     };
     resize_queue.push(req_resize);
 
-    if (gm_work) {
+    if (!gm_work) {
         util.debug("emitter not work emit");
         emitter.emit('req', resize_queue.shift());
 
