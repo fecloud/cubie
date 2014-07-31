@@ -192,7 +192,7 @@ function save_photos(req, res, params) {
     if (!params.value) {
         result.error = 'require save path!';
     } else {
-        var save_dir = base_photos + "/" + params.value;
+        var save_dir = base_photos + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
             save_dir = save_dir + '/';
         }
@@ -208,7 +208,7 @@ function save_photos(req, res, params) {
                 var renamefiles = JSON.parse(params.files);
                 renamefiles.forEach(function (name) {
                     fs.rename(files[name].path, save_dir + name);
-                    util.debug(util.format_time() + "rename " + files[name].path + " to " + save_dir + name);
+                    util.debug("rename " + files[name].path + " to " + save_dir + name);
                     gen_thumbnailpic(save_dir + name);
                 });
                 result.data = renamefiles;
