@@ -75,6 +75,20 @@ emitter.on("req", function (pic_resize) {
 
 });
 
+function gm_next(){
+
+    util.debug("emitter work one req next");
+    var re = resize_queue.shift();
+    util.debug("get next re " + re);
+    if (re) {
+        emitter.emit('req', re);
+    }else {
+        gm_work = false;
+        util.debug("gm_work false ");
+    }
+
+}
+
 /**
  * 请求parse
  * @param file
@@ -89,18 +103,7 @@ function req_rezie(file, tofile, w, h, func) {
     req_resize.tofile = tofile;
     req_resize.w = w;
     req_resize.h = h;
-    req_resize.callbak = function () {
-
-        util.debug("emitter work one req next");
-        var re = resize_queue.shift();
-        util.debug("get next re " + re);
-        if (re) {
-            emitter.emit('req', re);
-        }else {
-            gm_work = false;
-        }
-
-    };
+    req_resize.callbak = gm_next;
     resize_queue.push(req_resize);
 
     if (!gm_work) {
