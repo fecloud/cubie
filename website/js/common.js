@@ -159,4 +159,5 @@ var fm_service = "/service/fm/";
 var baidupansync = "/service/baidupansync/";
 var status_service = "/service/status/";
 var photos_service = "/service/photos/";
-var thum = "/thum/";
+var thum = "/src/thum/";
+var photos_pic = "/src/photos/";
