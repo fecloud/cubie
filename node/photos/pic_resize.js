@@ -16,6 +16,7 @@ var util = require('../util.js');
 
 
 var resize_queue = [];
+var gm_work = false;
 /**
  * 缩略图
  * @constructor
@@ -33,6 +34,7 @@ var PicResize = function () {
 
 emitter.on("req", function (pic_resize) {
 
+    gm_work = true;
 
     try {
         if (!fs.existsSync(pic_resize.tofile)) {
@@ -79,11 +81,8 @@ emitter.on("req", function (pic_resize) {
  */
 function req_rezie(file, tofile, w, h, func) {
 
-    util.debug("gm rezie " + file + " tofile" + tofile + " req_rezie");
+    util.debug("req_rezie " + file + " tofile" + tofile + " req_rezie");
     var need_emitter = false;
-    if (resize_queue.length == 0) {
-        need_emitter = true;
-    }
 
     var req_resize = new PicResize();
     req_resize.file = file;
@@ -97,12 +96,14 @@ function req_rezie(file, tofile, w, h, func) {
         util.debug("get next re " + re);
         if (re) {
             emitter.emit('req', re);
+        }else {
+            gm_work = false;
         }
 
     };
     resize_queue.push(req_resize);
 
-    if (need_emitter) {
+    if (gm_work) {
         util.debug("emitter not work emit");
         emitter.emit('req', resize_queue.shift());
 
