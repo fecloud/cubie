@@ -30,6 +30,9 @@
             var baiduyunsync_switch = document.querySelector('.baiduyunsync-switch');
             var baiduyunsync = new Switchery(baiduyunsync_switch);
 
+            var photos_switch = document.querySelector('.photos-switch');
+            var photos = new Switchery(photos_switch);
+
 
             var status = new Switchery(document.querySelector('.status-switch'),{ disabled: true });
 
@@ -47,6 +50,8 @@
                     arduino_switch.click();
                 }if(status.baiduyunsync){
                     baiduyunsync_switch.click();
+                }if(status.photos){
+                    photos_switch.click();
                 }
 
                 $('#arch').html(status.arch);
@@ -123,6 +128,12 @@
             <div class="list-item">
                 <div class="content">百度网盘同步服务</div>
                 <div class="show-operate"><input type="checkbox" class="baiduyunsync-switch" id="baiduyunsync" /></div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">相册服务</div>
+                <div class="show-operate"><input type="checkbox" class="photos-switch" id="photos" /></div>
             </div>
         </li>
         <li>

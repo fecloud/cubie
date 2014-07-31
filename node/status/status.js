@@ -12,6 +12,7 @@ var service_status = function () {
     this.arduino = false;
     this.baiduyunsync = false;
     this.status = false;
+    this.photos = false;
     this.version;
     this.platform;
     this.uptime;
@@ -49,6 +50,10 @@ function status(req, res, params) {
 
                 if (out.indexOf('status') > 0) {
                     service_s.status = true;
+                }
+
+                if (out.indexOf('photos') > 0) {
+                    service_s.photos = true;
                 }
 
             }
