@@ -43,16 +43,18 @@ emitter.on("req", function (pic_resize) {
             gm(pic_resize.file)
                 .resize(pic_resize.w, pic_resize.h)
                 .write(pic_resize.tofile, function (err) {
+
                     if (err) {
+                        util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile + " error " + err.toString());
                         if (pic_resize.callbak)
                             pic_resize.callbak.call(pic_resize.callbak, false);
 
-                        util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile + " error " + err.toString());
                     } else {
+                        util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile + " success");
+
                         if (pic_resize.callbak)
                             pic_resize.callbak.call(pic_resize.callbak, true);
 
-                        util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile + " success");
                     }
                 });
         } else {
@@ -75,14 +77,14 @@ emitter.on("req", function (pic_resize) {
 
 });
 
-function gm_next(){
+function gm_next() {
 
     util.debug("emitter work one req next");
     var re = resize_queue.shift();
     util.debug("get next re " + re);
     if (re) {
         emitter.emit('req', re);
-    }else {
+    } else {
         gm_work = false;
         util.debug("gm_work false ");
     }
