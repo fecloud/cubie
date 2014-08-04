@@ -122,8 +122,8 @@ function is_pic(file) {
 
     if (file) {
 
-        var last = name.lastIndexOf('.');
-        var fix = name.substring(last + 1);
+        var last = file.lastIndexOf('.');
+        var fix = file.substring(last + 1);
         fix = fix.toLowerCase();
         if (fix == 'jpg' || fix == 'png' || fix == 'bmp' || fix == 'jpeg') {
             return true;
