@@ -28,7 +28,7 @@ Date.prototype.format = function (format) {
         (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o)if (new RegExp("(" + k + ")").test(format))
         format = format.replace(RegExp.$1,
-            RegExp.$1.length == 1 ? o[k] :
+                RegExp.$1.length == 1 ? o[k] :
                 ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 };
@@ -64,7 +64,7 @@ exports.result_client = resultClient;
  * @param error
  */
 function https_get(url, sucess, error) {
-    https.get(url,function (res) {
+    https.get(url, function (res) {
         debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
 //       util.debug("headers: ", res.headers);
 
@@ -75,11 +75,11 @@ function https_get(url, sucess, error) {
         });
 
     }).on('error', function (e) {
-            if (error != undefined) {
-                error.call(error, e);
-            }
-            error(e);
-        });
+        if (error != undefined) {
+            error.call(error, e);
+        }
+        error(e);
+    });
 
 }
 
@@ -92,7 +92,7 @@ exports.https_get = https_get;
  * @param error
  */
 function http_get(url, sucess, error) {
-    http.get(url,function (res) {
+    http.get(url, function (res) {
         debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
         debug("headers: ", res.headers);
 
@@ -103,15 +103,38 @@ function http_get(url, sucess, error) {
         });
 
     }).on('error', function (e) {
-            if (error != undefined) {
-                error.call(error, e);
-            }
-            error(e);
-        });
+        if (error != undefined) {
+            error.call(error, e);
+        }
+        error(e);
+    });
 
 }
 
 exports.http_get = http_get;
+
+/**
+ * 根据后缀判断是否是图片
+ * @param file
+ * @returns {boolean}
+ */
+function is_pic(file) {
+
+    if (file) {
+
+        var last = name.lastIndexOf('.');
+        var fix = name.substring(last + 1);
+        fix = fix.toLowerCase();
+        if (fix == 'jpg' || fix == 'png' || fix == 'bmp' || fix == 'jpeg') {
+            return true;
+        }
+    }
+
+    return false;
+
+}
+
+exports.is_pic = is_pic;
 
 function trace(message) {
 

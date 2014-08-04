@@ -262,7 +262,7 @@ function get_max_date(dir, base) {
             // 查看文件状态
             var st = fs.statSync(dir + "/" + name);
             var f = new File();
-            if (st.isFile() && name.indexOf('.') != 0) {
+            if (st.isFile() && name.indexOf('.') != 0 && util.is_pic(name)) {
                 f.isFile = true;
                 f.name = name;
                 f.size = st.size;
@@ -454,7 +454,7 @@ function auto_thumbnail(path) {
  * 生成缩略160x160
  * @param file
  */
-function gen_thumbnailpic(file){
+function gen_thumbnailpic(file) {
 
     thumbnailpic(file, 160, 160);
 
@@ -467,15 +467,14 @@ function thumbnailpic(file, w, h, func) {
 //    util.debug("rel_file:" + rel_file);
     var rel_md5 = node_util.format("%s_%s_%s", rel_file, w, h);
 //    util.debug("rel_md5:" + rel_md5);
-    md5.update(rel_md5,"utf-8");
+    md5.update(rel_md5, "utf-8");
     var tofile = img_cache + "/" + md5.digest('hex') + ".jpg";
     pic_rezie.req_rezie(file, tofile, w, h);
 
 }
 
 
-function sortMtime(a, b)
-{
+function sortMtime(a, b) {
     return a.mtime - b.mtime
 }
 
@@ -485,9 +484,9 @@ function sortMtime(a, b)
 auto_thumbnail(base_photos);
 
 //10分钟生成一次
-setInterval(function (){
+setInterval(function () {
 
     auto_thumbnail(base_photos);
 
-},600000);
+}, 600000);
 
