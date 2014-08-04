@@ -17,6 +17,8 @@
 
         $(document).ready(function () {
 
+            back_bind();
+
             $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=list_photos&value=/', success: function (data) {
 
                 if (data && data.data) {
