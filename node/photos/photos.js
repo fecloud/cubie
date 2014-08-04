@@ -49,7 +49,7 @@ function list_dir_files(dir, base, con_dir, con_file) {
                 // 查看文件状态
                 var st = fs.statSync(dir + "/" + name);
                 var f = new File();
-                if (st.isFile() && name.indexOf('.') != 0) {
+                if (st.isFile() && name.indexOf('.') != 0 && util.is_pic(name)) {
                     f.isFile = true;
                     f.name = name;
                     f.size = st.size;
