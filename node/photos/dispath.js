@@ -25,7 +25,8 @@ route.delete_phots = function (req, res, params) {
 
 route.new_photos = function (req, res, params) {
 
-    fm.new_dir(req, res, params);
+    photos.new_photos(req,res,params);
+
 };
 
 route.save_photos = function (req, res, params) {

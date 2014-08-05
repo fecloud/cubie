@@ -79,14 +79,17 @@ emitter.on("req", function (pic_resize) {
 
 function gm_next() {
 
-    util.debug("emitter work one req next");
-    var re = resize_queue.shift();
-    util.debug("get next re " + re);
-    if (re) {
-        emitter.emit('req', re);
-    } else {
-        gm_work = false;
-        util.debug("gm_work false ");
+    //最大三个任务
+    for (var i = 0; i < 3; i++) {
+        util.debug("emitter work one req next");
+        var re = resize_queue.shift();
+//    util.debug("get next re " + re);
+        if (re) {
+            emitter.emit('req', re);
+        } else {
+            gm_work = false;
+            util.debug("gm_work false ");
+        }
     }
 
 }

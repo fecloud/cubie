@@ -6,7 +6,7 @@ var sqlite3 = require('sqlite3').verbose();
 
 var util = require('../util.js');
 
-var db = new sqlite3.Database('/data/app/data/baidupansync.db');
+var db = new sqlite3.Database('baidupansync.db');
 
 var util = require('../util.js');
 

@@ -237,14 +237,15 @@ function new_photos(req, res, params) {
     var result = new common.web_result();
     result.action = "new_photos";
     var path = base_photos + params.value;
-    result.data = fs.mkdir(path, function () {
-        util.debug(util.format_time() + 'new photos:' + path);
+    fs.mkdir(path, function () {
+        result.data = path;
+        util.debug('new photos:' + path);
         util.result_client(req, res, result);
     });
 
 }
 
-exports.new_dir = new_photos;
+exports.new_photos = new_photos;
 
 /**
  * 取得相册最后上传的一张图片

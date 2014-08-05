@@ -19,14 +19,49 @@
 
             back_bind();
 
+            load_data();
+
+
+            $('#add_photos').bind('click', function () {
+
+                if (agent() == 'pc') {
+
+                } else {
+                    var name = prompt("请输入相册名", "")
+                    if (name != null && name != "") {
+                        add_photos(name);
+                    }
+                }
+            });
+
+        });
+
+        /**
+         * 添加相册
+         * @param name
+         */
+        function add_photos(name) {
+            $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=new_photos&value=/' + name, success: function (data) {
+
+                if (data && data.data) {
+                    $('#content').html("");
+                    load_data();
+                }
+
+
+            }});
+        }
+
+        function load_data() {
+
             $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=list_photos&value=/', success: function (data) {
 
                 if (data && data.data) {
                     data.data.forEach(function (album) {
 
-                        var h = "<div><a class=\"photos\" href=\"album.html?path="+ album.path +"&name="+ album.name +"\"><div style=\"background-image: url(";
+                        var h = "<div><a class=\"photos\" href=\"album.html?path=" + album.path + "&name=" + album.name + "\"><div style=\"background-image: url(";
                         if (album.first) {
-                            h += thum + $.md5(album.first.path+ "_160_160") + ".jpg" ;
+                            h += thum + $.md5(album.first.path + "_160_160") + ".jpg";
                         } else {
                             h += "/img/empty_photos.png";
                         }
@@ -38,7 +73,7 @@
 
             }});
 
-        });
+        }
 
     </script>
 
@@ -55,10 +90,7 @@
         <div class="btn back_btn">返回</div>
         <h1>我的相册</h1>
 
-        <div class="btn upload_btn" style="float: right ;overflow: hidden;">
-
-
-        </div>
+        <div class="btn" id="add_photos">添加</div>
 
         <!--</a>-->
     </div>

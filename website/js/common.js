@@ -155,6 +155,26 @@ function roundFun(numberRound, roundDigit) {
     }
 }
 
+/**
+ * 取得客户端的agent
+ * @returns {string}
+ */
+function agent() {
+
+    var user_agent = window.navigator.userAgent;
+
+    if (user_agent.indexOf('iPhone') > 1) {
+        return "iPhone";
+    } else if (user_agent.indexOf('iPad') > 1) {
+        return 'iPad';
+    } else if (user_agent.indexOf('Android') > 1) {
+        return 'Android';
+    } else {
+        return "pc"
+    }
+
+}
+
 var fm_service = "/service/fm/";
 var baidupansync = "/service/baidupansync/";
 var status_service = "/service/status/";
