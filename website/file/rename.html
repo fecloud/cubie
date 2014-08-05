@@ -33,26 +33,34 @@
                 $('#icon').addClass(getFileTypeCss(filename));
             }
 
-            $('.upload_btn').bind('click', function (b) {
+            $('.upload_btn').bind('click', rename());
 
-                var folder_name = $('#search_input').val();
+            $('#search_input').bind('keypress', function (event) {
 
-                if (folder_name == '') {
-                    alert("请输入文件夹名!");
-                } else {
-                    $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=rename&value=' + current_path + '&target=' + getParentDir(current_path) + '/' + folder_name,
-                        success: function (data) {
-                            window.location.replace('/file?path=' + getParentDir(current_path));
-                        }
-                    });
-
+                if (event.keyCode == "13") {
+                    rename();
                 }
-
             });
 
 
         });
 
+        function rename() {
+
+            var folder_name = $('#search_input').val();
+
+            if (folder_name == '') {
+                alert("请输入文件夹名!");
+            } else {
+                $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=rename&value=' + current_path + '&target=' + getParentDir(current_path) + '/' + folder_name,
+                    success: function (data) {
+                        window.location.replace('/file?path=' + getParentDir(current_path));
+                    }
+                });
+
+            }
+
+        }
 
     </script>
 

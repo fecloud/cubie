@@ -25,24 +25,33 @@
 
             back_bind();
 
-            $('.upload_btn').bind('click', function (b) {
-
-                var folder_name = $('#search_input').val();
-
-                if (folder_name == '') {
-                    alert("请输入文件夹名!");
-                } else {
-                    $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=newfolder&value=' + current_path + folder_name,
-                        success: function (data) {
-                            window.location.replace('/file?path=' + current_path);
-                        }
-                    });
+            $('#search_input').bind('keypress', function (event) {
+                if (event.keyCode == "13") {
+                    add_folder();
                 }
-
             });
+
+            $('.upload_btn').bind('click', add_folder);
 
 
         });
+
+        function add_folder() {
+
+            var folder_name = $('#search_input').val();
+
+            if (folder_name == '') {
+                alert("请输入文件夹名!");
+            } else {
+                $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=newfolder&value=' + current_path + folder_name,
+                    success: function (data) {
+                        window.location.replace('/file?path=' + current_path);
+                    }
+                });
+            }
+
+        }
+
     </script>
 
 </head>

@@ -87,6 +87,13 @@ body {
     background-color: #F7F7F7;
 }
 
+.album-item-pc {
+    width: 175.6px;
+    height:175px;
+    margin-left: 5px;
+    background-size: 176px 176px;
+}
+
 .album-item a {
     display: block;
     width: 100%;

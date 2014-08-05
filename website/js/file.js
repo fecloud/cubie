@@ -20,7 +20,7 @@ $(document).ready(function () {
     }, function () {
         $('#loading').css({display: 'none'});
         $(window).scroll(function () {
-            if ($(window).height() + $(window).scrollTop() >= $(document.body).height()-5) {
+            if ($(window).height() + $(window).scrollTop() >= $(document.body).height() - 5) {
                 //滚动到最底部了
                 if (!loading && more) {
                     load_data(function () {
@@ -47,27 +47,36 @@ $(document).ready(function () {
         window.location.replace('/file');
     });
 
-    $('#search_btn').bind('click', function () {
-        var query = $('#search_input').val();
-        if (query != '') {
-            $('#loading').css({display: 'block'});
-            $(window).scroll(function(){
-                //console.log('search');
-            });
-            $('#content').html('');
-            $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=search&value=' + current_path + '&query=' + query,
-                success: function (data) {
-                    if (data.error == '') {
-                        load_list(data);
-                    }
-                    $('#loading').css({display: 'none'});
-                }
-            });
+    $('#search_btn').bind('click', search);
+
+    $('#search_input').bind('keypress', function (event) {
+        if (event.keyCode == "13") {
+            search();
         }
     });
 
 
 });
+
+
+function search() {
+    var query = $('#search_input').val();
+    if (query != '') {
+        $('#loading').css({display: 'block'});
+        $(window).scroll(function () {
+            //console.log('search');
+        });
+        $('#content').html('');
+        $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=search&value=' + current_path + '&query=' + query,
+            success: function (data) {
+                if (data.error == '') {
+                    load_list(data);
+                }
+                $('#loading').css({display: 'none'});
+            }
+        });
+    }
+}
 
 /**
  * 当是pc时加上multiple='multiple'
@@ -171,7 +180,7 @@ function iremove(b) {
         success: function (data) {
             load_data(function () {
                 $('#loading').css({display: 'block'});
-                page_num =count
+                page_num = count
                 count = 0;
                 $('#content').html('');
             }, function () {

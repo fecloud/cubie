@@ -440,8 +440,8 @@ function auto_thumbnail(path) {
                 auto_thumbnail(curPath);
 
             } else { // thumbnail file
-
-                gen_thumbnailpic(curPath);
+                if (util.is_pic(curPath))
+                    gen_thumbnailpic(curPath);
             }
 
         });

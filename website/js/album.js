@@ -34,15 +34,32 @@ function load_data() {
 
                 var h = "<div style=\"background-image: url(" +
                     thum + $.md5(pic.path + "_160_160") + ".jpg" +
-                    ");\" class=\"album-item\"><a href=\"" +
+                    ");\" class=\"album-item " +
+                    add_class() +
+                    "\" ><a href=\"" +
                     photos_pic + pic.path
-                    +"\" ></a></div>";
+                    + "\" ></a></div>";
                 $('#content').append(h);
             });
         }
 
 
     }});
+
+    function add_class() {
+
+        var user_agent = window.navigator.userAgent;
+
+        if (user_agent.indexOf('iPhone') > -1 || user_agent.indexOf('Android') > 1) {
+
+        } else if (user_agent.indexOf('iPad') > -1) {
+
+        } else {
+            //pc
+            return "album-item-pc";
+        }
+
+    }
 }
 
 function fileSelected(b) {
@@ -137,7 +154,7 @@ function uploadComplete(evt) {
 
         $('#content').html("");
         load_data();
-        
+
     }, 3000);
 //            alert(evt.target.responseText);
 
