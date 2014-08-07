@@ -204,8 +204,8 @@ function save_photos(req, res, params) {
         form.parse(req, function (err, fields, files) {
 
             // util.debug(files);
-            if (params.files) {
-                var renamefiles = JSON.parse(params.files);
+            if (fields.file_list) {
+                var renamefiles = JSON.parse(fields.file_list);
                 renamefiles.forEach(function (name) {
                     fs.rename(files[name].path, save_dir + name);
                     util.debug("rename " + files[name].path + " to " + save_dir + name);

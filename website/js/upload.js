@@ -55,6 +55,7 @@ function uploadFile() {
         fd.append(filename, file);
         files.push(filename);
     }
+    fd.append('file_list',JSON.stringify(files));
 
     $('#details').html('上传列表:' + JSON.stringify(files));
     var xhr = new XMLHttpRequest();
@@ -67,7 +68,7 @@ function uploadFile() {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", fm_service + Math.random() * 100000 + ".php?action=upload&value=" + current_path + "&files=" + JSON.stringify(files));
+    xhr.open("POST", fm_service + Math.random() * 100000 + ".php?action=upload&value=" + current_path);
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }

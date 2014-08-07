@@ -189,10 +189,10 @@ function save_file(req, res, params) {
         form.uploadDir = save_dir;
 
         form.parse(req, function (err, fields, files) {
-
-            // util.debug(files);
-            if (params.files) {
-                var renamefiles = JSON.parse(params.files);
+//            util.debug(fields);
+//            util.debug(files);
+            if (fields.file_list) {
+                var renamefiles = JSON.parse(fields.file_list);
                 renamefiles.forEach(function (name) {
                     fs.rename(files[name].path, save_dir + name);
                     util.debug(util.format_time() + "rename " + files[name].path + " to " + save_dir + name);
