@@ -86,12 +86,14 @@ function uptime(req, res, params) {
             if (out && out != '') {
                 var arr = out.match(/\d+\.+\d+/g);
                 util.debug(arr);
+                var obj = new Object();
                 if (arr != null) {
-                    result.data.load = arr.join(" ");
+                    obj.load = arr.join(" ");
                 }
                 var server_time = out.match(/\d{2}:\d{2}:\d{2}/g);
                 util.debug(server_time);
-                result.data.server_time = server_time;
+                obj.server_time = server_time;
+                result.data = obj;
             }
             util.result_client(req, res, result);
 
