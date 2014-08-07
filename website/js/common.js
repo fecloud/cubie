@@ -107,7 +107,7 @@ function mToH(maxtime) {
         str += days + "天";
     }
     if (hours > 0) {
-        str += hours + "时";
+        str += hours + "小时";
     }
 
     if (minutes > 0) {
