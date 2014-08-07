@@ -87,8 +87,11 @@ function uptime(req, res, params) {
                 var arr = out.match(/\d+\.+\d+/g);
                 util.debug(arr);
                 if (arr != null) {
-                    result.data = arr.join(" ");
+                    result.data.load = arr.join(" ");
                 }
+                var server_time = out.match(/\d{2}:\d{2}:\d{2}/g);
+                util.debug(server_time);
+                result.data.server_time = server_time;
             }
             util.result_client(req, res, result);
 

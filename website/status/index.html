@@ -64,10 +64,16 @@
 
             $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=uptime&value=/', success: function (data) {
 
-                if(data.data){
-                    $('#load').html(data.data);
+                if(data.data.load){
+                    $('#load').html(data.data.load);
                 }else {
                     $('#load').html('暂无');
+                }
+
+                if(data.data.server_time){
+                    $('#server_time').html(data.data.server_time);
+                }else {
+                    $('#server_time').html('暂无');
                 }
 
 
@@ -175,7 +181,13 @@
         <li>
             <div class="list-item">
                 <div class="content">软件运行时间</div>
-                <div class="show-operate text_right" id="uptime">...</div>
+                <div class="show-operate text_right" id="load">...</div>
+            </div>
+        </li>
+        <li>
+            <div class="list-item">
+                <div class="content">服务器时间</div>
+                <div class="show-operate text_right" id="server_time">...</div>
             </div>
         </li>
         <li>
