@@ -166,7 +166,7 @@ function idown(b) {
 
     b.preventDefault();
     b.stopPropagation();
-    $(b.target).closest('a').toggleClass(function () {
+    $(b.target).closest('li').toggleClass(function () {
         return 'list-item-show';
     });
     console.log("idown");

@@ -32,7 +32,7 @@
 
             <form id="form1" enctype="multipart/form-data" method="post"
                   action="uploa.php?action=upload&value=/">
-                <input type="file" name="upload" class="upload" id="upload" />
+                <input type="file" name="upload" class="upload" id="upload"/>
                 <span class="u_span">上传</span>
             </form>
         </div>
@@ -54,7 +54,9 @@
                    style="display: block;width: 100%;height: 22px;border: 0px;margin: 0px;padding: 0px;font-size: 14px"/>
         </div>
         <div style="text-align: center;" id="search_btn">
-            <div id="search_btn" class="btn" style="position: relative;top: 6px;left: -3px;font-weight: bold;text-align: right;">搜索</div>
+            <div id="search_btn" class="btn"
+                 style="position: relative;top: 6px;left: -3px;font-weight: bold;text-align: right;">搜索
+            </div>
         </div>
     </div>
     <div id="li_progress" class="list-item tools_bar" style="display: none">
@@ -66,11 +68,24 @@
     </div>
 
     <ul id="content" class="list">
+        <li class="list-item">
+            <a href="index.html?path=/f/" class="file-desc">
+                <i class="file-icon folder"></i>
+                <div class="content">
+                    <h3> f</h3><div class="list-content">2014-08-04 20:54:09</div>
+                </div>
+                <div class="show-operate"><i class="idown"></i></div>
+            </a>
 
+            <div class="file-operate" src="/f" file="false" name="f">
+                <div class="file-rename"><i class="iedit"></i>重命名</div>
+                <div class="file-delete" data-ac="active"><i class="iremove"></i>删除</div>
+            </div>
+        </li>
 
     </ul>
 
-    <div class="list-item tools_bar" style="border-top: none;display: none" id="bottom_loading" >
+    <div class="list-item tools_bar" style="border-top: none;display: none" id="bottom_loading">
         <div style="text-align: center;margin: auto;line-height: 44px">
             <img src="../img/loading.gif" style="vertical-align:middle;margin-top: -4px">&nbsp;正在加载中...
         </div>
