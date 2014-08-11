@@ -125,7 +125,7 @@ function load_list(data) {
         count += arr.length;
         for (var i = 0, len = arr.length; i < len; i++) {
             var file = arr[i];
-            var item = '<li class="list-item"><a href="index.html?path={0}" class="file-desc clean_right"><i class="file-icon {1}"></i><div class="content"><h3>{2}</h3><div class="list-content">{3}<span>{4}</span></div></div><div class="show-operate"><i class="idown"></i></div></a><div class="file-operate" src="{5}" file="{6}" name="{7}"><div class="file-rename"><i class="iedit"></i>重命名</div><div class="file-delete" ><i class="iremove"></i>删除</div></div></li>';
+            var item = '<li class="list-item"><a href="index.html?path={0}" class="box file-desc clean_right"><i class="file-icon {1}"></i><div class="box1 content"><h3>{2}</h3><div class="list-content">{3}<span>{4}</span></div></div><div class="show-operate"><i class="idown"></i></div></a><div class="box file-operate" src="{5}" file="{6}" name="{7}"><div class="box1 file-rename"><i class="iedit"></i>重命名</div><div class="box1 file-delete" ><i class="iremove"></i>删除</div></div></li>';
             ;
             if (file.isDir) {
                 item = item.format(file.path, "folder", file.name, new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss"), "", file.path, file.isFile, file.name);
@@ -153,14 +153,20 @@ function newfolder() {
     window.location = '/file/add_folder.html?path=' + current_path;
 }
 
+var idown_pre ;
 function idown(b) {
     // console.log(b.target).closest(".content");
-
+    if(idown_pre && idown_pre != b){
+        $(idown_pre.target).closest('li').toggleClass(function () {
+            return 'list-item-show';
+        });
+    }
     b.preventDefault();
     b.stopPropagation();
     $(b.target).closest('li').toggleClass(function () {
         return 'list-item-show';
     });
+    idown_pre = b;
     console.log("idown");
 }
 
