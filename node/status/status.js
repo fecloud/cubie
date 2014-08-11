@@ -90,9 +90,9 @@ function uptime(req, res, params) {
                 if (arr != null) {
                     obj.load = arr.join(" ");
                 }
-                var server_time = out.match(/\d{2}:\d{2}:\d{2}/g);
-                util.debug(server_time);
-                obj.server_time = server_time[0];
+//                var server_time = out.match(/\d{2}:\d{2}:\d{2}/g);
+//                util.debug(server_time);
+//                obj.server_time = server_time[0];
                 result.data = obj;
             }
             util.result_client(req, res, result);

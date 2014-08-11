@@ -153,21 +153,21 @@ function newfolder() {
     window.location = '/file/add_folder.html?path=' + current_path;
 }
 
-var idown_pre ;
+//var idown_pre ;
 function idown(b) {
     // console.log(b.target).closest(".content");
-    if(idown_pre && idown_pre != b){
-        $(idown_pre.target).closest('li').toggleClass(function () {
-            return 'list-item-show';
-        });
-    }
+//    if(idown_pre && idown_pre != b){
+//        $(idown_pre.target).closest('li').toggleClass(function () {
+//            return 'list-item-show';
+//        });
+//    }
     b.preventDefault();
     b.stopPropagation();
     $(b.target).closest('li').toggleClass(function () {
         return 'list-item-show';
     });
-    idown_pre = b;
-    console.log("idown");
+//    idown_pre = b;
+//    console.log("idown");
 }
 
 function iremove(b) {

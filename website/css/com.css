@@ -176,7 +176,7 @@ a {
 }
 
 
-.box{
+.box , .nobox{
     height: 44px;
     display: -moz-box;
     display: -webkit-box;

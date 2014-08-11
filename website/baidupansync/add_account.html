@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="../css/com.css"/>
     <link rel="stylesheet" href="../css/status.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="../js/common.js"></script>
+    <script type="text/javascript" src="../js/com.js"></script>
     <style type="text/css">
 
         .list-item-input {
@@ -28,6 +28,8 @@
             cursor: pointer;
             color: red;
         }
+
+
 
     </style>
     <script type="text/javascript">
@@ -136,15 +138,12 @@
 
     <ul id="content" class="list group">
 
-        <li></li>
-
-
-        <li><a id="authorization"
-               href="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=riDL6RfoGHR7j1SrHtZmEqsj&redirect_uri=oob&&scope=basic%20netdisk&display=mobile"
-               target="_blank">
-            <div class="list-item waring">
+        <li class="list-item"><a id="authorization"
+                                 href="https://openapi.baidu.com/oauth/2.0/authorize?response_type=code&client_id=riDL6RfoGHR7j1SrHtZmEqsj&redirect_uri=oob&&scope=basic%20netdisk&display=mobile"
+                                 target="_blank">
+            <div class="nobox waring">
                 <div class="content">授权</div>
-                <div class="show-operate waring">
+                <div class="box1 content text_right">
                     点击登录百度帐号
                 </div>
             </div>
@@ -157,14 +156,10 @@
 
     <ul id="content" class="list group">
 
-        <li></li>
-
-
-        <li>
-            <div class="list-item">
-
-                <div class="content waring">授权码</div>
-                <div class="show-operate">
+        <li class="list-item">
+            <div class="nobox waring">
+                <div class="content " style="margin-right: 19px">授权码</div>
+                <div class="box1 content text_right">
                     <input id="code" placeholder="百度授权码" type="text" class="list-item-input waring"/>
                 </div>
 
