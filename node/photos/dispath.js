@@ -5,7 +5,7 @@
  * Time: 22:37
  * To change this template use File | Settings | File Templates.
  */
-var common = require('./../common.js');
+var com = require('../com.js');
 var util = require('../util.js');
 var photos = require('./photos.js');
 
@@ -54,7 +54,7 @@ route.get_album_pics = function(req, res, params){
 
 route.default = function (req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.error = 'action not found!';
     util.error(util.format_time() + "action not found!");
     util.result_client(req, res, result);

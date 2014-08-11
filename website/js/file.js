@@ -125,20 +125,12 @@ function load_list(data) {
         count += arr.length;
         for (var i = 0, len = arr.length; i < len; i++) {
             var file = arr[i];
-            var item;
+            var item = '<li class="list-item"><a href="index.html?path={0}" class="file-desc clean_right"><i class="file-icon {1}"></i><div class="content"><h3>{2}</h3><div class="list-content">{3}<span>{4}</span></div></div><div class="show-operate"><i class="idown"></i></div></a><div class="file-operate" src="{5}" file="{6}" name="{7}"><div class="file-rename"><i class="iedit"></i>重命名</div><div class="file-delete" ><i class="iremove"></i>删除</div></div></li>';
+            ;
             if (file.isDir) {
-                item = "<li ><a href=\"index.html?path=" + file.path
-                    + "/\" class=\"list-item\"><i class=\"file-icon folder\"></i><div class=\"content\"><h3> " + file.name
-                    + "</h3><div class=\"list-content\">" + new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss")
-                    + "</div><div class=\"file-operate\" src=\"" + file.path + "\" file=\"" + file.isFile + "\" name=\"" + file.name
-                    + "\"><div class=\"file-rename\" ><i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
+                item = item.format(file.path, "folder", file.name, new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss"), "", file.path, file.isFile, file.name);
             } else {
-                item = "<li ><a href=\"../src" + file.path
-                    + "\" class=\"list-item\"><i class=\"file-icon " + getFileTypeCss(file.name) + "\"></i><div class=\"content\"><h3> " + file.name
-                    + "</h3><div class=\"list-content\">" + new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss")
-                    + "<span>" + renderSize(file.size)
-                    + "</span></div><div class=\"file-operate\" src=\"" + file.path + "\" file=\"" + file.isFile + "\" name=\"" + file.name
-                    + "\"><div class=\"file-rename\" ><i class=\"iedit\"></i>重命名</div><div class=\"file-delete\" data-ac=\"active\"><i class=\"iremove\"></i>删除</div></div></div><div class=\"show-operate\"><i class=\"idown\"></i></div></a></li>";
+                item = item.format(file.path, getFileTypeCss(file.name), file.name, new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss"), renderSize(file.size), file.path, file.isFile, file.name);
             }
             $('#content').append(item);
 

@@ -8,8 +8,8 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('/data/app/data/arduino.db');
 
-var common = require('./../common.js');
-var util = require('./../util.js');
+var com = require('../com.js');
+var util = require('../util.js');
 
 var table_name = "temperature";
 
@@ -30,7 +30,7 @@ process.on('exit', function (code) {
 */
 function save_temperature(parsms) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "save_temperature";
 
     insert(parsms.value)
@@ -42,7 +42,7 @@ exports.save_temperature = save_temperature;
 
 function list_temperature(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "list_temperature";
 
     var limt = params.value;

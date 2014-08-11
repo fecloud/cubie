@@ -10,7 +10,7 @@ var events = require('events');
 
 
 var util = require('../util.js');
-var common = require('../common.js');
+var com = require('../com.js');
 var syncdb = require('./syncdb.js');
 
 //var Const = (function () {
@@ -67,7 +67,7 @@ sync_record.on('dir', function (pcsfile) {
  */
 function list_user(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'list_user';
     syncdb.get_user("", function (rows) {
         result.data = rows;
@@ -83,7 +83,7 @@ exports.list_user = list_user;
  */
 function view_user(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'view_user';
     syncdb.get_user(params.value, function (rows) {
         if (rows instanceof Array && rows.length > 0) {
@@ -104,7 +104,7 @@ exports.view_user = view_user;
  */
 function view_quota(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'view_quota';
     syncdb.get_user(params.value, function (rows) {
         if (rows instanceof Array && rows.length > 0) {
@@ -145,7 +145,7 @@ function get_authorization_url(req, res, params) {
 
     var str = node_util.format("%s?response_type=code&client_id=%s&redirect_uri=oob&&scope=basic%20netdisk", OAUTH_URL, APP_KEY);
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'get_authorization_url';
     result.data = str;
     util.result_client(req, res, result);
@@ -162,7 +162,7 @@ exports.get_authorization_url = get_authorization_url;
  */
 function get_user_access_token(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'get_user_access_token';
 
     var url = node_util.format("%s?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=oob", TOKEN_URL, params.value, APP_KEY, SECRET_KEY);
@@ -187,7 +187,7 @@ exports.get_user_access_token = get_user_access_token;
  */
 function add_user(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'add_user';
 
     var baiduvalidate = JSON.parse(params.value);//token
@@ -231,7 +231,7 @@ exports.add_user = add_user;
  */
 function del_user(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'del_user';
     syncdb.del_user(params.value, function (rows) {
 

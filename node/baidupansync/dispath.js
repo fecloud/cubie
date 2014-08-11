@@ -5,8 +5,8 @@
  * Time: 22:37
  * To change this template use File | Settings | File Templates.
  */
-var common = require('./../common.js');
-var util = require('./../util.js');
+var com = require('../com.js');
+var util = require('../util.js');
 var sync = require('./sync.js');
 
 var route = {};
@@ -58,7 +58,7 @@ route.del_user = function (req, res, params) {
 
 route.default = function (req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.error = 'action not found!';
     util.error("action not found!");
     util.result_client(req, res, result);

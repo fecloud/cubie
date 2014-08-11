@@ -11,13 +11,6 @@
     margin-top: 2px;
 }
 
-.tools_bar {
-    /*border: solid 1px #DFDFDF;*/
-	border-bottom: solid 1px #c8c7cc;
-    position: relative;
-    overflow: hidden;
-    height: 44px;
-}
 
 .input_bar {
     margin-left: 10px;
@@ -44,4 +37,16 @@
     display: -webkit-box;
     display: box;
     background-color: #FFFFFF;
+}
+
+.clean_right{
+    padding-right: 0px;
+}
+
+.show-operate {
+    width: 30px;
+    text-align:left;
+}
+.idown {
+    margin-left: 5px;
 }

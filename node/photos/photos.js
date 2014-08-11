@@ -12,11 +12,11 @@ var node_util = require('util');
 
 var gm = require('gm');
 
-var common = require('./../common.js');
-var util = require('./../util.js');
+var com = require('../com.js');
+var util = require('../util.js');
 var pic_rezie = require('./pic_resize.js');
 
-var File = common.file;
+var File = com.file;
 
 var base_photos = process.argv[3];
 var img_cache = process.argv[4];
@@ -69,7 +69,7 @@ function list_dir_files(dir, base, con_dir, con_file) {
 
 
 function list_photos(params) {
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "list_photos";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
@@ -132,7 +132,7 @@ exports.list_photos = list_photos;
  * 返回当前目录的子目录以及文件
  */
 function list_dir(params) {
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "list";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
@@ -187,7 +187,7 @@ exports.list_dir = list_dir;
  * @returns {Result}
  */
 function save_photos(req, res, params) {
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "save_photos";
     if (!params.value) {
         result.error = 'require save path!';
@@ -234,7 +234,7 @@ exports.save_photos = save_photos;
  */
 function new_photos(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "new_photos";
     var path = base_photos + params.value;
     fs.mkdir(path, function () {
@@ -367,7 +367,7 @@ exports.get_pic_albume = get_pic_albume;
  */
 function get_album_pics(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "get_album_pics";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上

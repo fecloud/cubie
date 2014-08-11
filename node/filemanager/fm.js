@@ -4,9 +4,9 @@
 var fs = require("fs");
 var formidable = require("formidable");
 
-var common = require('./../common.js');
-var util = require('./../util.js');
-var File = common.file;
+var com = require('../com.js');
+var util = require('../util.js');
+var File = com.file;
 
 var webroot = process.argv[3];
 
@@ -57,7 +57,7 @@ function list_dir_files(dir, base) {
  * 返回当前目录的子目录以及文件
  */
 function list_dir(params) {
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "list";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
@@ -143,7 +143,7 @@ function delete_folder(path) {
  * 删除文件
  */
 function delete_file(params) {
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "delete";
 
     var path = webroot + params.value;
@@ -174,7 +174,7 @@ exports.delete_file = delete_file;
  * @returns {Result}
  */
 function save_file(req, res, params) {
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "upload";
     if (!params.value) {
         result.error = 'require save path!';
@@ -218,7 +218,7 @@ exports.save_file = save_file;
  */
 function new_dir(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = "newfolder";
     var path = webroot + params.value;
     result.data = fs.mkdir(path, function () {
@@ -239,7 +239,7 @@ exports.new_dir = new_dir;
  */
 function rename(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'rename';
     var path = webroot + params.value;
     var target = webroot + params.target;
@@ -268,7 +268,7 @@ exports.rename = rename;
  */
 function search_dir(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'search_dir';
     if (params.query != undefined) {
         var file_list = list_dir(params);

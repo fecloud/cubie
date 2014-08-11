@@ -3,8 +3,8 @@ var exec = require('child_process').exec,
     child;
 
 
-var common = require('./../common.js');
-var util = require('./../util.js');
+var com = require('../com.js');
+var util = require('../util.js');
 
 var service_status = function () {
 
@@ -26,7 +26,7 @@ var service_status = function () {
  */
 function status(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'status';
     var service_s = new service_status();
 
@@ -77,7 +77,7 @@ exports.status = status;
  */
 function uptime(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'uptime';
 
     child = exec("uptime",
@@ -112,7 +112,7 @@ exports.uptime = uptime;
  */
 function df(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'df';
 
     child = exec("df -h |grep " + params.value + " | head -n 1",
@@ -147,7 +147,7 @@ exports.df = df;
  */
 function start_service(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'start_service';
 
     child = exec("service httpd start " + params.value,
@@ -176,7 +176,7 @@ exports.start_service = start_service;
  */
 function stop_service(req, res, params) {
 
-    var result = new common.web_result();
+    var result = new com.web_result();
     result.action = 'stop_service';
 
     child = exec("service httpd stop " + params.value,

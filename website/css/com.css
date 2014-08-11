@@ -22,15 +22,6 @@ i {
     display: inline-block;
 }
 
-li {
-    display: list-item;
-    text-align: -webkit-match-parent;
-}
-
-  /*overflow-y:scroll;*/
-
-
-
 
 a {
     text-decoration: none;
@@ -159,16 +150,20 @@ a {
     background-position: -5px -4px;
 }
 
-/*.list, #progress_container {*/
-/*border-bottom: solid 1px #FFF;*/
-/*}*/
+
+.list-item {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    color: #000000;
+    background-color: #FFFFFF;
+    border-bottom: solid 1px #c8c7cc;
+}
+
 
 .list-item, #progress_container {
-    border-bottom: solid 1px #c8c7cc;
-    /*border-top: solid 1px #FFF;*/
     position: relative;
     overflow: hidden;
-    /*height: 44px;*/
+    height: 44px;
 }
 
 .content {
@@ -181,22 +176,7 @@ a {
     position: relative;
 }
 
-.list-item{
-    color: #000000;
-    background-color: #FFFFFF;
 
-}
-
-.list-item .file-operate {
-    display: none;
-}
-
-.list-item-show .file-operate {
-
-    display: -moz-box;
-    display: -webkit-box;
-    display: box;
-}
 .file-operate , .file-desc{
     padding-left: 10px;
     padding-right: 10px;
@@ -204,19 +184,14 @@ a {
     display: -moz-box;
     display: -webkit-box;
     display: box;
-    color: #000000;
     position: relative;
-    background-color: #FFFFFF;
+    color: #000000;
 }
 
 
+.list-item-show  {
 
-
-
-
-.list-item-show .content {
-
-    /*top: -44px;*/
+    height: 88px;
 }
 
 .list-item h3 {
@@ -251,7 +226,7 @@ h3 {
     font-size: 16px;
 }
 
-.list .content {
+.list-item .content {
     margin-top: 0;
     -moz-transition: all 250ms ease;
     -webkit-transition: all 250ms ease;

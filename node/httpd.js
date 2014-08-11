@@ -17,7 +17,7 @@ var modules = [
 ];
 var route;
 var util = require('./util.js');
-var common = require('./common.js');
+var com = require('./com.js');
 
 function set_route(m) {
 
@@ -53,7 +53,7 @@ function start_http_module(m) {
             }
 
         } else {
-            var result = new common.web_result();
+            var result = new com.web_result();
             result.error = "check request params!";
             util.result_client(req, res, result);
         }
