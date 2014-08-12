@@ -66,14 +66,14 @@ function getArgs(strParame) {
     return ""; // Return the object
 }
 
-function back_bind(fun) {
+function back_bind(site) {
 
     $('.back_btn').bind('click', function (e) {
 
         e.preventDefault();
         e.stopPropagation();
-        if (fun) {
-            fun.call(fun);
+        if (site) {
+            window.location.replace(site);
         } else {
             window.history.back();
         }

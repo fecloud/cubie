@@ -150,7 +150,7 @@ function load_list(data) {
 
 
 function newfolder() {
-    window.location = '/file/add_folder.html?path=' + current_path;
+    window.location.replace('/file/add_folder.html?path=' + current_path);
 }
 
 //var idown_pre ;

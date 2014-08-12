@@ -36,7 +36,7 @@
 
         $(document).ready(function () {
 
-            back_bind();
+            back_bind('index.html');
 
 
             $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=get_authorization_url&value=/', success: function (data) {

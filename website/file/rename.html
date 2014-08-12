@@ -27,7 +27,8 @@
 
             $('#search_input').val(filename);
 
-            back_bind();
+            back_bind('index.html');
+
             if (eval(isFile)) {
                 $('#icon').removeClass('folder');
                 $('#icon').addClass(getFileTypeCss(filename));
