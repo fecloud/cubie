@@ -61,8 +61,7 @@
                     $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=del_user&value=' + uid, success: function (data) {
 
                         if (data) {
-                            window.history.back();
-                            window.location.reload();
+                            window.location.reload("index.html");
                         } else {
 
                             alert('删除失败!');

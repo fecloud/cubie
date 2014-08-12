@@ -69,7 +69,7 @@
                     $('#add_account').before(item_html);
                     $('.list-item').bind('click', function (e) {
                         var item = $(e.target).closest('.nobox')[0];
-                        window.location.href = 'account.html?uid=' + item.getAttribute('uid') + "&uname=" + item.getAttribute('uname');
+                        window.location.replace('account.html?uid=' + item.getAttribute('uid') + "&uname=" + item.getAttribute('uname'));
 
                     });
                 });
