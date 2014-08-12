@@ -125,7 +125,7 @@ function load_list(data) {
         count += arr.length;
         for (var i = 0, len = arr.length; i < len; i++) {
             var file = arr[i];
-            var item = '<li class="list-item"><a href="{0}" class="box file-desc clean_right"><i class="file-icon {1}"></i><div class="box1 content"><h3>{2}</h3><div class="list-content">{3}<span>{4}</span></div></div><div class="show-operate"><i class="idown"></i></div></a><div class="box file-operate" src="{5}" file="{6}" name="{7}"><div class="box1 file-rename"><i class="iedit"></i>重命名</div><div class="box1 file-delete" ><i class="iremove"></i>删除</div></div></li>';
+            var item = '<li class="list-item" src="{5}" file="{6}" name="{7}"><a href="{0}" class="box file-desc clean_right"><i class="file-icon {1}"></i><div class="box1 content"><h3>{2}</h3><div class="list-content">{3}<span>{4}</span></div></div><div class="show-operate"><i class="idown"></i></div></a><div class="box file-operate" ><div class="box1 file-rename"><i class="iedit"></i>重命名</div><div class="box1 file-delete" ><i class="iremove"></i>删除</div></div></li>';
             ;
             if (file.isDir) {
                 item = item.format("index.html?path=" + file.path, "folder", file.name, new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss"), "", file.path, file.isFile, file.name);
@@ -171,20 +171,11 @@ function idown(b) {
 }
 
 function iremove(b) {
-    b.preventDefault();
-    b.stopPropagation();
-    var src = $(b.target).closest('.file-operate')[0].getAttribute('src');
-    $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=delete&value=' + src,
+    var file = $(b.target).closest('li')[0];
+    $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=delete&value=' + file.getAttribute('src'),
         success: function (data) {
-            load_data(function () {
-                $('#loading').css({display: 'block'});
-                page_num = count
-                count = 0;
-                $('#content').html('');
-            }, function () {
-                $('#loading').css({display: 'none'});
-                page_num = 30;
-            });
+            file.remove();
+            count = count - 1;
         }
     });
 }
@@ -192,7 +183,7 @@ function iremove(b) {
 function irename(b) {
     b.preventDefault();
     b.stopPropagation();
-    var src = $(b.target).closest('.file-operate')[0];
+    var src = $(b.target).closest('li')[0];
     window.location = '/file/rename.html?path=' + src.getAttribute('src') + "&isFile=" + src.getAttribute('file') + "&name=" + src.getAttribute('name');
 }
 
