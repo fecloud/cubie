@@ -24,19 +24,14 @@
 
         $(document).ready(function () {
 
-            back_bind();
+            back_bind(function () {
+                window.location.replace("index.html");
+            });
 
             var uid = getArgs('uid');
             var uname = getArgs('uname');
+
             $('#uname').html(uname);
-//            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_user&value=' + uid, success: function (data) {
-//
-//                var userinfo = data.data;
-//                if (userinfo) {
-//                    $('#username').html(userinfo.uname);
-//                }
-//
-//            }});
 
             $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_quota&value=' + uid, success: function (data) {
 
@@ -61,11 +56,9 @@
                     $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=del_user&value=' + uid, success: function (data) {
 
                         if (data) {
-                            window.location.reload("index.html");
+                            window.location.replace("index.html");
                         } else {
-
                             alert('删除失败!');
-
                         }
 
                     }});

@@ -16,7 +16,7 @@ Date.prototype.format = function (format) {
         (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     for (var k in o)if (new RegExp("(" + k + ")").test(format))
         format = format.replace(RegExp.$1,
-                RegExp.$1.length == 1 ? o[k] :
+            RegExp.$1.length == 1 ? o[k] :
                 ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 }
@@ -66,13 +66,18 @@ function getArgs(strParame) {
     return ""; // Return the object
 }
 
-function back_bind() {
+function back_bind(fun) {
 
     $('.back_btn').bind('click', function (e) {
 
         e.preventDefault();
         e.stopPropagation();
-        window.history.back();
+        if (fun) {
+            fun.call(fun);
+        } else {
+            window.history.back();
+        }
+
     });
 }
 

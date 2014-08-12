@@ -45,7 +45,7 @@
         }
 
         .box1 {
-           line-height: 44px;
+            line-height: 44px;
         }
     </style>
     <script type="text/javascript">
@@ -76,6 +76,12 @@
 
             }});
 
+            $("#add_account").bind('click',function(){
+
+                window.location.replace('add_account.html');
+
+            });
+
 
         });
 
@@ -99,11 +105,9 @@
     <ul id="content" class="list group">
 
         <li id="add_account" class="list-item">
-            <a href="add_account.html">
-                <div style="color: #000000;">
-                    <div class="content" style="color: #000000;">添加帐号</div>
-                </div>
-            </a>
+            <div style="color: #000000;">
+                <div class="content" style="color: #000000;">添加帐号</div>
+            </div>
         </li>
 
     </ul>
