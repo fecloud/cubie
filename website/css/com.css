@@ -154,8 +154,8 @@ a {
 .list-item {
     display: list-item;
     text-align: -webkit-match-parent;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
     color: #000000;
     background-color: #FFFFFF;
     border-bottom: solid 1px #c8c7cc;
