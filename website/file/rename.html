@@ -54,7 +54,7 @@
             } else {
                 $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=rename&value=' + current_path + '&target=' + getParentDir(current_path) + '/' + folder_name,
                     success: function (data) {
-                        window.location.replace('/file?path=' + getParentDir(current_path));
+                        window.location.replace('index.html?path=' + getParentDir(current_path));
                     }
                 });
 
