@@ -30,7 +30,6 @@
         }
 
 
-
     </style>
     <script type="text/javascript">
 
@@ -46,40 +45,49 @@
 
             }});
 
+            $('#code').bind('keypress', function (event) {
+
+                if (event.keyCode == "13") {
+                    start_add();
+                }
+            });
+
             //点击添加
             $('#add_account').bind('click', function () {
-
-                var code = $('#code').val().trim();
-                if (code != '') {
-
-                    $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=get_user_access_token&value=' + code,
-                        success: function (data) {
-
-                            var baidu = data.data;
-                            console.log(baidu);
-                            if (baidu.error != undefined) {
-                                add_fail();
-                            } else {
-                                var token = $.parseJSON(baidu);
-                                if (token.error) {
-                                    //百度返回错误
-                                    add_fail();
-                                } else {
-                                    add_account(token);
-                                }
-
-                            }
-
-                        }, error: function () {
-
-                            add_fail(false);
-
-                        }});
-                }
-
+                start_add();
             });
 
         });
+
+        function start_add() {
+            var code = $('#code').val().trim();
+            if (code != '') {
+
+                $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=get_user_access_token&value=' + code,
+                    success: function (data) {
+
+                        var baidu = data.data;
+                        console.log(baidu);
+                        if (baidu.error != undefined) {
+                            add_fail();
+                        } else {
+                            var token = $.parseJSON(baidu);
+                            if (token.error) {
+                                //百度返回错误
+                                add_fail();
+                            } else {
+                                add_account(token);
+                            }
+
+                        }
+
+                    }, error: function () {
+
+                        add_fail(false);
+
+                    }});
+            }
+        }
 
         function add_fail(clear) {
             if (clear == undefined || clear) {
