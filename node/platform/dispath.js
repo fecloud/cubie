@@ -9,6 +9,7 @@ var com = require('../com.js');
 var util = require('../util.js');
 
 var status = require('./status.js');
+var um = require('./usermanage.js');
 
 var route = {};
 
@@ -38,6 +39,18 @@ route.start_service = function (req, res, params) {
 route.stop_service = function (req, res, params) {
 
     status.stop_service(req, res, params);
+
+};
+
+route.login = function(req, res, params){
+
+    um.login(req,res,params);
+
+};
+
+route.logout = function(req, res, params){
+
+    um.logout(req,res,params);
 
 };
 

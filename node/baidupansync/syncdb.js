@@ -110,7 +110,7 @@ function local_get_users(uid, res, error) {
             if (error != undefined) {
                 error.call(err);
             }
-        }else if (res != undefined) {
+        } else if (res != undefined) {
             res.call(res, rows);
         }
 
@@ -155,7 +155,7 @@ function insert_user(user, res, error) {
                 if (error != undefined) {
                     error.call(err);
                 }
-            }else if (res != undefined) {
+            } else if (res != undefined) {
                 res.call(res, rows);
             }
 
@@ -179,7 +179,7 @@ function del_user(uid, res, error) {
         function (err, rows) {
 
             if (err) {
-                util.debug(util.format_time() + err);
+                util.error(err);
                 if (error != undefined) {
                     error.call(err);
                 }
@@ -189,7 +189,6 @@ function del_user(uid, res, error) {
 
         }
     )
-    ;
 
 }
 

@@ -3,6 +3,7 @@
  */
 var http = require('http');
 var https = require('https');
+var crypto = require('crypto');
 var log4js = require('log4js');
 
 log4js.replaceConsole(true);
@@ -38,7 +39,7 @@ Date.prototype.format = function (format) {
  * @returns {*}
  */
 function format_time() {
-    return new Date().format("yyyy-MM-dd hh:mm:ss.S ");
+    return new Date().format("yyyy-MM-dd hh:mm:ss.S");
 }
 
 exports.format_time = format_time;
@@ -135,6 +136,21 @@ function is_pic(file) {
 }
 
 exports.is_pic = is_pic;
+
+/**
+ * 字符串md5
+ * @param string
+ * @returns {*}
+ */
+function md5String(string){
+
+    var md5 = crypto.createHash('md5');
+    md5.update(string);
+    return md5.digest('hex');
+
+}
+
+exports.md5_string = md5String;
 
 function trace(message) {
 

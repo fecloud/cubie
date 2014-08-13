@@ -13,7 +13,7 @@
 
 ## Fill in name of program here.
 PROG="httpd.js"
-PROG_PATH="nodejs /data/app/node" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
+PROG_PATH="/usr/bin/nodejs /data/app/node" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
 FM_ARGS="/data/f"
 PH_ARGS="/data/f/photos  /data/f/thum"
 PID_PATH="/var/run/"
@@ -96,28 +96,28 @@ stop_baidupansync(){
 
 }
 
-start_status(){
+start_platform(){
 
-    pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
+    pid=`ps x|grep httpd.js |grep platform |awk '{print $1}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG status >/var/log/httpd.status.log 2>&1 &
-        pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
-        echo "$PROG status started $pid"
-        echo $pid > "$PID_PATH/$PROG.status.pid"
+        $PROG_PATH/$PROG platform >/var/log/httpd.platform.log 2>&1 &
+        pid=`ps x|grep httpd.js |grep platform |awk '{print $1}' | head -n 1`
+        echo "$PROG platform started $pid"
+        echo $pid > "$PID_PATH/$PROG.platform.pid"
     else
-        echo "Error! $PROG status is currently running!"
+        echo "Error! $PROG platform is currently running!"
     fi
 
 }
 
-stop_status(){
+stop_platform(){
 
-    pid=`ps x|grep httpd.js |grep status |awk '{print $1}' | head -n 1`
+    pid=`ps x|grep httpd.js |grep platform |awk '{print $1}' | head -n 1`
     if [ -n "$pid" ]; then
-        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.status.pid"
-        echo "$PROG status stopped"
+        kill -9 $pid &  rm -f  "$PID_PATH/$PROG.platform.pid"
+        echo "$PROG platform stopped"
     else
-        echo "Error! $PROG.status not started!"
+        echo "Error! $PROG.platform not started!"
     fi
 
 }
@@ -160,8 +160,8 @@ start() {
         baidupansync)
             start_baidupansync
         ;;
-        status)
-            start_status
+        platform)
+            start_platform
         ;;
         photos)
             start_photos
@@ -171,7 +171,7 @@ start() {
             start_fm
             start_arduino
             start_baidupansync
-            start_status
+            start_platform
             start_photos
         ;;
     esac
@@ -190,8 +190,8 @@ stop() {
         baidupansync)
             stop_baidupansync
         ;;
-        status)
-            stop_status
+        platform)
+            stop_platform
         ;;
          photos)
             stop_photos
@@ -201,7 +201,7 @@ stop() {
             stop_fm
             stop_arduino
             stop_baidupansync
-            stop_status
+            stop_platform
             stop_photos
         ;;
     esac
@@ -231,7 +231,7 @@ case "$1" in
         exit 0
     ;;
     **)
-        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baidupansync | status | photos ]" 1>&2
+        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baidupansync | platform | photos ]" 1>&2
         exit 1
     ;;
 esac

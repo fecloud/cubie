@@ -5,13 +5,14 @@ var url = require('url');
 
 
 var util = require('./util.js');
+var oauth = require('./oauth/oauth.js');
 
 var modules = [
 
     {'name': 'fm', 'port': 3000},
     {'name': 'arduino', 'port': 3001},
     {'name': 'baidupansync', 'port': 3002},
-    {'name': 'status', 'port': 3003}    ,
+    {'name': 'platform', 'port': 3003}    ,
     {'name': 'photos', 'port': 3004}
 
 ];
@@ -27,8 +28,8 @@ function set_route(m) {
         route = new require('./arduino/dispath.js').route;
     } else if (m.name == 'baidupansync') {
         route = new require('./baidupansync/dispath.js').route;
-    } else if (m.name == 'status') {
-        route = new require('./status/dispath.js').route;
+    } else if (m.name == 'platform') {
+        route = new require('./platform/dispath.js').route;
     } else if(m.name == 'photos'){
         route = new require('./photos/dispath.js').route;
     }
@@ -83,12 +84,12 @@ if (start_module) {
 
     } else {
         util.error("not found module name ,please check !");
-        util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status,photos] args');
+        util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,platform,photos] args');
     }
 
 } else {
     util.error("not setting start_module name ,please set !");
-    util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,status,photos] args');
+    util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,platform,photos] args');
     process.exit(1);
 }
 

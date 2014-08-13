@@ -205,7 +205,7 @@ function agent() {
 
 var fm_service = "/service/fm/";
 var baidupansync = "/service/baidupansync/";
-var status_service = "/service/status/";
+var status_service = "/service/platform/";
 var photos_service = "/service/photos/";
 var thum = "/src/thum/";
 var photos_pic = "/src/photos";
