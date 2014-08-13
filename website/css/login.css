@@ -1,7 +1,15 @@
-#container{
+.container{
     width: 320px;
+    height: 281px;
     margin: auto;
     text-align: center;
+    position: relative;
+}
+.continer_iphone {
+    margin-top: 40px;
+}
+.continer_ipad_pc{
+    margin-top: 100px;
 }
 #icon {
     width: 90px;
@@ -9,16 +17,20 @@
     background-image: url("../img/screen_icon.png");
     -webkit-background-size: 90px 90px;
     background-size: 90px 90px;
-    border: 0px solid #000;
+    border: 1px solid #007aff;
     -moz-border-radius: 18px;
     -webkit-border-radius: 18px;
-    margin-top: 40px;
+
 }
 #login_box {
     height: 89px;
     border-top: 1px solid #c8c7cc;
     border-bottom: 1px solid #c8c7cc;
     margin: 20px 0px 30px 0px;
+}
+
+.login_box_ipad {
+    border: 1px solid #c8c7cc;
 }
 
 .list-item{
@@ -56,6 +68,7 @@
     color: #FFFFFF;
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
 }
 .login_input {
     display: block;
