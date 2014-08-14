@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/status.css"/>
     <link rel="stylesheet" href="../css/switchery.min.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../js/com.js"></script>
     <style type="text/css">
         .group:last-child {
@@ -31,7 +32,7 @@
 
             $('#uname').html(uname);
 
-            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_quota&value=' + uid, success: function (data) {
+            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_quota&value=' + uid + "&token=" + $.cookie('token'), success: function (data) {
 
                 var quotainfo = data.data;
                 if (undefined != quotainfo) {

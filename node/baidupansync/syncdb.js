@@ -1,80 +1,21 @@
 /**
  * Created by Feng OuYang on 2014-07-16.
  */
-var sqlite3 = require('sqlite3').verbose();
+var node_util = require('util');
 
-
-var db = new sqlite3.Database('/data/app/data/baidupansync.db');
+var mysql = require('../mysql.js').mysql;
 var util = require('../util.js');
 
-process.on('exit', function (code) {
 
-    db.close();
-
-    setTimeout(function () {
-        util.debug('This will not run');
-    }, 0);
-    util.debug('About to exit with code:', code);
-});
-
-exports.db = db;
-
-/**
- * 建表
+/**======================表名===========================
+ *
  */
-function create_table() {
+var table_baidupansync_files = "baidupansync_files";
+var table_baidupansync_user = "baidupansync_user";
+/**====================================================
+ *
+ */
 
-    //用户表
-    var create_user_sql = "CREATE TABLE IF NOT EXISTS ";
-    create_user_sql += "user";
-    create_user_sql += " (" + " uid INTEGER PRIMARY KEY, ";
-    create_user_sql += " uname TEXT, ";
-    create_user_sql += " portrait TEXT, ";
-    create_user_sql += " expires_in TEXT, ";
-    create_user_sql += " refresh_token TEXT, ";
-    create_user_sql += " access_token TEXT, ";
-    create_user_sql += " session_secret TEXT, ";
-    create_user_sql += " session_key TEXT, ";
-    create_user_sql += " sync_path TEXT, ";
-    create_user_sql += " sync_start INTEGER, ";
-    create_user_sql += " sync_end INTEGER ,";
-    create_user_sql += " time DATETIME";
-    create_user_sql += " ) ;";
-    util.debug("sql user:" + create_user_sql);
-    db.run(create_user_sql);
-
-    //用户配容量表
-    var create_quota_sql = "CREATE TABLE IF NOT EXISTS ";
-    create_quota_sql += "quota";
-    create_quota_sql += " (" + "username TEXT PRIMARY KEY, ";
-    create_quota_sql += " quota INTEGER, ";
-    create_quota_sql += " used INTEGER ,";
-    create_quota_sql += " time DATETIME";
-    create_quota_sql += " ) ;";
-
-    util.debug("sql quota:" + create_quota_sql);
-    db.run(create_quota_sql);
-
-    //用户同步的所有目录文件
-    var create_pcsfile_sqll = "CREATE TABLE IF NOT EXISTS ";
-    create_pcsfile_sqll += "files";
-    create_pcsfile_sqll += " (" + " fs_id INTEGER PRIMARY KEY ,";
-    create_pcsfile_sqll += " path TEXT ,";
-    create_pcsfile_sqll += " ctime INTEGER ,";
-    create_pcsfile_sqll += " mtime INTEGER ,";
-    create_pcsfile_sqll += " md5 TEXT ,";
-    create_pcsfile_sqll += " size INTEGER ,";
-    create_pcsfile_sqll += " isdir INTEGER ,";
-    create_pcsfile_sqll += " username TEXT ";
-    create_pcsfile_sqll += " ) ;";
-
-    util.debug("sql files:" + create_pcsfile_sqll);
-    db.run(create_pcsfile_sqll);
-
-}
-
-
-create_table();
 
 /**
  * 用户信息表
@@ -84,8 +25,8 @@ var User = function () {
     this.uid;
     this.uname;
     this.portrait;//头像small image: http://tb.himg.baidu.com/sys/portraitn/item/{$portrait} large image: http://tb.himg.baidu.com/sys/portrait/item/{$portrait}
-    this.expires_in;
-    this.refresh_token;
+    this.expisuccess_in;
+    this.refsuccessh_token;
     this.access_token;
     this.session_secret;
     this.session_key;
@@ -97,22 +38,21 @@ var User = function () {
 
 exports.user = User;
 
-function local_get_users(uid, res, error) {
+/**
+ * 取用户信息
+ * @param uid
+ * @param sucess
+ * @param fail
+ */
+function local_get_users(uid, sucess, fail) {
 
-    var sql = "SELECT * FROM user ";
+    var sql = "SELECT * FROM " + table_baidupansync_user;
     if (uid != '') {
         sql += " WHERE uid=" + uid;
     }
-    util.debug(util.format_time() + sql);
-    db.all(sql, function (err, rows) {
-        if (err) {
-            util.debug(util.format_time() + err);
-            if (error != undefined) {
-                error.call(err);
-            }
-        } else if (res != undefined) {
-            res.call(res, rows);
-        }
+    util.debug(sql);
+    mysql.query(sql, function (err, rows) {
+        util.db_query(sucess, fail, err, rows);
 
     });
 
@@ -120,20 +60,20 @@ function local_get_users(uid, res, error) {
 /**
  * 取数据库的用户信息
  * @param username
- * @param res
+ * @param success
  */
-function get_user(username, res) {
+function get_user(username, success) {
 
-    local_get_users(username, res);
+    local_get_users(username, success);
 
 }
 
 exports.get_user = get_user;
 
 
-function get_users(res) {
+function get_users(success) {
 
-    local_get_users('', res);
+    local_get_users('', success);
 }
 
 exports.get_users = get_users;
@@ -142,22 +82,15 @@ exports.get_users = get_users;
 /**
  * 插入新用户
  * @param user
- * @param res
+ * @param success
  */
-function insert_user(user, res, error) {
-    var sql = "REPLACE INTO user(uid,uname,portrait,expires_in,refresh_token,access_token,session_secret,session_key,time) VALUES (?,?,?,?,?,?,?,?,datetime('now'))";
-    util.debug(util.format_time() + sql);
-    db.all(sql, user.uid, user.uname, user.portrait, user.expires_in, user.refresh_token, user.access_token, user.session_secret, user.session_key,
-        function (err, rows) {
+function insert_user(user, success, fail) {
 
-            if (err) {
-                util.debug(util.format_time() + err);
-                if (error != undefined) {
-                    error.call(err);
-                }
-            } else if (res != undefined) {
-                res.call(res, rows);
-            }
+    var sql = node_util.format("REPLACE INTO %s (uid,uname,portrait,expires_in,refresh_token,access_token,session_secret,session_key,time) VALUES (?,?,?,?,?,?,?,?,NOW())", table_baidupansync_user);
+    util.debug(sql);
+    mysql.query(sql, [user.uid, user.uname, user.portrait, user.expires_in, user.refresh_token, user.access_token, user.session_secret, user.session_key], function (err, rows) {
+
+            util.db_query(success, fail, err, rows);
 
         }
     );
@@ -168,24 +101,16 @@ exports.insert_user = insert_user;
 /**
  * 删除帐户
  * @param req
- * @param res
+ * @param success
  * @param params
  */
-function del_user(uid, res, error) {
+function del_user(uid, success, fail) {
 
     var sql = "DELETE FROM user WHERE uid=?";
-    util.debug(util.format_time() + sql);
-    db.all(sql, uid,
-        function (err, rows) {
+    util.debug(sql);
+    mysql.query(sql, [uid], function (err, rows) {
 
-            if (err) {
-                util.error(err);
-                if (error != undefined) {
-                    error.call(err);
-                }
-            } else if (res != undefined) {
-                res.call(res, rows);
-            }
+            util.db_query(success, fail, err, rows);
 
         }
     )
@@ -219,11 +144,12 @@ exports.pcsfile = PCSFile;
  * @param pcsfile
  */
 function pcsfile_replace(pcsfile) {
-    var sql = "REPLACE INTO files(fs_id,path,ctime,mtime,md5,size,isdir,username) VALUES (?,?,?,?,?,?,?,?)";
-    db.run(sql, pcsfile.fs_id, pcsfile.path, pcsfile.ctime, pcsfile.mtime, pcsfile.md5, pcsfile.size, pcsfile.isdir, pcsfile.username, function (err) {
-        if (err) {
 
-            util.debug(util.format_time() + err);
+    var sql = node_util.format("REPLACE INTO %s (fs_id,path,ctime,mtime,md5,size,isdir,username) VALUES (?,?,?,?,?,?,?,?)", table_baidupansync_files);
+    mysql.query(sql, [pcsfile.fs_id, pcsfile.path, pcsfile.ctime, pcsfile.mtime, pcsfile.md5, pcsfile.size, pcsfile.isdir, pcsfile.username], function (err, rows) {
+
+        if (err) {
+            util.debug(err);
         }
 
     });

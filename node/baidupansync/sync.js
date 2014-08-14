@@ -10,10 +10,9 @@ var events = require('events');
 
 
 var util = require('../util.js');
+var err_const = require('../error.js');
 var com = require('../com.js');
 var syncdb = require('./syncdb.js');
-
-//var Const = (function () {
 
 
 var APP_ID = 3125236;
@@ -30,7 +29,6 @@ var USERINFO_URL = "https://openapi.baidu.com/rest/2.0/passport/users/getLoggedI
 
 var PCS_URL = "https://c.pcs.baidu.com/rest/2.0/pcs/";
 
-//});
 
 //同步文件记录
 var sync_record = new events.EventEmitter();
@@ -68,10 +66,11 @@ sync_record.on('dir', function (pcsfile) {
 function list_user(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'list_user';
     syncdb.get_user("", function (rows) {
+
         result.data = rows;
         util.result_client(req, res, result);
+
     });
 
 }
@@ -83,13 +82,14 @@ exports.list_user = list_user;
  */
 function view_user(req, res, params) {
 
-    var result = new com.web_result();
-    result.action = 'view_user';
+
     syncdb.get_user(params.value, function (rows) {
+
+        var result = new com.web_result();
         if (rows instanceof Array && rows.length > 0) {
             result.data = rows[0];
-            util.result_client(req, res, result);
         }
+        util.result_client(req, res, result);
     });
 
 }
@@ -104,8 +104,7 @@ exports.view_user = view_user;
  */
 function view_quota(req, res, params) {
 
-    var result = new com.web_result();
-    result.action = 'view_quota';
+
     syncdb.get_user(params.value, function (rows) {
         if (rows instanceof Array && rows.length > 0) {
             var user_info = data = rows[0];
@@ -113,21 +112,22 @@ function view_quota(req, res, params) {
             var url = node_util.format("%squota?method=info&access_token=%s", PCS_URL, user_info.access_token);
 
             util.https_get(url, function (data) {
+
+                var result = new com.web_result();
                 result.data = data.toString();
                 result.time = new Date().format("yyyy-MM-dd hh:mm:ss");
-                util.debug(util.format_time() + "baidu get quota:" + data.toString());
+                util.debug("baidu get quota:" + data.toString());
                 util.result_client(req, res, result);
 
-            }, function () {
-                result.error = "fail";
-                util.result_client(req, res, result);
+            }, function (err) {
+
+                util.bs_fail(req, res);
 
             });
 
 
         } else {
-            result.error = "fail";
-            util.result_client(req, res, result);
+            util.bs_fail(req, res);
         }
     });
 
@@ -162,18 +162,18 @@ exports.get_authorization_url = get_authorization_url;
  */
 function get_user_access_token(req, res, params) {
 
-    var result = new com.web_result();
-    result.action = 'get_user_access_token';
 
     var url = node_util.format("%s?grant_type=authorization_code&code=%s&client_id=%s&client_secret=%s&redirect_uri=oob", TOKEN_URL, params.value, APP_KEY, SECRET_KEY);
     util.https_get(url, function (data) {
+
+        var result = new com.web_result();
         result.data = data.toString();
-        util.debug(util.format_time() + "baidu get token:" + data.toString());
+        util.debug("baidu get token:" + data.toString());
         util.result_client(req, res, result);
 
     }, function () {
-        result.error = "fail";
-        util.result_client(req, res, result);
+
+        util.bs_fail(req, res);
 
     });
 
@@ -187,17 +187,17 @@ exports.get_user_access_token = get_user_access_token;
  */
 function add_user(req, res, params) {
 
-    var result = new com.web_result();
-    result.action = 'add_user';
-
     var baiduvalidate = JSON.parse(params.value);//token
     if (baiduvalidate != undefined) {
 
         var url = node_util.format("%s?access_token=%s", USERINFO_URL, baiduvalidate.access_token);
         util.https_get(url, function (data) {
+
+            var result = new com.web_result();
             result.data = data.toString();
-            util.debug(util.format_time() + "baidu get userinfo:" + data.toString());
+            util.debug("baidu get userinfo:" + data.toString());
             var baidu_user = JSON.parse(data.toString());
+
             var user = new syncdb.user();
             user.uid = baidu_user.uid;
             user.uname = baidu_user.uname;
@@ -207,12 +207,14 @@ function add_user(req, res, params) {
             user.access_token = baiduvalidate.access_token;
             user.session_secret = baiduvalidate.session_secret;
             user.session_key = baiduvalidate.session_key;
+
             syncdb.insert_user(user);
+
             util.result_client(req, res, result);
 
         }, function () {
-            result.error = "fail";
-            util.result_client(req, res, result);
+
+            util.bs_fail(req, res);
 
         });
 
@@ -232,7 +234,6 @@ exports.add_user = add_user;
 function del_user(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'del_user';
     syncdb.del_user(params.value, function (rows) {
 
         //成功删除
@@ -249,5 +250,3 @@ function del_user(req, res, params) {
 }
 
 exports.del_user = del_user;
-
-//task_users();

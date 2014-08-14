@@ -6,6 +6,9 @@ var https = require('https');
 var crypto = require('crypto');
 var log4js = require('log4js');
 
+var err_const = require('./error.js');
+var com = require('./com.js');
+
 log4js.replaceConsole(true);
 //log4js.loadAppender('file');
 //log4js.addAppender(log4js.appenders.util());
@@ -39,6 +42,7 @@ Date.prototype.format = function (format) {
  * @returns {*}
  */
 function format_time() {
+
     return new Date().format("yyyy-MM-dd hh:mm:ss.S");
 }
 
@@ -51,6 +55,7 @@ exports.format_time = format_time;
  * @param result
  */
 function resultClient(req, res, result) {
+
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
     res.write(JSON.stringify(result));
     res.end();
@@ -65,8 +70,9 @@ exports.result_client = resultClient;
  * @param error
  */
 function https_get(url, sucess, error) {
+
     https.get(url, function (res) {
-        debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
+        debug("https_get url:" + url + " statusCode: ", res.statusCode);
 //       util.debug("headers: ", res.headers);
 
         res.on('data', function (d) {
@@ -93,9 +99,10 @@ exports.https_get = https_get;
  * @param error
  */
 function http_get(url, sucess, error) {
+
     http.get(url, function (res) {
-        debug(format_time() + "url:" + url + " statusCode: ", res.statusCode);
-        debug("headers: ", res.headers);
+        debug("http_get url:" + url + " statusCode:", res.statusCode);
+//        debug("headers: ", res.headers);
 
         res.on('data', function (d) {
             if (sucess != undefined) {
@@ -151,6 +158,45 @@ function md5String(string){
 }
 
 exports.md5_string = md5String;
+
+/**
+ * 常规数据库回调
+ * @param res
+ * @param fail
+ * @param err
+ * @param rows
+ */
+function db_query(sucess,fail,err,rows){
+
+    if (err) {
+        error(err);
+        if (fail != undefined) {
+            fail.call(fail);
+        }
+    } else if (sucess != undefined) {
+        sucess.call(sucess, rows);
+    }
+
+}
+
+
+exports.db_query = db_query;
+
+/**
+ * 业务失败
+ * @param req
+ * @param res
+ * @param web_result
+ */
+function bs_fail(req, res){
+    var web_result = new com.web_result();
+    web_result.error = err_const.err_500;
+    resultClient(req, res, web_result);
+
+}
+
+exports.bs_fail = bs_fail;
+
 
 function trace(message) {
 

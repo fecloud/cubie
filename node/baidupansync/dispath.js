@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var com = require('../com.js');
+var err_const = require('../error.js');
 var util = require('../util.js');
 var sync = require('./sync.js');
 
@@ -59,8 +60,8 @@ route.del_user = function (req, res, params) {
 route.default = function (req, res, params) {
 
     var result = new com.web_result();
-    result.error = 'action not found!';
-    util.error("action not found!");
+    result.error = err_const.err_404;
+    util.error(err_const.err_404);
     util.result_client(req, res, result);
 };
 

@@ -113,7 +113,6 @@ exports.uptime = uptime;
 function df(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'df';
 
     child = exec("df -h |grep " + params.value + " | head -n 1",
         function (error, stdout, stderr) {

@@ -5,6 +5,7 @@ var url = require('url');
 
 
 var util = require('./util.js');
+var err_const = require('./error.js');
 var oauth = require('./oauth/oauth.js');
 
 var modules = [
@@ -103,24 +104,24 @@ function start_http_module(m) {
                                 }
 
                             } else {
-                                result.error = "check token";
+                                result.error = err_const.err_404;
                                 util.result_client(req, res, result);
                             }
                         }
                         ,
                         function (err) {
                             util.error(err);
-                            util.error = "system error";
+                            result.error = err_const.err_500;
                             util.result_client(req, res, result);
                         }
                     );
                 } else {
-                    result.error = "check token";
+                    result.error = err_const.err_401;
                     util.result_client(req, res, result);
                 }
 
             } else {
-                result.error = "check request params";
+                result.error = err_const.err_400;
                 util.result_client(req, res, result);
             }
 

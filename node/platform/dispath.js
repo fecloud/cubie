@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var com = require('../com.js');
+var err_const = require('../error.js');
 var util = require('../util.js');
 
 var status = require('./status.js');
@@ -62,8 +63,8 @@ route.not_oauth = ['login'];
 route.default = function (req, res, params) {
 
     var result = new com.web_result();
-    result.error = 'action not found!';
-    util.error(util.format_time() + "action not found!");
+    result.error = err_const.err_404;
+    util.error(err_const.err_404);
     util.result_client(req, res, result);
 };
 

@@ -6,8 +6,7 @@
  * @constructor
  */
 var WebResult = function () {
-    this.action;
-    this.error = '';
+    this.error;
     this.data;
     this.more;
 };

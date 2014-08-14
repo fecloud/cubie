@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/com.css"/>
     <link rel="stylesheet" href="../css/status.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../js/com.js"></script>
     <style type="text/css">
 
@@ -38,7 +39,7 @@
             back_bind('index.html');
 
 
-            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=get_authorization_url&value=/', success: function (data) {
+            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=get_authorization_url&value=/&token=' + $.cookie('token'), success: function (data) {
 
                 var address = data.data;
                 $('#authorization').href = address;
@@ -63,7 +64,7 @@
             var code = $('#code').val().trim();
             if (code != '') {
 
-                $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=get_user_access_token&value=' + code,
+                $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=get_user_access_token&value=' + code + "&token=" + $.cookie('token'),
                     success: function (data) {
 
                         var baidu = data.data;
@@ -98,7 +99,7 @@
 
         function add_account(baidu_access_token) {
 
-            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=add_user&value=' + JSON.stringify(baidu_access_token),
+            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=add_user&value=' + JSON.stringify(baidu_access_token)+ "&token=" + $.cookie('token'),
                 success: function (data) {
 
                     var userinfo_str = data.data;
