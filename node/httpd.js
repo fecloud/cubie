@@ -65,7 +65,6 @@ function innot_oauth(method) {
         route.not_oauth.forEach(function (m) {
 
             if (m == method) {
-                util.debug("ddd");
                 result =  true;
             }
 
@@ -91,9 +90,7 @@ function start_http_module(m) {
             if (params) {
                 var token = params.token;
                 var action = params.action == undefined ? 'default' : params.action;
-                var s = innot_oauth(action);
-                util.debug(s);
-                if (s) { //不需要token的接口
+                if (innot_oauth(action)) { //不需要token的接口
                     http_module_exe(req, res, params);
                 } else if (token) {
                     //检查token
