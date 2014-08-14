@@ -54,6 +54,11 @@ route.logout = function(req, res, params){
 
 };
 
+/**
+ * 不需要认证的接口
+ */
+route.not_oauth = ['login'];
+
 route.default = function (req, res, params) {
 
     var result = new com.web_result();

@@ -2,7 +2,6 @@
  * Created by Feng OuYang on 2014-08-13.
  */
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('/data/app/data/oauth.db');
 
 var com = require('../com.js');
 var util = require('../util.js');
@@ -10,6 +9,16 @@ var util = require('../util.js');
 var table_user = "user";
 var table_oauth = "oauth";
 
+var start_module = process.argv[2];
+
+var db ;
+if (start_module == 'platform') {
+    util.debug('oauth.db rw');
+    db = new sqlite3.Database('/data/app/data/oauth.db');
+}else {
+    db = new sqlite3.Database('/data/app/data/oauth.db',sqlite3.OPEN_READONLY);
+    util.debug('oauth.db r');
+}
 process.on('exit', function (code) {
 
     db.close();
@@ -164,7 +173,7 @@ exports.insert_user = insert_user;
  */
 function query_oauth(token, res, error) {
 
-    var sql = "SELECT * FROM " + table_user;
+    var sql = "SELECT * FROM " + table_oauth;
     if (token != '') {
         sql += " WHERE token=?";
     }
@@ -283,5 +292,7 @@ function test_data() {
 
 }
 
-create_table();
-test_data();
+if (start_module == 'platform') {
+    create_table();
+    test_data();
+}
