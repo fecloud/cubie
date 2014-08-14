@@ -3,7 +3,7 @@
  */
 var mysql = require('mysql');
 var conn = mysql.createConnection({
-    host: 'ct.fcloud.tk',
+    host: 'localhost',
     user: 'root',
     password: 'root',
     database: 'fcloud'
@@ -14,8 +14,10 @@ conn.connect();
 var com = require('../com.js');
 var util = require('../util.js');
 
+//======================表名===========================
 var table_user = "user";
 var table_oauth = "oauth";
+//=================================================
 
 var start_module = process.argv[2];
 
@@ -75,6 +77,7 @@ var Oauth = function () {
 
     this.uname;
     this.token;
+    this.intime;
 
 };
 
@@ -117,7 +120,7 @@ exports.query_user = query_user;
  */
 function del_user(uname, res, error) {
 
-    var sql = "DELETE FROM user WHERE uname =?";
+    var sql = "DELETE FROM user WHERE uname=?";
     util.debug(sql);
     db.all(sql, uname,
         function (err, rows) {
@@ -229,7 +232,7 @@ exports.del_oauth = del_oauth;
  */
 function del_oauth_token(token, res, error) {
 
-    var sql = "DELETE FROM oauth WHERE token =?";
+    var sql = "DELETE FROM oauth WHERE token=?";
     util.debug(sql);
     db.all(sql, token,
         function (err, rows) {
@@ -256,7 +259,7 @@ exports.del_oauth_token = del_oauth_token;
  * @param res
  */
 function insert_oauth(oauth, res, error) {
-    var sql = "INSERT INTO " + table_oauth + "(token,uname) VALUES (?,?)";
+    var sql = "INSERT INTO " + table_oauth + "(token,uname,intime) VALUES (?,?,NOW())";
     util.debug(sql);
     conn.query(sql, [oauth.token, oauth.uname],
         function (err, rows) {
