@@ -1,7 +1,15 @@
 /**
  * Created by Feng OuYang on 2014-08-13.
  */
-var sqlite3 = require('sqlite3').verbose();
+var mysql = require('mysql');
+var conn = mysql.createConnection({
+    host: 'ct.fcloud.tk',
+    user: 'root',
+    password: 'root',
+    database: 'fcloud'
+});
+
+conn.connect();
 
 var com = require('../com.js');
 var util = require('../util.js');
@@ -11,28 +19,18 @@ var table_oauth = "oauth";
 
 var start_module = process.argv[2];
 
-var db ;
-if (start_module == 'platform') {
-    util.debug('oauth.db rw');
-    db = new sqlite3.Database('/data/app/data/oauth.db');
-}else {
-    db = new sqlite3.Database('/data/app/data/oauth.db',sqlite3.OPEN_READONLY);
-    util.debug('oauth.db r');
-}
+
 process.on('exit', function (code) {
 
-    db.close();
+    conn.end();
 
-    setTimeout(function () {
-        util.debug('This will not run');
-    }, 0);
     util.debug('About to exit with code:', code);
 });
 
 /**
  * 建表
- */
-function create_table() {
+
+ function create_table() {
 
     var create_sql = "CREATE TABLE IF NOT EXISTS ";
     create_sql += table_user;
@@ -52,7 +50,7 @@ function create_table() {
     db.run(create_sql);
 
 }
-
+ */
 
 /**
  * 用户密码
@@ -62,7 +60,7 @@ var User = function () {
 
     this.uname;
     this.passwd;
-    this.isAdmin;
+    this.isadmin;
     this.last;
 
 };
@@ -95,7 +93,7 @@ function query_user(uname, res, error) {
         sql += " WHERE uname=?";
     }
     util.debug(sql);
-    db.all(sql, uname, function (err, rows) {
+    conn.query(sql, [uname], function (err, rows) {
         if (err) {
             util.error(err);
             if (error != undefined) {
@@ -104,8 +102,8 @@ function query_user(uname, res, error) {
         } else if (res != undefined) {
             res.call(res, rows);
         }
-
     });
+
 
 }
 
@@ -144,13 +142,13 @@ function del_user(uname, res, error) {
  * @param res
  */
 function insert_user(user, res, error) {
-    var sql = "REPLACE INTO " + table_user + "(uname,passwd,isAdmin,last) VALUES (?,?,?,datetime('now'))";
+    var sql = "REPLACE INTO " + table_user + "(uname,passwd,isadmin,last) VALUES (?,?,?,NOW())";
     util.debug(sql);
-    db.all(sql, user.uname, user.passwd, user.isAdmin,
+    conn.query(sql, [user.uname, user.passwd, user.isadmin],
         function (err, rows) {
 
             if (err) {
-                util.debug(util.format_time() + err);
+                util.debug(err);
                 if (error != undefined) {
                     error.call(err);
                 }
@@ -178,7 +176,7 @@ function query_oauth(token, res, error) {
         sql += " WHERE token=?";
     }
     util.debug(sql);
-    db.all(sql, token, function (err, rows) {
+    conn.query(sql, [token], function (err, rows) {
         if (err) {
             util.error(err);
             if (error != undefined) {
@@ -258,9 +256,9 @@ exports.del_oauth_token = del_oauth_token;
  * @param res
  */
 function insert_oauth(oauth, res, error) {
-    var sql = "INSERT INTO " + table_oauth + "(uname,token) VALUES (?,?)";
+    var sql = "INSERT INTO " + table_oauth + "(token,uname) VALUES (?,?)";
     util.debug(sql);
-    db.all(sql, oauth.uname, oauth.token,
+    conn.query(sql, [oauth.token, oauth.uname],
         function (err, rows) {
 
             if (err) {
@@ -287,12 +285,12 @@ function test_data() {
     var test_user = new User();
     test_user.uname = "admin";
     test_user.passwd = "admin";
-    test_user.isAdmin = true;
+    test_user.isadmin = true;
     insert_user(test_user);
 
 }
 
 if (start_module == 'platform') {
-    create_table();
-    test_data();
+//    create_table();
+    // test_data();
 }
