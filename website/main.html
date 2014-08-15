@@ -8,8 +8,22 @@
     <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="/css/index.css"/>
-    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="/js/index.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#exit').bind('click',function(){
+
+                $.removeCookie('token', { path: '/' });
+                window.location.replace("index.html");
+
+            });
+
+        });
+
+    </script>
 
 
 
@@ -39,7 +53,7 @@
             </div>
         </div>
         <div class="right_block">
-            <span>设置</span>
+            <span id="exit">退出</span>
         </div>
     </div>
 
