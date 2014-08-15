@@ -4,6 +4,7 @@
 
 
 var com = require('../com.js');
+var err_const = require('../error.js');
 var util = require('../util.js');
 var oauth = require('../oauth/oauth.js');
 
@@ -16,7 +17,6 @@ var oauth = require('../oauth/oauth.js');
 function login(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'login';
 
     if (params.uname && params.passwd) {
         var uname = params.uname;
@@ -36,20 +36,22 @@ function login(req, res, params) {
                 oauth.insert_oauth(oauth_user);//插入token
                 util.result_client(req, res, result);
             } else {
-                result.error = "check uanme or passwd!";
+                util.error("check uanme or passwd!");
+                result.error = err_const.err_400;
                 util.result_client(req, res, result);
             }
 
         }, function (err) {
 
-            result.error = "check uanme or passwd!";
-            util.result_client(req, res, result);
+            util.error(err);
+            util.bs_fail(req,res);
 
         });
 
 
     } else {
-        result.error = "check request params!";
+        util.error("check request params!");
+        result.error = err_const.err_400;
         util.result_client(req, res, result);
     }
 
@@ -66,25 +68,18 @@ exports.login = login;
 function logout(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'logout';
-    if (params.token) {
-        oauth.del_oauth_token(params.token, function (rows) {
 
-            result.data = params.token;
-            util.result_client(req, res, result);
+    oauth.del_oauth_token(params.token, function (rows) {
 
-        }, function (err) {
-
-            result.error = "check uanme or passwd!";
-            util.result_client(req, res, result);
-
-        });
-
-
-    } else {
-        result.error = "check request params!";
+        result.data = params.token;
         util.result_client(req, res, result);
-    }
+
+    }, function (err) {
+
+        util.bs_fail(req, res);
+
+    });
+
 
 }
 
