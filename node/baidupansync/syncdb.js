@@ -106,7 +106,7 @@ exports.insert_user = insert_user;
  */
 function del_user(uid, success, fail) {
 
-    var sql = "DELETE FROM user WHERE uid=?";
+    var sql = "DELETE FROM " + table_baidupansync_user + " WHERE uid=?";
     util.debug(sql);
     mysql.query(sql, [uid], function (err, rows) {
 

@@ -237,12 +237,12 @@ function del_user(req, res, params) {
     syncdb.del_user(params.value, function (rows) {
 
         //成功删除
-        result.data = "OK";
+        result.data = true;
         util.result_client(req, res, result);
 
     }, function () {
 
-        result.error = "Fail";
+        result.error = false;
         util.result_client(req, res, result);
 
     });

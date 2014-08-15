@@ -32,7 +32,7 @@
 
             $('#uname').html(uname);
 
-            $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=view_quota&value=' + uid + "&token=" + $.cookie('token'), success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=view_quota&token={2}&value={3}".format(baidupansync, randomInt(), getToken(), uid), success: function (data) {
 
                 var quotainfo = data.data;
                 if (undefined != quotainfo) {
@@ -52,15 +52,18 @@
                 if (r) {
                     //删除帐号
 
-                    $.ajax({url: baidupansync + parseInt(Math.random() * 10000000) + '.php?action=del_user&value=' + uid, success: function (data) {
+                    $.ajax({url: "{0}{1}.php?action=del_user&token={2}&value={3}".format(baidupansync, randomInt(), getToken(), uid),
+                                success: function (data) {
 
-                        if (data) {
-                            window.location.replace("index.html");
-                        } else {
-                            alert('删除失败!');
-                        }
+                                    if (data.data) {
+                                        window.location.replace("index.html");
+                                    } else {
+                                        alert('删除失败!');
+                                    }
 
-                    }});
+                                }
+                            }
+                    );
                 }
 
             });
