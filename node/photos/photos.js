@@ -13,6 +13,7 @@ var node_util = require('util');
 var gm = require('gm');
 
 var com = require('../com.js');
+var err_const = require('../error.js');
 var util = require('../util.js');
 var pic_rezie = require('./pic_resize.js');
 
@@ -23,6 +24,7 @@ var img_cache = process.argv[4];
 
 
 function list_dir_files(dir, base, con_dir, con_file) {
+
     if (fs.existsSync(dir)) {
         var files = fs.readdirSync(dir);
         var file_array = [];
@@ -69,8 +71,8 @@ function list_dir_files(dir, base, con_dir, con_file) {
 
 
 function list_photos(params) {
+
     var result = new com.web_result();
-    result.action = "list_photos";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
         if (params.value.substring(params.value.length - 1) != '/') {
@@ -132,8 +134,8 @@ exports.list_photos = list_photos;
  * 返回当前目录的子目录以及文件
  */
 function list_dir(params) {
+
     var result = new com.web_result();
-    result.action = "list";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
         if (params.value.substring(params.value.length - 1) != '/') {
@@ -187,10 +189,11 @@ exports.list_dir = list_dir;
  * @returns {Result}
  */
 function save_photos(req, res, params) {
+
     var result = new com.web_result();
-    result.action = "save_photos";
     if (!params.value) {
-        result.error = 'require save path!';
+        util.error('require save path');
+        result.error = err_const.err_400;
     } else {
         var save_dir = base_photos + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
@@ -207,14 +210,17 @@ function save_photos(req, res, params) {
             if (fields.file_list) {
                 var renamefiles = JSON.parse(fields.file_list);
                 renamefiles.forEach(function (name) {
+
                     fs.rename(files[name].path, save_dir + name);
                     util.debug("rename " + files[name].path + " to " + save_dir + name);
                     gen_thumbnailpic(save_dir + name);
+
                 });
                 result.data = renamefiles;
 
             } else {
-                result.error = "not found files!";
+                util.error('not found files!');
+                result.error = err_const.err_400;
             }
             util.result_client(req, res, result);
 
@@ -235,12 +241,13 @@ exports.save_photos = save_photos;
 function new_photos(req, res, params) {
 
     var result = new com.web_result();
-    result.action = "new_photos";
     var path = base_photos + params.value;
     fs.mkdir(path, function () {
+
         result.data = path;
         util.debug('new photos:' + path);
         util.result_client(req, res, result);
+
     });
 
 }
@@ -254,6 +261,7 @@ exports.new_photos = new_photos;
  * @returns {*}
  */
 function get_max_date(dir, base) {
+
     if (fs.existsSync(dir)) {
         var files = fs.readdirSync(dir);
 
@@ -285,6 +293,7 @@ function get_max_date(dir, base) {
 
 
 function read_album_res(req, res, tofile, gm) {
+
     util.debug("read_album_res file:" + tofile);
 
     if (gm) {
@@ -331,6 +340,7 @@ function get_pic_albume(req, res, param) {
             gm(base_photos + file)
                 .resize(w, h)
                 .write(tofile, function (err) {
+
                     if (err) {
                         res.writeHead(500, {
                             'Content-Type': 'text/plain'
@@ -368,7 +378,6 @@ exports.get_pic_albume = get_pic_albume;
 function get_album_pics(req, res, params) {
 
     var result = new com.web_result();
-    result.action = "get_album_pics";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
         if (params.value.substring(params.value.length - 1) != '/') {

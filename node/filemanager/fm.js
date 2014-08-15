@@ -5,6 +5,7 @@ var fs = require("fs");
 var formidable = require("formidable");
 
 var com = require('../com.js');
+var err_const = require('../error.js');
 var util = require('../util.js');
 var File = com.file;
 
@@ -12,6 +13,7 @@ var webroot = process.argv[3];
 
 
 function list_dir_files(dir, base) {
+
     if (fs.existsSync(dir)) {
         var files = fs.readdirSync(dir);
         var file_array = [];
@@ -57,8 +59,8 @@ function list_dir_files(dir, base) {
  * 返回当前目录的子目录以及文件
  */
 function list_dir(params) {
+
     var result = new com.web_result();
-    result.action = "list";
     if (params.value) {
         //如果客户端传来的数据没有加/,自动加上
         if (params.value.substring(params.value.length - 1) != '/') {
@@ -77,10 +79,10 @@ function list_dir(params) {
 
                     page_array.push(array_files[i]);
 
-                    if (params.num != undefined && (i - params.skip == (params.num -1) )) {
+                    if (params.num != undefined && (i - params.skip == (params.num - 1) )) {
 
                         result.data = page_array;
-                        if (i < array_files.length -1 ) {
+                        if (i < array_files.length - 1) {
                             result.more = true;
                         }
                         return result;
@@ -144,23 +146,24 @@ function delete_folder(path) {
  */
 function delete_file(params) {
     var result = new com.web_result();
-    result.action = "delete";
 
     var path = webroot + params.value;
-    //&& fs.existsSync(params.value)
     if (params && params.value && fs.existsSync(path)) {
         var st = fs.lstatSync(path);
         //删除文件
         if (st.isFile()) {
-            util.debug(util.format_time() + 'delete file ' + path);
-            result.data = fs.unlinkSync(path);
+            util.debug("delete file " + path);
+            fs.unlinkSync(path);
+
         } else {
-            util.debug(util.format_time() + 'delete folder ' + path);
-            result.data = delete_folder(path);
+            util.debug('delete folder ' + path);
+            delete_folder(path);
         }
+        result.data = true;
 
     } else {
-        result.error = "check path!";
+        util.error("check folder param");
+        result.error = err_const.err_400;
     }
     return result;
 }
@@ -174,10 +177,11 @@ exports.delete_file = delete_file;
  * @returns {Result}
  */
 function save_file(req, res, params) {
+
     var result = new com.web_result();
-    result.action = "upload";
     if (!params.value) {
-        result.error = 'require save path!';
+        util.error('require save path!');
+        result.error = err_const.err_400;
     } else {
         var save_dir = webroot + params.value;
         if (save_dir.substring(save_dir.length - 1) != '/') {
@@ -189,24 +193,25 @@ function save_file(req, res, params) {
         form.uploadDir = save_dir;
 
         form.parse(req, function (err, fields, files) {
-//            util.debug(fields);
-//            util.debug(files);
+
             if (fields.file_list) {
                 var renamefiles = JSON.parse(fields.file_list);
                 renamefiles.forEach(function (name) {
+
                     fs.rename(files[name].path, save_dir + name);
-                    util.debug(util.format_time() + "rename " + files[name].path + " to " + save_dir + name);
+                    util.debug("rename " + files[name].path + " to " + save_dir + name);
+
                 });
                 result.data = renamefiles;
             } else {
-                result.error = "not found files!";
+                util.error("not found files!");
+                result.error = err_const.err_400;
             }
             util.result_client(req, res, result);
 
         });
     }
 
-    return result;
 }
 
 exports.save_file = save_file;
@@ -219,10 +224,9 @@ exports.save_file = save_file;
 function new_dir(req, res, params) {
 
     var result = new com.web_result();
-    result.action = "newfolder";
     var path = webroot + params.value;
     result.data = fs.mkdir(path, function () {
-        util.debug(util.format_time() + 'new folder:' + path);
+        util.debug('new folder:' + path);
         util.result_client(req, res, result);
     });
 
@@ -240,19 +244,21 @@ exports.new_dir = new_dir;
 function rename(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'rename';
     var path = webroot + params.value;
     var target = webroot + params.target;
 
-    util.debug(util.format_time() + 'path:' + path + " target:" + target);
+    util.debug('path:' + path + " target:" + target);
 
     fs.rename(path, target, function (err) {
+
         if (err) {
-            result.error = err;
+            util.error(err);
+            result.error = err_const.err_500;
         } else {
             result.data = 'true';
         }
         util.result_client(req, res, result);
+
     });
 
 }
@@ -261,7 +267,7 @@ exports.rename = rename;
 
 
 /**
- *
+ *搜索文件
  * @param req
  * @param res
  * @param params
@@ -269,8 +275,8 @@ exports.rename = rename;
 function search_dir(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'search_dir';
     if (params.query != undefined) {
+
         var file_list = list_dir(params);
         if (file_list.error == '') {
             var file_array = [];

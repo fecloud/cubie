@@ -203,6 +203,21 @@ function agent() {
 
 }
 
+/**
+ * 取token
+ */
+function getToken() {
+
+    return $.cookie('token');
+
+}
+
+function randomInt (){
+
+    return parseInt(Math.random() * 10000000);
+
+}
+
 var fm_service = "/service/fm/";
 var baidupansync = "/service/baidupansync/";
 var status_service = "/service/platform/";

@@ -67,7 +67,7 @@ function search() {
             //console.log('search');
         });
         $('#content').html('');
-        $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=search&value=' + current_path + '&query=' + query,
+        $.ajax({url: "{0}{1}.php?action=search&token={2}&value={3}&query=".format(fm_service, randomInt(), getToken(), current_path, query),
             success: function (data) {
                 if (data.error == '') {
                     load_list(data);
@@ -102,7 +102,7 @@ function load_data(befor, end) {
     }
 
     loading = true;
-    var address = fm_service + parseInt(Math.random() * 10000000) + '.php?action=list&value=' + current_path + '&skip=' + count + "&num=" + page_num;
+    var address = "{0}{1}.php?action=list&token={2}&value={3}&skip={4}&num={5}".format(fm_service, randomInt(), getToken(), current_path, count, page_num);
     $.ajax({url: address,
         success: function (data) {
             loading = false;
@@ -120,7 +120,7 @@ function load_data(befor, end) {
 
 
 function load_list(data) {
-    if (data && data.error == '' && data.data) {
+    if (data && data.data) {
         var arr = data.data;
         count += arr.length;
         for (var i = 0, len = arr.length; i < len; i++) {
@@ -172,7 +172,7 @@ function idown(b) {
 
 function iremove(b) {
     var file = $(b.target).closest('li')[0];
-    $.ajax({url: fm_service + parseInt(Math.random() * 10000000) + '.php?action=delete&value=' + file.getAttribute('src'),
+    $.ajax({url: "{0}{1}.php?action=delete&token={2}&value={3}".format(fm_service, randomInt(), getToken(), file.getAttribute('src')),
         success: function (data) {
             file.remove();
             count = count - 1;
@@ -184,7 +184,7 @@ function irename(b) {
     b.preventDefault();
     b.stopPropagation();
     var src = $(b.target).closest('li')[0];
-    window.location.replace('rename.html?path=' + src.getAttribute('src') + "&isFile=" + src.getAttribute('file') + "&name=" + src.getAttribute('name'));
+    window.location.replace('rename.html?path={0}&isFile={1}&name={2}'.format(src.getAttribute('src'), src.getAttribute('file'), src.getAttribute('name')));
 }
 
 

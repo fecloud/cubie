@@ -60,13 +60,6 @@ route.logout = function(req, res, params){
  */
 route.not_oauth = ['login'];
 
-route.default = function (req, res, params) {
-
-    var result = new com.web_result();
-    result.error = err_const.err_404;
-    util.error(err_const.err_404);
-    util.result_client(req, res, result);
-};
 
 exports.route = route;
 

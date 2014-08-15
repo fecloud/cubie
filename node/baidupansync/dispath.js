@@ -57,13 +57,6 @@ route.del_user = function (req, res, params) {
 };
 
 
-route.default = function (req, res, params) {
-
-    var result = new com.web_result();
-    result.error = err_const.err_404;
-    util.error(err_const.err_404);
-    util.result_client(req, res, result);
-};
 
 exports.route = route;
 

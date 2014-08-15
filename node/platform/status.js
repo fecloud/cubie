@@ -4,6 +4,7 @@ var exec = require('child_process').exec,
 
 
 var com = require('../com.js');
+var err_const = require('../error.js');
 var util = require('../util.js');
 
 var service_status = function () {
@@ -90,9 +91,9 @@ function uptime(req, res, params) {
                 if (arr != null) {
                     obj.load = arr.join(" ");
                 }
-//                var server_time = out.match(/\d{2}:\d{2}:\d{2}/g);
-//                util.debug(server_time);
-//                obj.server_time = server_time[0];
+                var server_time = out.match(/(\d\d:)+\d{2}/g);
+                util.debug(server_time);
+                obj.server_time = server_time[0];
                 result.data = obj;
             }
             util.result_client(req, res, result);
@@ -114,25 +115,26 @@ function df(req, res, params) {
 
     var result = new com.web_result();
 
-    child = exec("df -h |grep " + params.value + " | head -n 1",
-        function (error, stdout, stderr) {
-            var out = stdout;
-            if (out && out != '') {
-                var arr = out.split(" ");
-                var re_arr = [];
-                util.debug(arr);
-                if (null != arr) {
-                    arr.forEach(function (a) {
-                        if (a != '') {
-                            re_arr.push(a);
-                        }
-                    });
-                    result.data = re_arr;
-                }
+    child = exec("df -h |grep " + params.value + " | head -n 1", function (error, stdout, stderr) {
+        var out = stdout;
+        if (out && out != '') {
+            var arr = out.split(" ");
+            var re_arr = [];
+            util.debug(arr);
+            if (null != arr) {
+                arr.forEach(function (a) {
+                    if (a != '') {
+                        re_arr.push(a);
+                    }
+                });
+                result.data = re_arr;
             }
-            util.result_client(req, res, result);
+        } else {
+            result.error = err_const.err_500;
+        }
+        util.result_client(req, res, result);
 
-        });
+    });
 
 }
 

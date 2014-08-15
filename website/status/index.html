@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/status.css"/>
     <link rel="stylesheet" href="../css/switchery.min.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../js/com.js"></script>
     <script type="text/javascript" src="../js/html5.js"></script>
     <script type="text/javascript" src="../js/switchery.min.js"></script>
@@ -20,7 +21,7 @@
         $(document).ready(function () {
             var fm_switch = document.querySelector('.fm-switch');
             var fm = new Switchery(fm_switch);
-            fm_switch.onchange = function() {
+            fm_switch.onchange = function () {
                 console.log(this.checked);
             };
 
@@ -34,23 +35,26 @@
             var photos = new Switchery(photos_switch);
 
 
-            var status = new Switchery(document.querySelector('.status-switch'),{ disabled: true });
+            var status = new Switchery(document.querySelector('.status-switch'), { disabled: true });
 
 
             back_bind();
 
 
-            $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=status&value=/', success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=status&token={2}".format(status_service, randomInt(), getToken()), success: function (data) {
 
                 var status = data.data;
 
-                if(status.fm){
+                if (status.fm) {
                     fm_switch.click();
-                }if(status.arduino){
+                }
+                if (status.arduino) {
                     arduino_switch.click();
-                }if(status.baiduyunsync){
+                }
+                if (status.baiduyunsync) {
                     baiduyunsync_switch.click();
-                }if(status.photos){
+                }
+                if (status.photos) {
                     photos_switch.click();
                 }
 
@@ -62,32 +66,32 @@
 
             }});
 
-            $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=uptime&value=/', success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=uptime&token={2}".format(status_service, randomInt(), getToken()), success: function (data) {
 
-                if(data.data.load){
+                if (data.data.load) {
                     $('#load').html(data.data.load);
-                }else {
+                } else {
                     $('#load').html('暂无');
                 }
 
-                if(data.data.server_time){
+                if (data.data.server_time) {
                     $('#server_time').html(data.data.server_time);
-                }else {
+                } else {
                     $('#server_time').html('暂无');
                 }
 
 
             }});
 
-            $.ajax({url: status_service + parseInt(Math.random() * 10000000) + '.php?action=df&value=/dev/sda2', success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=df&token={2}&value={3}".format(status_service, randomInt(), getToken(),"/dev/sda2"), success: function (data) {
 
-                if(data.data){
+                if (data.data) {
                     var arr = data.data;
                     $('#quota').html(arr[1]);
                     $('#used').html(arr[2]);
                     $('#free').html(arr[3]);
                     $('#used_free').html(arr[4]);
-                }else {
+                } else {
                     $('#quota').html('暂无');
                     $('#used').html('暂无');
                     $('#free').html('暂无');
@@ -111,6 +115,7 @@
 
         <div class="btn back_btn">返回</div>
         <h1>服务器状态</h1>
+
         <div style=" width: 50px;height: 30px;"></div>
 
     </div>
@@ -131,13 +136,14 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">百度网盘同步服务</div>
-                <div class="service_operate"><input type="checkbox" class="baiduyunsync-switch" id="baiduyunsync" /></div>
+                <div class="service_operate"><input type="checkbox" class="baiduyunsync-switch" id="baiduyunsync"/>
+                </div>
             </div>
         </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">相册服务</div>
-                <div class="service_operate"><input type="checkbox" class="photos-switch" id="photos" /></div>
+                <div class="service_operate"><input type="checkbox" class="photos-switch" id="photos"/></div>
             </div>
         </li>
         <li class="list-item">
@@ -150,7 +156,7 @@
     </ul>
 
     <ul id="content" class="list group">
-        <li  class="list-item">
+        <li class="list-item">
             <div class="box">
                 <div class="content">CPU</div>
                 <div class="service_operate text_right" id="arch">...</div>

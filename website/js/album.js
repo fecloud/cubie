@@ -27,7 +27,8 @@ $(document).ready(function () {
  */
 function load_data() {
 
-    $.ajax({url: photos_service + parseInt(Math.random() * 10000000) + '.php?action=get_album_pics&value=' + path, success: function (data) {
+    $.ajax({url: "{0}{1}.php?action=get_album_pics&token={2}&value={3}".format(photos_service ,randomInt(),getToken(),path),
+        success: function (data) {
 
         if (data && data.data) {
             data.data.forEach(function (pic) {
@@ -120,7 +121,7 @@ function uploadFile(b) {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", photos_service + Math.random() * 100000 + ".php?action=save_photos&value=" + path);
+    xhr.open("POST", "{0}{1}.php?action=save_photos&token={2}&value={3}".format(photos_service ,randomInt(),getToken(),path));
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }

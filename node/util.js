@@ -188,6 +188,21 @@ exports.db_query = db_query;
  * @param res
  * @param web_result
  */
+function bs_notfound(req, res){
+    var web_result = new com.web_result();
+    web_result.error = err_const.err_404;
+    resultClient(req, res, web_result);
+
+}
+
+exports.bs_notfound = bs_notfound;
+
+/**
+ * 业务失败
+ * @param req
+ * @param res
+ * @param web_result
+ */
 function bs_fail(req, res){
     var web_result = new com.web_result();
     web_result.error = err_const.err_500;

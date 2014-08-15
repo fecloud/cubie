@@ -44,11 +44,14 @@ function set_route(m) {
 
 function http_module_exe(req, res, params) {
 
-    if (params && params.action && params.value) {
+    util.debug("http_module_exe " + params.action);
 
-        if (route[params.action]) {
-            route[params.action].call(route, req, res, params);
-        }
+    if (route[params.action]) {
+        route[params.action].call(route, req, res, params);
+    } else if (route['default']) {
+        route['default'].call(route, req, res, params);
+    } else {
+        util.bs_notfound(req, res);
 
     }
 }
@@ -66,7 +69,7 @@ function innot_oauth(method) {
         route.not_oauth.forEach(function (m) {
 
             if (m == method) {
-                result =  true;
+                result = true;
             }
 
         });
@@ -88,23 +91,21 @@ function start_http_module(m) {
             util.info('url:' + req.url);
             var params = url.parse(req.url, true).query;
             var result = new com.web_result();
-            if (params) {
+            if (params && params.action) {
                 var token = params.token;
-                var action = params.action == undefined ? 'default' : params.action;
+                var action = params.action;
                 if (innot_oauth(action)) { //不需要token的接口
                     http_module_exe(req, res, params);
                 } else if (token) {
                     //检查token
                     oauth.query_oauth(token, function (rows) {
 
-                            if (rows && rows[0]) {
-                                var oauth_rows = rows[0];
-                                if (oauth_rows.token == token) {
-                                    http_module_exe(req, res, params);
-                                }
-
+                            if (rows && rows[0] && rows[0].token == token) {
+                                util.debug("token pass");
+                                http_module_exe(req, res, params);
                             } else {
-                                result.error = err_const.err_404;
+                                util.debug("token not pass");
+                                result.error = err_const.err_401;
                                 util.result_client(req, res, result);
                             }
                         }

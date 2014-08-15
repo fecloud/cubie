@@ -52,13 +52,6 @@ route.get_album_pics = function(req, res, params){
 
 }
 
-route.default = function (req, res, params) {
-
-    var result = new com.web_result();
-    result.error = 'action not found!';
-    util.error(util.format_time() + "action not found!");
-    util.result_client(req, res, result);
-};
 
 exports.route = route;
 

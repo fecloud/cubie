@@ -43,13 +43,6 @@ route.search = function (req, res, params) {
     fm.search(req, res, params);
 };
 
-route.default = function (req, res, params) {
-
-    var result = new com.web_result();
-    result.error = 'action not found!';
-    util.error(util.format_time() + "action not found!");
-    util.result_client(req, res, result);
-};
 
 exports.route = route;
 
