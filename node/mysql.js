@@ -9,7 +9,13 @@ var conn = mysql.createConnection({
     database: 'fcloud'
 });
 
-conn.connect();
+var util = require('./util.js');
+
+conn.connect(function(err){
+
+    util.error("mysql connect error");
+
+});
 
 process.on('exit', function (code) {
 
