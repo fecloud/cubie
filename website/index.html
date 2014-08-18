@@ -64,7 +64,7 @@
 
                 $.ajax({url: url, success: function (data) {
 
-                    if (data) {
+                    if (data && data.data) {
                         //保存到cookie
                         $.cookie('uname', data.data.uname, { expires: 100 });
                         $.cookie('token', data.data.token, { expires: 100 });
