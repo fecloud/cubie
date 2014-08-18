@@ -69,6 +69,9 @@
                         $.cookie('uname', data.data.uname, { expires: 100 });
                         $.cookie('token', data.data.token, { expires: 100 });
                         window.location.replace('main.html');
+                    } else {
+                        alert("用户名或者密码错误");
+                        $('#uname').focus();
                     }
 
                 }});
@@ -83,30 +86,30 @@
 
 <body>
 
-    <div id="container" class="container">
+<div id="container" class="container">
 
-        <i id="icon"></i>
+    <i id="icon"></i>
 
-        <div id="login_box">
-            <div class="list-item" style="height: 45px;">
-                <div class="box" id="uname_box">
-                    <div class="content">帐号</div>
-                    <div class="input_box"><input type="text" placeholder="用户帐号" id="uname"
-                                                  class="login_input"/></div>
-                </div>
-            </div>
-            <div class="list-item">
-                <div class="box">
-                    <div class="content">密码</div>
-                    <div class="input_box"><input type="password" placeholder="用户密码" id="passwd"
-                                                  class="login_input"/></div>
-                </div>
+    <div id="login_box">
+        <div class="list-item" style="height: 45px;">
+            <div class="box" id="uname_box">
+                <div class="content">帐号</div>
+                <div class="input_box"><input type="text" placeholder="用户帐号" id="uname"
+                                              class="login_input"/></div>
             </div>
         </div>
-
-        <div id="login_btn">登录</div>
-
+        <div class="list-item">
+            <div class="box">
+                <div class="content">密码</div>
+                <div class="input_box"><input type="password" placeholder="用户密码" id="passwd"
+                                              class="login_input"/></div>
+            </div>
+        </div>
     </div>
+
+    <div id="login_btn">登录</div>
+
+</div>
 
 </body>
 </html>
