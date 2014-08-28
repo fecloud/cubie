@@ -2,27 +2,45 @@
  * Created by Feng OuYang on 2014-08-14.
  */
 var mysql = require('mysql');
-var conn = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'fcloud',
-    database: 'fcloud'
-});
+var conn;
 
 var util = require('./util.js');
 
-conn.connect(function(err){
+function connect_mysql() {
 
-    util.error("mysql connect error");
-    con = mysql.createConnection({
+    util.warn("connect_mysql");
+    conn = mysql.createConnection({
         host: 'localhost',
         user: 'root',
         password: 'fcloud',
         database: 'fcloud'
     });
-    util.debug("reconnet ...");
 
-});
+    conn.connect(function (err) {
+
+        if (err) {
+            util.error("mysql connect error");
+            util.warn("reconnet ...");
+            setTimeout(connect_mysql, 2000);//2s以后重新连接
+        }
+
+    });
+
+    conn.on('error', function (err) {
+
+        util.warn('db error', err);
+        // 如果是连接断开，自动重新连接
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            connect_mysql();
+        } else {
+            throw err;
+        }
+
+    });
+}
+
+connect_mysql();
+
 
 process.on('exit', function (code) {
 
