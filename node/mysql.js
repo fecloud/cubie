@@ -28,10 +28,11 @@ function connect_mysql() {
 
     conn.on('error', function (err) {
 
-        util.warn('db error', err);
+        util.warn('db error' + err);
         // 如果是连接断开，自动重新连接
         if (err.code === 'PROTOCOL_CONNECTION_LOST') {
-            connect_mysql();
+            util.warn("reconnet ...");
+            setTimeout(connect_mysql, 1000);//1s以后重新连接
         } else {
             throw err;
         }
