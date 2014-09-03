@@ -66,8 +66,8 @@ exports.login = login;
  * @param params
  */
 function logout(req, res, params) {
-
     var result = new com.web_result();
+
 
     oauth.del_oauth_token(params.token, function (rows) {
 
@@ -84,3 +84,18 @@ function logout(req, res, params) {
 }
 
 exports.logout = logout;
+
+/**
+ * 检查token
+ * @param req
+ * @param res
+ * @param params
+ */
+function check_token(req, res, params){
+
+    var result = new com.web_result();
+    result.data = params.token;
+    util.result_client(req, res, result);
+}
+
+exports.check_token = check_token;

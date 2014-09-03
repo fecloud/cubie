@@ -43,15 +43,21 @@ route.stop_service = function (req, res, params) {
 
 };
 
-route.login = function(req, res, params){
+route.login = function (req, res, params) {
 
-    um.login(req,res,params);
+    um.login(req, res, params);
 
 };
 
-route.logout = function(req, res, params){
+route.logout = function (req, res, params) {
 
-    um.logout(req,res,params);
+    um.logout(req, res, params);
+
+};
+
+route.check_token = function (req, res, params) {
+
+    um.check_token(req, res, params);
 
 };
 
