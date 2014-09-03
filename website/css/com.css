@@ -10,6 +10,10 @@ html, body, div, p, ul, li, h1, h2, h3, a, span, i, header, footer {
     -webkit-appearance: none;
 }
 
+input {
+    outline:none;
+}
+
 body {
     font: normal 14px "microsoft yahei";
     background-color: #efeff4;
