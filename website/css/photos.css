@@ -2,9 +2,8 @@ body {
     background-color: #FFFFFF;
 }
 
-#content {
-
-    padding: 10px;
+.content {
+    padding: 6px;
 }
 
 .photos {
@@ -75,24 +74,79 @@ body {
     -webkit-transform: rotate(-90deg);
 }
 
-.album-item {
-    width: 76px;
-    height: 76px;
-    position: relative;
-    float: left;
+.content-320 {
+    padding: 0px;
+    margin-left: -4px;
+}
+
+.content-320 .album-item-set {
+    width: 77px;
+    height: 77px;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    background-size: 77px 77px;
+}
+
+.content-480 {
+    padding: 0px;
+    margin-left: -1.5px;
+}
+
+.content-480 .album-item-set {
+    width: 77px;
+    height: 77px;
+    margin-left: 3px;
+    margin-bottom: 3px;
+    background-size: 77px 77px;
+}
+
+.content-768 {
+    padding: 0px;
+    margin-left: 0px;
+}
+
+.content-768 .album-item-set {
+    width: 149px;
+    height: 149px;
+    margin-left: 4px;
+    margin-bottom: 4px;
+    background-size: 150px 150px;
+}
+
+.content-1024 {
+    padding: 0px;
+    margin-left: -1px;
+}
+
+.content-1024 .album-item-set {
+    width: 141px;
+    height: 141px;
     margin-left: 5px;
     margin-bottom: 5px;
+    background-size: 143px 143px;
+}
+
+.content-pc {
+    padding: 0px;
+    margin-left: 1px;
+}
+
+.content-pc .album-item-set {
+    width: 174px;
+    height: 174px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    background-size: 174px 174px;
+}
+
+.album-item {
+    position: relative;
+    float: left;
     background-repeat: no-repeat;
-    background-size: 76px 76px;
     background-color: #F7F7F7;
 }
 
-.album-item-pc {
-    width: 175.6px;
-    height:175px;
-    margin-left: 5px;
-    background-size: 176px 176px;
-}
+
 
 .album-item a {
     display: block;

@@ -3,6 +3,8 @@
  */
 
 var path, name;
+var photos_width;
+var content_css;
 
 $(document).ready(function () {
 
@@ -10,6 +12,9 @@ $(document).ready(function () {
 
     path = getArgs('path');
     name = getArgs('name');
+
+    comp_photos_width();
+    $('#content').addClass(content_css);
 
     document.title = name;
     $('#ti').html(name);
@@ -20,47 +25,61 @@ $(document).ready(function () {
         fileSelected(b.target);
     });
 
+    $(window).resize(function(){
+
+        $('#content').removeClass(content_css);
+        comp_photos_width();
+        $('#content').addClass(content_css);
+    });
+
 });
+
+/**
+ * 计算大小
+ */
+function comp_photos_width() {
+
+    var doc_width = $(document).width();
+
+        if (doc_width == 320) {
+            content_css = 'content-320';
+        }else if(doc_width == 480){
+            content_css = 'content-480';
+        }else if(doc_width == 768){
+            content_css = 'content-768';
+        }else if(doc_width == 1024){
+            content_css = 'content-1024';
+        }else {
+            content_css = 'content-pc';
+        }
+
+}
 
 /**
  * 加载本页数据
  */
 function load_data() {
 
-    $.ajax({url: "{0}{1}.php?action=get_album_pics&token={2}&value={3}".format(photos_service ,randomInt(),getToken(),path),
+    $.ajax({url: "{0}{1}.php?action=get_album_pics&token={2}&value={3}".format(photos_service, randomInt(), getToken(), path),
         success: function (data) {
 
-        if (data && data.data) {
-            data.data.forEach(function (pic) {
+            if (data && data.data) {
+                data.data.forEach(function (pic) {
 
-                var h = "<div style=\"background-image: url(" +
-                    thum + $.md5(pic.path + "_160_160") + ".jpg" +
-                    ");\" class=\"album-item " +
-                    add_class() +
-                    "\" ><a href=\"" +
-                    photos_pic + pic.path
-                    + "\" ></a></div>";
-                $('#content').append(h);
-            });
-        }
+                    var h = "<div style=\"background-image: url(" +
+                        thum + $.md5(pic.path + "_160_160") + ".jpg" +
+                        ");\" class=\"album-item album-item-set" +
+                        "\" ><a href=\"" +
+                        photos_pic + pic.path
+                        + "\" ></a></div>";
+                    $('#content').append(h);
+                });
+            }
 
 
-    }});
+        }});
 
-    function add_class() {
 
-        var user_agent = window.navigator.userAgent;
-
-        if (user_agent.indexOf('iPhone') > -1 || user_agent.indexOf('Android') > 1) {
-
-        } else if (user_agent.indexOf('iPad') > -1) {
-
-        } else {
-            //pc
-            return "album-item-pc";
-        }
-
-    }
 }
 
 function fileSelected(b) {
@@ -121,7 +140,7 @@ function uploadFile(b) {
 
     xhr.addEventListener("abort", uploadCanceled, false);
 
-    xhr.open("POST", "{0}{1}.php?action=save_photos&token={2}&value={3}".format(photos_service ,randomInt(),getToken(),path));
+    xhr.open("POST", "{0}{1}.php?action=save_photos&token={2}&value={3}".format(photos_service, randomInt(), getToken(), path));
     xhr.send(fd);
     $('.progress-bar b').width(0);
 }
