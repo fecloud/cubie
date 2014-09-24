@@ -278,7 +278,7 @@ function search_dir(req, res, params) {
     if (params.query != undefined) {
 
         var file_list = list_dir(params);
-        if (file_list.error == '') {
+        if (file_list) {
             var file_array = [];
             file_list.data.forEach(function (name) {
 

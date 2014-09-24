@@ -69,10 +69,10 @@ function search() {
         $('#content').html('');
         $.ajax({url: "{0}{1}.php?action=search&token={2}&value={3}&query={4}".format(fm_service, randomInt(), getToken(), current_path, query),
             success: function (data) {
-                if (data.error == '') {
-                    load_list(data);
-                }
+
+                load_list(data);
                 $('#loading').css({display: 'none'});
+
             }
         });
     }
