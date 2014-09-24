@@ -1,3 +1,3 @@
-npm install formidable && npm install sqlite3  && npm install log4js && npm install gm
+npm install formidable && npm install mysql  && npm install log4js && npm install gm
 #brew install imagemagick && brew install graphicsmagick && brew install imagemagick --with-webp
 #apt-get install imagemagick && apt-get install graphicsmagick
