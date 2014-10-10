@@ -61,6 +61,12 @@ route.check_token = function (req, res, params) {
 
 };
 
+route.server_uptime = function (req, res, params) {
+
+    status.server_uptime(req, res, params);
+
+};
+
 /**
  * 不需要认证的接口
  */

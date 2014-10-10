@@ -28,7 +28,7 @@ var service_status = function () {
 function status(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'status';
+
     var service_s = new service_status();
 
     child = exec("ps -ef | grep 'httpd.js'",
@@ -79,7 +79,6 @@ exports.status = status;
 function uptime(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'uptime';
 
     child = exec("uptime",
         function (error, stdout, stderr) {
@@ -149,7 +148,6 @@ exports.df = df;
 function start_service(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'start_service';
 
     child = exec("service httpd start " + params.value,
         function (error, stdout, stderr) {
@@ -178,8 +176,6 @@ exports.start_service = start_service;
 function stop_service(req, res, params) {
 
     var result = new com.web_result();
-    result.action = 'stop_service';
-
     child = exec("service httpd stop " + params.value,
         function (error, stdout, stderr) {
             var out = stdout;
@@ -197,3 +193,29 @@ function stop_service(req, res, params) {
 }
 
 exports.stop_service = stop_service;
+
+/**
+ * 服务器运行时间
+ * @param req
+ * @param res
+ * @param params
+ */
+function server_uptime(req, res, params) {
+
+    var result = new com.web_result();
+
+    child = exec("uptime | awk '{print $3}'",
+        function (error, stdout, stderr) {
+            var out = stdout;
+            if (out && out != '') {
+                var arr = out.replace(',', "").replace("\n", "");
+                util.debug(arr);
+                result.data = arr;
+            }
+            util.result_client(req, res, result);
+
+        });
+
+}
+
+exports.server_uptime = server_uptime;

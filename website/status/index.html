@@ -83,7 +83,7 @@
 
             }});
 
-            $.ajax({url: "{0}{1}.php?action=df&token={2}&value={3}".format(status_service, randomInt(), getToken(),"/dev/sda2"), success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=df&token={2}&value={3}".format(status_service, randomInt(), getToken(), "/dev/sda2"), success: function (data) {
 
                 if (data.data) {
                     var arr = data.data;
@@ -100,6 +100,18 @@
 
 
             }});
+
+            $.ajax({url: "{0}{1}.php?action=server_uptime&token={2}".format(status_service, randomInt(), getToken()), success: function (data) {
+
+                if (data.data) {
+                    $('#server_uptime').html(data.data);
+                } else {
+                    $('#server_uptime').html('暂无');
+                }
+
+
+            }});
+
 
         });
 
@@ -198,7 +210,12 @@
                 <div class="service_operate text_right" id="load">...</div>
             </div>
         </li>
-
+        <li class="list-item">
+            <div class="box">
+                <div class="content">服务器运行时间</div>
+                <div class="service_operate text_right" id="server_uptime">...</div>
+            </div>
+        </li>
 
     </ul>
 
