@@ -80,6 +80,7 @@ emitter.on("req", function (worker) {
             util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile);
             gm(worker.task.file)
                 .resize(worker.task.w, worker.task.h)
+				.autoOrient()
                 .write(worker.task.tofile, function (err) {
 
                     //gm 出现错误
