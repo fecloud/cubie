@@ -71,7 +71,7 @@ emitter.on("req", function (worker) {
     fs.exists(worker.task.tofile, function (exists) {
 
         if (exists) {
-            util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " not need resize");
+            util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " not need resize");
             worker.working = false;
             util.debug('worker ' + worker.id + ' finish task req next');
             req_worker(true);
@@ -84,9 +84,9 @@ emitter.on("req", function (worker) {
 
                     //gm 出现错误
                     if (err) {
-                        util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " error " + err.toString());
+                        util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " error " + err.toString());
                     } else {
-                        util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " success");
+                        util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " success");
                     }
                     worker.working = false;
                     util.debug('worker ' + worker.id + ' finish task req next');
@@ -158,7 +158,7 @@ function req_worker(isworker) {
  */
 function req_rezie(file, tofile, w, h, func) {
 
-    util.debug("req_rezie " + file + " tofile" + tofile + " req_rezie");
+    util.debug("req_rezie " + file + " tofile " + tofile + " req_rezie");
 
     var task = new Task();
     task.file = file;
