@@ -76,7 +76,7 @@ emitter.on("req", function (worker) {
             req_worker();
         } else {
             //需要resize
-            util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile);
+            util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile);
             gm(worker.task.file)
                 .resize(worker.task.w, worker.task.h)
                 .write(worker.task.tofile, function (err) {
