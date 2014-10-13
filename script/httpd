@@ -17,12 +17,13 @@ PROG_PATH="/usr/bin/nodejs /data/app/node" #::# Not need, but sometimes helpful 
 FM_ARGS="/data/f"
 PH_ARGS="/data/f/photos  /data/f/thum"
 PID_PATH="/var/run/"
+STD_OUT="/dev/null"
 
 start_fm(){
 
     pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG fm $FM_ARGS >/var/log/httpd.fm.log 2>&1 &
+        $PROG_PATH/$PROG fm $FM_ARGS >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
         echo "$PROG fm started $pid"
         echo $pid > "$PID_PATH/$PROG.fm.pid"
@@ -48,7 +49,7 @@ start_arduino(){
 
     pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG arduino >/var/log/httpd.arduino.log 2>&1 &
+        $PROG_PATH/$PROG arduino >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
         echo "$PROG arduino started $pid"
         echo $pid > "$PID_PATH/$PROG.arduino.pid"
@@ -74,7 +75,7 @@ start_baidupansync(){
 
     pid=`ps x|grep httpd.js |grep baidupansync |awk '{print $1}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG baidupansync >/var/log/httpd.baidupansync.log 2>&1 &
+        $PROG_PATH/$PROG baidupansync >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep baidupansync |awk '{print $1}' | head -n 1`
         echo "$PROG baidupansync started $pid"
         echo $pid > "$PID_PATH/$PROG.baidupansync.pid"
@@ -100,7 +101,7 @@ start_platform(){
 
     pid=`ps x|grep httpd.js |grep platform |awk '{print $1}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG platform >/var/log/httpd.platform.log 2>&1 &
+        $PROG_PATH/$PROG platform >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep platform |awk '{print $1}' | head -n 1`
         echo "$PROG platform started $pid"
         echo $pid > "$PID_PATH/$PROG.platform.pid"
@@ -126,7 +127,7 @@ start_photos(){
 
     pid=`ps x|grep httpd.js |grep photos |awk '{print $1}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG photos $PH_ARGS >/var/log/httpd.photos.log 2>&1 &
+        $PROG_PATH/$PROG photos $PH_ARGS >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep photos |awk '{print $1}' | head -n 1`
         echo "$PROG photos started $pid"
         echo $pid > "$PID_PATH/$PROG.photos.pid"

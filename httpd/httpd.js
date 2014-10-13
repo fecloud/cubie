@@ -88,7 +88,7 @@ function start_http_module(m) {
      */
     http.createServer(function (req, res) {
 
-            util.info('url:' + req.url);
+            util.access('url:' + req.url);
             var params = url.parse(req.url, true).query;
             var result = new com.web_result();
             if (params && params.action) {
