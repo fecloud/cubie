@@ -73,6 +73,7 @@ emitter.on("req", function (worker) {
         if (exists) {
             util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " not need resize");
             worker.working = false;
+            util.debug('worker ' + worker.id + ' finish task req next');
             req_worker();
         } else {
             //需要resize
@@ -88,6 +89,7 @@ emitter.on("req", function (worker) {
                         util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " success");
                     }
                     worker.working = false;
+                    util.debug('worker ' + worker.id + ' finish task req next');
                     req_worker();
 
                 });
