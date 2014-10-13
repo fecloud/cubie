@@ -74,7 +74,7 @@ emitter.on("req", function (worker) {
             util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " not need resize");
             worker.working = false;
             util.debug('worker ' + worker.id + ' finish task req next');
-            req_worker();
+            req_worker(true);
         } else {
             //需要resize
             util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile);
@@ -90,7 +90,7 @@ emitter.on("req", function (worker) {
                     }
                     worker.working = false;
                     util.debug('worker ' + worker.id + ' finish task req next');
-                    req_worker();
+                    req_worker(true);
 
                 });
         }
@@ -124,9 +124,13 @@ function check_free_worker() {
 /**
  * 请工作者 工作
  */
-function req_worker() {
+function req_worker(isworker) {
 
-    util.debug('req_worker');
+    if (arguments.length > 0 && isworker) {
+        util.debug('req_worker isworker');
+    } else {
+        util.info('req_worker Third');
+    }
 
     var free_worker = check_free_worker();
     if (free_worker) {
@@ -138,11 +142,11 @@ function req_worker() {
             free_worker.task = task;
             //发送异步执行任务
             emitter.emit('req', free_worker);
-        }else {
+        } else {
             util.debug('not task , finish worker');
         }
 
-    }else {
+    } else {
         util.debug('workers all busy');
     }
 
