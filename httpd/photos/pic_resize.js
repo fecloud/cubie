@@ -139,10 +139,13 @@ function req_worker() {
             //发送异步执行任务
             emitter.emit('req', free_worker);
         }else {
-            util.debug('not task finish worker');
+            util.debug('not task , finish worker');
         }
 
+    }else {
+        util.debug('workers all busy');
     }
+
 }
 
 /**
