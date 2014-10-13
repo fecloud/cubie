@@ -16,7 +16,7 @@ var util = require('../util.js');
 
 
 var queue = [];
-var worker_size = 10;
+var worker_size = 4;
 var workers = new Array(worker_size);
 
 /**
