@@ -57,6 +57,7 @@ function init_workers() {
         var worker = new Worker();
         worker.id = i;
         worker.working = false;
+        workers[i] = worker;
     }
 
 }
@@ -70,6 +71,10 @@ emitter.on("req", function (worker) {
     fs.exists(worker.task.tofile, function (exists) {
 
         if (exists) {
+            util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " not need resize");
+            worker.working = false;
+            req_worker();
+        } else {
             //需要resize
             util.debug("gm rezie " + pic_resize.file + " tofile" + pic_resize.tofile);
             gm(worker.task.file)
@@ -86,11 +91,6 @@ emitter.on("req", function (worker) {
                     req_worker();
 
                 });
-
-        } else {
-            util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile + " not need resize");
-            worker.working = false;
-            req_worker();
         }
 
     });
@@ -122,7 +122,7 @@ function check_free_worker() {
 /**
  * 请工作者 工作
  */
-function req_worker(){
+function req_worker() {
 
     util.debug('req_worker');
 
