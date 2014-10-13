@@ -129,8 +129,16 @@ function req_worker() {
     var free_worker = check_free_worker();
     if (free_worker) {
         util.debug("find free worker id:" + free_worker.id);
-        free_worker.task = queue.shift();
-        emitter.emit('req', free_worker);
+
+        //取最后一个任务
+        var task = queue.shift();
+        if (task) {
+            free_worker.task = task;
+            //发送异步执行任务
+            emitter.emit('req', free_worker);
+        }else {
+            util.debug('not task finish worker');
+        }
 
     }
 }
