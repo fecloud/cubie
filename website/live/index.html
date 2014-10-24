@@ -13,58 +13,54 @@
     <!-- standalone page styling. can be removed -->
     <style>
         body{
-            width:982px;
+            /*width:982px;*/
             margin:50px auto;
             font-family:sans-serif;
         }
-        a:active {
-            outline:none;
-        }
-        :focus { -moz-outline-style:none; }
+        /*a:active {*/
+            /*outline:none;*/
+        /*}*/
+        /*:focus { -moz-outline-style:none; }*/
 
-        .palert {
-            padding: 12px;
-            color: black;
-            background-color: #ededed;
-            box-shadow: none;
-        }
+        /*.palert {*/
+            /*padding: 12px;*/
+            /*color: black;*/
+            /*background-color: #ededed;*/
+            /*box-shadow: none;*/
+        /*}*/
     </style>
 
 
 
-    <!-- flowplayer javascript component -->
-    <script src="http://releases.flowplayer.org/js/flowplayer-3.2.13.min.js"></script>
+    <script type="text/javascript" src="jwplayer.js"></script>
+    <script type="text/javascript">jwplayer.key="rytNXDdMmiI9UxyjCqNvHK67C8N/r5IpvvQIJA==";</script>
 
 </head>
 
 <body>
-<!-- widescreen container, 560x240 (clip dimensions) * 1.15, center splash -->
-<div id="wowza" style="width:640px;height:320px;margin:0 auto;text-align:center">
-    <!--<img src="/media/img/player/splash_black.jpg" height="276" width="548" />-->
-</div>
+<div id="myElement">Loading the player...</div>
 <script>
+    var user_agent = window.navigator.userAgent;
 
-    $f("wowza", "http://releases.flowplayer.org/swf/flowplayer-3.2.18.swf", {
-
-        clip: {
-            url: 'cubie',
-            live: true,
-            // configure clip to use influxis as our provider, it uses our rtmp plugin
-            provider: 'influxis'
-        },
-
-        // streaming plugins are configured under the plugins httpd
-        plugins: {
-
-            // here is our rtpm plugin configuration
-            influxis: {
-                url: "flowplayer.rtmp-3.2.13.swf",
-
-                // netConnectionUrl defines where the streams are found
-                netConnectionUrl: 'rtmp://10.0.0.2/live'
-            }
-        }
+   if(user_agent.indexOf('Chrome') >0){
+    jwplayer("myElement").setup({
+        file: "rtmp://10.0.0.8/live/test",
+        image: "../img/screen_icon.png",
+        height: 480,
+        width: 640
     });
+       jwplayer().play();
+    }else {
+        jwplayer("myElement").setup({
+            file: "https://ct.yuncore.cn/src/live/test.m3u8",
+            image: "../img/screen_icon.png",
+            height: 480,
+            width: 640
+        });
+       jwplayer().play();
+    }
+
+
 </script>
 
 </body>
