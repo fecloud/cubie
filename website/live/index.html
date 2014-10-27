@@ -42,9 +42,9 @@
 <script>
     var user_agent = window.navigator.userAgent;
 
-   if(user_agent.indexOf('Chrome') >0){
+   if(user_agent.indexOf('Chrome') > 0){
     jwplayer("myElement").setup({
-        file: "rtmp://ct.yuncore.cn/live/test",
+        file: "rtmp://" + location.hostname + "/live/test",
         image: "../img/screen_icon.png",
         height: 480,
         width: 640
@@ -52,7 +52,7 @@
        jwplayer().play();
     }else {
         jwplayer("myElement").setup({
-            file: "https://ct.yuncore.cn/src/live/test.m3u8",
+            file: "https://" + location.hostname + "/src/live/test.m3u8",
             image: "../img/screen_icon.png",
             height: 480,
             width: 640
