@@ -1,68 +1,98 @@
-
-
-
-
-
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
+    <title>视频监控</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
+    <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../css/com.css"/>
+    <style type="text/css">
 
-    <title>Basic RTMP with hddn : Flowplayer</title>
-
-    <link rel="shortcut icon" href="http://flash.flowplayer.org/favicon.ico">
-    <!-- standalone page styling. can be removed -->
-    <style>
-        body{
-            /*width:982px;*/
-            margin:50px auto;
-            font-family:sans-serif;
+        #live_wrapper {
+            margin: auto;
         }
-        /*a:active {*/
-            /*outline:none;*/
-        /*}*/
-        /*:focus { -moz-outline-style:none; }*/
 
-        /*.palert {*/
-            /*padding: 12px;*/
-            /*color: black;*/
-            /*background-color: #ededed;*/
-            /*box-shadow: none;*/
-        /*}*/
+        .palyer {
+            text-align: center;
+            margin: 40px auto;
+        }
+
+        .m_palyer {
+            margin: 0px auto;
+        }
+
+        .palyer div {
+            text-align: center;
+        }
+
+
     </style>
-
-
-
     <script type="text/javascript" src="jwplayer.js"></script>
-    <script type="text/javascript">jwplayer.key="rytNXDdMmiI9UxyjCqNvHK67C8N/r5IpvvQIJA==";</script>
+    <script type="text/javascript">jwplayer.key = "rytNXDdMmiI9UxyjCqNvHK67C8N/r5IpvvQIJA==";</script>
+    <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/com.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var address = location.hostname;
+            var user_agent = agent();
+            if (user_agent == 'pc') {
+                jwplayer("live").setup({
+                    file: "rtmp://" + address + "/live/test",
+                    height: 480,
+                    width: 640
+                });
+            } else {
+
+                //改变样式
+                $('#palyer_container').addClass('m_palyer');
+
+                var w = $(window).width();
+                var h = $(window).height() - 41;
+
+                jwplayer("live").setup({
+                    file: "https://" + address + "/src/live/test.m3u8",
+                    height: h,
+                    width: w
+                });
+
+            }
+
+            jwplayer().play();
+
+        });
+
+    </script>
 
 </head>
 
 <body>
-<div id="myElement">Loading the player...</div>
-<script>
-    var user_agent = window.navigator.userAgent;
-
-   if(user_agent.indexOf('Chrome') > 0){
-    jwplayer("myElement").setup({
-        file: "rtmp://" + location.hostname + "/live/test",
-        image: "../img/screen_icon.png",
-        height: 480,
-        width: 640
-    });
-       jwplayer().play();
-    }else {
-        jwplayer("myElement").setup({
-            file: "https://" + location.hostname + "/src/live/test.m3u8",
-            image: "../img/screen_icon.png",
-            height: 480,
-            width: 640
-        });
-       jwplayer().play();
-    }
 
 
-</script>
+<div id="page">
+
+    <div id="header">
+
+        <div class="btn back_btn">返回</div>
+        <h1>视频监控</h1>
+
+        <div style=" width: 50px;height: 30px;"></div>
+
+    </div>
+
+
+    <div id="palyer_container" class="palyer">
+        <div id="live">Loading the player...</div>
+    </div>
+
+</div>
 
 </body>
+</html>
 
 </html>
