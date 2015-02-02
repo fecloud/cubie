@@ -39,13 +39,16 @@
 
         $(document).ready(function () {
 
-            var address = location.hostname;
+            var address = "am.yuncore.cn"//location.hostname;
             var user_agent = agent();
             if (user_agent == 'pc') {
                 jwplayer("live").setup({
                     file: "rtmp://" + address + "/live/demo",
                     height: 480,
-                    width: 640
+                    width: 640,
+					rtmp:{
+							bufferlength: 1
+						}
                 });
             } else {
 
