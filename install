@@ -1,0 +1,24 @@
+#!/bin/sh
+echo "================开始安装================"
+
+echo "停止httpd服务......"
+service httpd stop
+echo "停止httpd服务完成"
+
+echo "更新git......"
+git pull
+echo "更新git完成"
+
+echo "移动旧文件......"
+mv /data/app/httpd/node_modules /data/tmp/node_modules && rm -rf /data/app/httpd && rm -rf /data/app/website
+echo "移动旧文件完成"
+
+echo "复制新文件......"
+cp -r ./httpd /data/app/ && cp -r ./website /data/app/ && mv /data/tmp/node_modules /data/app/httpd/
+echo "复制新文件完成"
+
+echo "重启httpd服务......"
+service httpd start
+echo "重启httpd服务完成"
+
+echo "================安装结束================"

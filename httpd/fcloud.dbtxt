@@ -1,0 +1,195 @@
+-- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (armv7l)
+--
+-- Host: localhost    Database: fcloud
+-- ------------------------------------------------------
+-- Server version	5.5.35-1ubuntu1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `app`
+--
+
+DROP TABLE IF EXISTS `app`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `app` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `icon` varchar(1000) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `modify_time` datetime NOT NULL,
+  `command` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `app`
+--
+
+LOCK TABLES `app` WRITE;
+/*!40000 ALTER TABLE `app` DISABLE KEYS */;
+/*!40000 ALTER TABLE `app` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `baidupansync_files`
+--
+
+DROP TABLE IF EXISTS `baidupansync_files`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `baidupansync_files` (
+  `fs_id` int(11) NOT NULL,
+  `path` varchar(10000) DEFAULT NULL,
+  `ctime` int(11) DEFAULT NULL,
+  `mtime` int(11) DEFAULT NULL,
+  `md5` varchar(100) DEFAULT NULL,
+  `size` int(11) DEFAULT NULL,
+  `isdir` int(11) DEFAULT NULL,
+  `username` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`fs_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `baidupansync_files`
+--
+
+LOCK TABLES `baidupansync_files` WRITE;
+/*!40000 ALTER TABLE `baidupansync_files` DISABLE KEYS */;
+/*!40000 ALTER TABLE `baidupansync_files` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `baidupansync_user`
+--
+
+DROP TABLE IF EXISTS `baidupansync_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `baidupansync_user` (
+  `uid` int(11) NOT NULL,
+  `uname` varchar(100) DEFAULT NULL,
+  `portrait` varchar(1000) DEFAULT NULL,
+  `expires_in` varchar(1000) DEFAULT NULL,
+  `refresh_token` varchar(1000) DEFAULT NULL,
+  `access_token` varchar(1000) DEFAULT NULL,
+  `session_secret` varchar(1000) DEFAULT NULL,
+  `session_key` varchar(1000) DEFAULT NULL,
+  `sync_path` varchar(1000) DEFAULT NULL,
+  `sync_start` int(11) DEFAULT NULL,
+  `sync_end` int(11) DEFAULT NULL,
+  `time` datetime DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `baidupansync_user`
+--
+
+LOCK TABLES `baidupansync_user` WRITE;
+/*!40000 ALTER TABLE `baidupansync_user` DISABLE KEYS */;
+INSERT INTO `baidupansync_user` VALUES (956655485,'3huhai','2939336875686169a201','2592000','22.39d64643a8a62df10ae18e5f533b4617.315360000.1735792433.956655485-3125236','21.b78badc759ed32e2c0f204e0af2def9d.2592000.1423024433.956655485-3125236','de999af83c8a5236999038fbe55acf01','9mnRJqZeUahECBjIahuiRYd2usxQQIfvIy/ek0 AsYSZ0Q5C99Pod12jtMRNVBtxgaAswt5xzOcGLlgrhCxAYs2CXiqwyeb ',NULL,NULL,NULL,'2015-01-05 12:33:44');
+/*!40000 ALTER TABLE `baidupansync_user` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `oauth`
+--
+
+DROP TABLE IF EXISTS `oauth`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `oauth` (
+  `token` varchar(100) NOT NULL,
+  `uname` varchar(16) NOT NULL,
+  `intime` datetime NOT NULL,
+  PRIMARY KEY (`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `oauth`
+--
+
+LOCK TABLES `oauth` WRITE;
+/*!40000 ALTER TABLE `oauth` DISABLE KEYS */;
+INSERT INTO `oauth` VALUES ('03f20c9b5d8dc6ada30c5cc2741543d7','admin','2015-01-18 20:34:11'),('13c9cb663467321e6e23c3da1235b934','Admin','2015-03-07 18:59:11'),('151ccc18bfd5e281550feb80a27e8151','admin','2014-12-22 22:25:55'),('16e5c93429d29e9235ce28b4fdf6aac6','admin','2015-02-18 08:30:16'),('1a0ffa1ead2dc50c5c95247b47ec0e70','admin','2014-11-12 23:13:45'),('1ce9be505fee566515a863a432533e19','admin','2014-11-19 16:01:15'),('1f6b5ff7701f40dc5037d905cfd3ec45','admin','2015-03-07 19:55:31'),('2ef71ad568e7be11b4c5fd039c64cb89','Admin','2015-03-01 09:21:05'),('2fd1c4576e714fe011e9246585453a69','admin','2015-01-24 14:52:56'),('5359c21901a635398129a502b70a002a','admin','2014-11-12 23:19:12'),('584e157d72c871996cfd4a67c1897f84','Admin','2014-10-30 13:01:05'),('5ccc3cd9f4860226ccc6ef8702449af8','admin','2015-02-17 10:03:15'),('6653d84a7d21999b1fbff5aa3dd81264','admin','2015-02-18 07:27:54'),('677a4408e29d4bd4ca60554fc819e881','admin','2015-02-03 18:52:59'),('699244fe56cd91cf80e88d133f3815dd','admin','2015-02-13 21:57:40'),('6dfd7d61aa23a2328321954551165819','Admin','2015-01-19 08:23:37'),('7005670087f7e2e887485db1b7ba4c75','admin','2015-03-02 08:16:07'),('75b01de66a18c6438c17feab63b110c9','admin','2014-11-20 23:44:46'),('7cceb7898def490dc0c3167b36bd120c','admin','2015-01-20 20:30:35'),('87aa84ab46e832672ad4676ad0305992','admin','2015-03-03 10:55:28'),('8811dbbe731f272d314545ae7cabd1a9','admin','2014-10-30 05:01:39'),('8c0736f8a249c0302df90edc0806ed43','admin','2014-11-20 23:43:31'),('8e14f47c6633aa58f47b7c6eef7f4ebf','admin','2015-01-04 20:18:19'),('8eb32ca3db69578669bcbdaa94404850','admin','2015-02-17 19:04:42'),('8f334dac3c632a6b9269718828851cb6','Admin','2015-02-18 07:21:35'),('9ad7a4199200216c038c184cc0de3813','admin','2015-03-11 00:29:04'),('9bb84179b193d40266158312ad55dd82','admin','2014-10-30 11:51:18'),('a5638e34a59a0be5e9d31b8052f3bec0','admin','2015-03-16 14:36:56'),('ae94499a2683d93889758be4a2140774','admin','2014-11-27 10:08:18'),('b3f14cd3423a900236cfc978ea388607','admin','2014-10-30 05:01:31'),('bc28530909768909b99138c13385e064','admin','2014-11-13 13:40:02'),('bd95ea3bb2fef7c41c4bf60cc5809002','admin','2015-02-15 09:29:24'),('bdf08c14ba9ef3b5b56845f66a45b549','admin','2015-01-20 20:37:07'),('cae2bd607b336b9e045c52e313f8d39b','admin','2014-10-30 14:33:34'),('d24d463b6f0d05d6c181385f16cd1682','admin','2014-10-30 15:06:53'),('e864d09d87ab8362de94ec3f9778eb18','admin','2014-11-27 22:29:13'),('f0126e0eb729203cfb96fee987150cc0','admin','2014-11-05 13:26:17'),('ff3e4919d0f4a11cd49be518a29543fb','admin','2015-03-14 16:10:28');
+/*!40000 ALTER TABLE `oauth` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `photos_timeline`
+--
+
+DROP TABLE IF EXISTS `photos_timeline`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `photos_timeline` (
+  `id` int(11) NOT NULL,
+  `path` varchar(1000) NOT NULL COMMENT '文件路径',
+  `year` varchar(4) NOT NULL COMMENT '年',
+  `date` varchar(20) NOT NULL COMMENT '年 日期',
+  `time` varchar(30) NOT NULL COMMENT '年 日期 时间',
+  `generate` datetime NOT NULL COMMENT '生成时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `photos_timeline`
+--
+
+LOCK TABLES `photos_timeline` WRITE;
+/*!40000 ALTER TABLE `photos_timeline` DISABLE KEYS */;
+/*!40000 ALTER TABLE `photos_timeline` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user` (
+  `uname` varchar(16) CHARACTER SET latin1 NOT NULL,
+  `passwd` varchar(32) CHARACTER SET latin1 NOT NULL,
+  `isadmin` int(11) NOT NULL,
+  `last` datetime DEFAULT NULL COMMENT '用户表\r\n',
+  PRIMARY KEY (`uname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES ('admin','ouyangfeng',0,'2015-03-16 14:36:56'),('yangxiaoyan','yangxiaoyan',0,'2014-08-18 00:56:40');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-03-17 23:12:48
