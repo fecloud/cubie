@@ -1,24 +1,38 @@
 #!/bin/sh
-echo "================开始安装================"
 
-echo "停止httpd服务......"
-service httpd stop
-echo "停止httpd服务完成"
+PROG="httpd"
+PROG_WEB="website"
+PROG_PATH="/data/app/$PROG"
+PROG_PATH_WEB="/data/app/$PROG_WEB"
+MSG_PREFIX=" *"
+echo "$MSG_PREFIX start install $PROG"
 
-echo "更新git......"
-git pull
-echo "更新git完成"
+if [ -d "$PROG_APTH" ]
+then
+        rm -rf $PROG_APTH
+		rm -rf $PROG_PATH_WEB
+fi
 
-echo "移动旧文件......"
-mv /data/app/httpd/node_modules /data/tmp/node_modules && rm -rf /data/app/httpd && rm -rf /data/app/website
-echo "移动旧文件完成"
+mkdir -p $PROG_PATH
+mkdir -p $PROG_PATH_WEB
 
-echo "复制新文件......"
-cp -r ./httpd /data/app/ && cp -r ./website /data/app/ && mv /data/tmp/node_modules /data/app/httpd/
-echo "复制新文件完成"
+cp -v -n -r ./$PROG/* $PROG_PATH/
+cp -v -n -r ./$PROG_WEB/* $PROG_PATH_WEB/
 
-echo "重启httpd服务......"
-service httpd start
-echo "重启httpd服务完成"
+ln  -f -s $PROG_PATH/$PROG /etc/init.d/$PROG
 
-echo "================安装结束================"
+if [ -x "/usr/bin/node" ]
+then
+	echo "$MSG_PREFIX install nodejs"
+else
+	echo "$MSG_PREFIX not install nodejs"
+	exit 1
+fi
+
+update-rc.d  $PROG defaults 50
+
+echo "$MSG_PREFIX install sucess $PROG"
+
+service $PROG start
+
+
