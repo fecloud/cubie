@@ -65,4 +65,6 @@ echo "$MSG_PREFIX install sucess $PROG"
 
 service $PROG start
 
+echo "$MSG_PREFIX if service not started please run httpd/npm_list add module depends"
+
 
