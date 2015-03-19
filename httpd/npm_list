@@ -1,3 +1,8 @@
+#!/bin/sh
+echo "\n * install depends"
 npm install formidable && npm install mysql  && npm install log4js && npm install gm
+
+
 #brew install imagemagick && brew install graphicsmagick && brew install imagemagick --with-webp
-#apt-get install imagemagick && apt-get install graphicsmagick
+echo "y" | apt-get install imagemagick 
+echo "y" | apt-get install graphicsmagick
