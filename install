@@ -4,11 +4,33 @@ PROG="httpd"
 PROG_WEB="website"
 PROG_PATH="/data/app/$PROG"
 PROG_PATH_WEB="/data/app/$PROG_WEB"
+PROG_LOG_PATH="/var/log/$PROG"
 MSG_PREFIX=" *"
 echo "$MSG_PREFIX start install $PROG"
 
-if [ -d "$PROG_APTH" ]
-then
+##check mysql is installed
+echo "\n * check install mysql-server"
+mysql_server=`dpkg -l | awk '{print $2}' | grep '^mysql-server$' | head -n 1`
+if [ "$mysql_server" = "mysql-server" ] ; then
+	echo " * installed mysql-server" 
+	echo " * if vistor fail please"
+	echo " * login mysql (mysql -u root -p)"
+	echo " * create database fcloud"
+	echo " * use fcloud"
+	echo " * source $PWD/httpd/fcloud.dbtxt"
+	echo " * execute up command"
+else
+	echo " * please install mysql_server"
+	exit 1
+fi
+
+if [ -d "$PROG_LOG_PATH" ] ; then
+	echo "$MSG_PREFIX $PROG_LOG_PATH exits"
+else 
+	mkdir -p $PROG_LOG_PATH
+fi
+
+if [ -d "$PROG_APTH" ] ; then
         rm -rf $PROG_APTH
 		rm -rf $PROG_PATH_WEB
 fi
@@ -19,17 +41,25 @@ mkdir -p $PROG_PATH_WEB
 cp -v -n -r ./$PROG/* $PROG_PATH/
 cp -v -n -r ./$PROG_WEB/* $PROG_PATH_WEB/
 
-ln  -f -s $PROG_PATH/$PROG /etc/init.d/$PROG
-
-if [ -x "/usr/bin/node" ]
-then
+if [ -f "/etc/init.d/$PROG" ] ; then
+	echo "$MSG_PREFIX /etc/init.d/$PROG  already exist"
+else
+	ln  -f -s $PROG_PATH/$PROG /etc/init.d/$PROG
+fi
+if [ -x "/usr/bin/node" ] ; then
 	echo "$MSG_PREFIX install nodejs"
 else
 	echo "$MSG_PREFIX not install nodejs"
 	exit 1
 fi
 
-update-rc.d  $PROG defaults 50
+if [ -f "/etc/rc0.d/K50httpd" ] ; then
+	echo "$MSG_PREFIX not need add start for boot"
+else
+	echo "$MSG_PREFIX add start for boot"
+	update-rc.d  $PROG defaults 50
+fi
+
 
 echo "$MSG_PREFIX install sucess $PROG"
 

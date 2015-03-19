@@ -14,6 +14,7 @@
 ## Fill in name of program here.
 PROG="httpd.js"
 PROG_PATH="/usr/bin/nodejs /data/app/httpd" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
+MSG_PREFIX=" *"
 FM_ARGS="/mnt/sda2/f"
 PH_ARGS="/mnt/sda2/f/photos  /mnt/sda2/f/thum"
 PID_PATH="/var/run/"
@@ -25,10 +26,10 @@ start_fm(){
     if [ -z "$pid" ]; then
         $PROG_PATH/$PROG fm $FM_ARGS >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
-        echo " *$PROG fm started"
+        echo "$MSG_PREFIX $PROG fm started"
         echo $pid > "$PID_PATH/$PROG.fm.pid"
     else
-        echo " *$PROG fm is currently running..."
+        echo "$MSG_PREFIX $PROG fm is currently running..."
     fi
 
 }
@@ -38,9 +39,9 @@ stop_fm(){
     pid=`ps x|grep httpd.js |grep fm |awk '{print $1}' | head -n 1`
     if [ -n "$pid" ]; then
         kill -9 $pid &  rm -f  "$PID_PATH/$PROG.fm.pid"
-        echo " *$PROG fm stopped"
+        echo "$MSG_PREFIX $PROG fm stopped"
     else
-        echo " *$PROG.fm not started!" 
+        echo "$MSG_PREFIX $PROG.fm not started!" 
     fi
 
 }
@@ -51,10 +52,10 @@ start_arduino(){
     if [ -z "$pid" ]; then
         $PROG_PATH/$PROG arduino >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
-        echo " *$PROG arduino started"
+        echo "$MSG_PREFIX $PROG arduino started"
         echo $pid > "$PID_PATH/$PROG.arduino.pid"
     else
-        echo " *$PROG arduino is currently running..."
+        echo "$MSG_PREFIX $PROG arduino is currently running..."
     fi
 
 }
@@ -64,9 +65,9 @@ stop_arduino(){
     pid=`ps x|grep httpd.js |grep arduino |awk '{print $1}' | head -n 1`
     if [ -n "$pid" ]; then
         kill -9 $pid &  rm -f  "$PID_PATH/$PROG.arduino.pid"
-        echo " *$PROG arduino stopped"
+        echo "$MSG_PREFIX $PROG arduino stopped"
     else
-        echo " *$PROG.arduino not started!"
+        echo "$MSG_PREFIX $PROG.arduino not started!"
     fi
 
 }
@@ -77,10 +78,10 @@ start_baidupansync(){
     if [ -z "$pid" ]; then
         $PROG_PATH/$PROG baidupansync >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep baidupansync |awk '{print $1}' | head -n 1`
-        echo " *$PROG baidupansync started"
+        echo "$MSG_PREFIX $PROG baidupansync started"
         echo $pid > "$PID_PATH/$PROG.baidupansync.pid"
     else
-        echo " *$PROG baidupansync is currently running..."
+        echo "$MSG_PREFIX $PROG baidupansync is currently running..."
     fi
 
 }
@@ -90,9 +91,9 @@ stop_baidupansync(){
     pid=`ps x|grep httpd.js |grep baidupansync |awk '{print $1}' | head -n 1`
     if [ -n "$pid" ]; then
         kill -9 $pid &  rm -f  "$PID_PATH/$PROG.baidupansync.pid"
-        echo " *$PROG baidupansync stopped"
+        echo "$MSG_PREFIX $PROG baidupansync stopped"
     else
-        echo " *$PROG.baidupansync not started!" 
+        echo "$MSG_PREFIX $PROG.baidupansync not started!" 
     fi
 
 }
@@ -103,10 +104,10 @@ start_platform(){
     if [ -z "$pid" ]; then
         $PROG_PATH/$PROG platform >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep platform |awk '{print $1}' | head -n 1`
-        echo " *$PROG platform started"
+        echo "$MSG_PREFIX $PROG platform started"
         echo $pid > "$PID_PATH/$PROG.platform.pid"
     else
-        echo " *$PROG platform is currently running..."
+        echo "$MSG_PREFIX $PROG platform is currently running..."
     fi
 
 }
@@ -116,9 +117,9 @@ stop_platform(){
     pid=`ps x|grep httpd.js |grep platform |awk '{print $1}' | head -n 1`
     if [ -n "$pid" ]; then
         kill -9 $pid &  rm -f  "$PID_PATH/$PROG.platform.pid"
-        echo " *$PROG platform stopped"
+        echo "$MSG_PREFIX $PROG platform stopped"
     else
-        echo " *$PROG.platform not started!"
+        echo "$MSG_PREFIX $PROG.platform not started!"
     fi
 
 }
@@ -129,10 +130,10 @@ start_photos(){
     if [ -z "$pid" ]; then
         $PROG_PATH/$PROG photos $PH_ARGS >$STD_OUT 2>&1 &
         pid=`ps x|grep httpd.js |grep photos |awk '{print $1}' | head -n 1`
-        echo " *$PROG photos started"
+        echo "$MSG_PREFIX $PROG photos started"
         echo $pid > "$PID_PATH/$PROG.photos.pid"
     else
-        echo " *$PROG photos is currently running..."
+        echo "$MSG_PREFIX $PROG photos is currently running..."
     fi
 
 }
@@ -142,15 +143,15 @@ stop_photos(){
     pid=`ps x|grep httpd.js |grep photos |awk '{print $1}' | head -n 1`
     if [ -n "$pid" ]; then
         kill -9 $pid &  rm -f  "$PID_PATH/$PROG.photos.pid"
-        echo " *$PROG photos stopped"
+        echo "$MSG_PREFIX $PROG photos stopped"
     else
-        echo " *$PROG.photos not started!"
+        echo "$MSG_PREFIX $PROG.photos not started!"
     fi
 
 }
 
 start() {
-    echo " *begin start $1"
+    echo "$MSG_PREFIX begin start $1"
     case "$1" in
         fm)
             start_fm
@@ -168,7 +169,7 @@ start() {
             start_photos
         ;;
         **)
-            echo " *start all"
+            echo "$MSG_PREFIX start all"
             start_fm
             start_arduino
             start_baidupansync
@@ -180,7 +181,7 @@ start() {
 }
 
 stop() {
-    echo " *begin stop $1"
+    echo "$MSG_PREFIX begin stop $1"
     case "$1" in
         fm)
             stop_fm
@@ -198,7 +199,7 @@ stop() {
             stop_photos
         ;;
         **)
-            echo " *stop all"
+            echo "$MSG_PREFIX stop all"
             stop_fm
             stop_arduino
             stop_baidupansync
