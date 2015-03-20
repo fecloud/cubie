@@ -28,6 +28,7 @@ if [ -d "$PROG_LOG_PATH" ] ; then
 	echo "$MSG_PREFIX $PROG_LOG_PATH exits"
 else 
 	mkdir -p $PROG_LOG_PATH
+	chmod 777 $PROG_LOG_PATH
 fi
 
 if [ -d "$PROG_APTH" ] ; then
@@ -44,7 +45,10 @@ cp -v -n -r ./$PROG_WEB/* $PROG_PATH_WEB/
 if [ -f "/etc/init.d/$PROG" ] ; then
 	echo "$MSG_PREFIX /etc/init.d/$PROG  already exist"
 else
-	ln  -f -s $PROG_PATH/$PROG /etc/init.d/$PROG
+	echo "#/bin/sh"  >> /etc/init.d/$PROG
+	echo "ARGS=\$*" >> /etc/init.d/$PROG
+	echo "echo \"su -c '$PROG_PATH/$PROG \$ARGS' linaro\" | sh" >> /etc/init.d/$PROG
+	chmod 755 /etc/init.d/$PROG
 fi
 if [ -x "/usr/bin/node" ] ; then
 	echo "$MSG_PREFIX install nodejs"
