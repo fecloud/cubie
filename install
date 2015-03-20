@@ -10,8 +10,8 @@ echo "$MSG_PREFIX start install $PROG"
 
 ##check mysql is installed
 echo "\n * check install mysql-server"
-mysql_server=`dpkg -l | awk '{print $2}' | grep '^mysql-server$' | head -n 1`
-if [ "$mysql_server" = "mysql-server" ] ; then
+mysql_server=`dpkg -l | awk '{print $2}' | grep '^mysql-server' | head -n 1 | wc -L`
+if [ $mysql_server -gt 0 ] ; then
 	echo " * installed mysql-server" 
 	echo " * if vistor fail please"
 	echo " * login mysql (mysql -u root -p)"
