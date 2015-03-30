@@ -39,7 +39,7 @@
 
         $(document).ready(function () {
 
-            var address = "am.yuncore.cn"//location.hostname;
+            var address = location.hostname;
             var user_agent = agent();
             if (user_agent == 'pc') {
                 jwplayer("live").setup({
