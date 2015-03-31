@@ -16,8 +16,7 @@
 
         $(document).ready(function () {
 
-            if ($.cookie('uname') && $.cookie('token')) {
-
+            if (($.cookie('uname') && $.cookie('token')) || agentWechatOrQQ()) {
                 window.location.replace('main.html');
             }
 

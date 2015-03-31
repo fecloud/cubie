@@ -204,6 +204,19 @@ function agent() {
 }
 
 /**
+ * 是否是qq或者微信的浏览器
+ * @returns {boolean}
+ */
+function agentWechatOrQQ() {
+
+    var user_agent = window.navigator.userAgent;
+    if (user_agent.indexOf('MicroMessenger') > 1 || user_agent.indexOf('QQ')) {
+        return true;
+    }
+    return false;
+}
+
+/**
  * 取token
  */
 function getToken() {
