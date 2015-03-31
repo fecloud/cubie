@@ -28,6 +28,9 @@
             var arduino_switch = document.querySelector('.arduino-switch');
             var arduino = new Switchery(arduino_switch);
 
+            var vlserver_switch = document.querySelector('.vlserver-switch');
+            var vlserver = new Switchery(vlserver_switch);
+
             var baiduyunsync_switch = document.querySelector('.baiduyunsync-switch');
             var baiduyunsync = new Switchery(baiduyunsync_switch);
 
@@ -143,6 +146,12 @@
             <div class="box">
                 <div class="content">温度监控服务</div>
                 <div class="service_operate"><input type="checkbox" class="arduino-switch" id="arduino"/></div>
+            </div>
+        </li>
+         <li class="list-item">
+            <div class="box">
+                <div class="content">视频监控服务</div>
+                <div class="service_operate"><input type="checkbox" class="vlserver-switch" id="vlserver"/></div>
             </div>
         </li>
         <li class="list-item">

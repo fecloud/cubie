@@ -14,6 +14,7 @@ var service_status = function () {
     this.baiduyunsync = false;
     this.status = false;
     this.photos = false;
+    this.vlserver = false;
     this.version;
     this.platform;
     this.uptime;
@@ -31,7 +32,7 @@ function status(req, res, params) {
 
     var service_s = new service_status();
 
-    child = exec("ps -ef | grep 'httpd.js'",
+    child = exec("ps -ef",
         function (error, stdout, stderr) {
             var out = stdout;
             if (out && out != '') {
@@ -55,6 +56,9 @@ function status(req, res, params) {
 
                 if (out.indexOf('photos') > 0) {
                     service_s.photos = true;
+                }
+                 if (out.indexOf('vlserver') > 0) {
+                    service_s.vlserver = true;
                 }
 
             }
