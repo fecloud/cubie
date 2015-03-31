@@ -15,6 +15,7 @@ var service_status = function () {
     this.status = false;
     this.photos = false;
     this.vlserver = false;
+    this.vlrtmp = false;
     this.version;
     this.platform;
     this.uptime;
@@ -57,8 +58,13 @@ function status(req, res, params) {
                 if (out.indexOf('photos') > 0) {
                     service_s.photos = true;
                 }
-                 if (out.indexOf('vlserver') > 0) {
+
+                if (out.indexOf('vlserver') > 0) {
                     service_s.vlserver = true;
+                }
+
+                if (out.indexOf('vlrtmp') > 0) {
+                    service_s.vlrtmp = true;
                 }
 
             }

@@ -31,6 +31,9 @@
             var vlserver_switch = document.querySelector('.vlserver-switch');
             var vlserver = new Switchery(vlserver_switch);
 
+            var vlrtmp_switch = document.querySelector('.vlrtmp-switch');
+            var vlrtmp = new Switchery(vlrtmp_switch);
+
             var baiduyunsync_switch = document.querySelector('.baiduyunsync-switch');
             var baiduyunsync = new Switchery(baiduyunsync_switch);
 
@@ -57,6 +60,9 @@
 				if (status.vlserver) {
 					vlserver_switch.click();
 				}
+                if (status.vlrtmp) {
+                    vlrtmp_switch.click();
+                }
                 if (status.baiduyunsync) {
                     baiduyunsync_switch.click();
                 }
