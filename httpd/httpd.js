@@ -79,6 +79,23 @@ function innot_oauth(method) {
 }
 
 /**
+ * 判断是否来是微信浏览器的请求
+ * @param req
+ * @returns {boolean}
+ */
+function from_wechat(req) {
+
+    util.debug("request from wechat " +  req.headers['user-agent']);
+    if(req.headers['user-agent']) {
+        if(req.headers['user-agent'].indexOf('MicroMessenger') > 0 ){
+            return true;
+        }
+    }
+    return false;
+
+}
+
+/**
  * 启动模块http服务
  * @param m
  */
@@ -94,7 +111,7 @@ function start_http_module(m) {
             if (params && params.action) {
                 var token = params.token;
                 var action = params.action;
-                if (innot_oauth(action)) { //不需要token的接口
+                if (innot_oauth(action) || from_wechat(req)) { //不需要token的接口
                     http_module_exe(req, res, params);
                 } else if (token) {
                     //检查token
@@ -129,7 +146,7 @@ function start_http_module(m) {
 
         }
     ).
-        listen(m.port, '127.0.0.1');
+        listen(m.port, '0.0.0.0');
     util.debug(m.name + ' service running at http://127.0.0.1:' + m.port);
 }
 
