@@ -83,11 +83,11 @@ function innot_oauth(method) {
  * @param req
  * @returns {boolean}
  */
-function from_wechat(req) {
+function from_wechatorqq(req) {
 
     util.debug("request from wechat " +  req.headers['user-agent']);
     if(req.headers['user-agent']) {
-        if(req.headers['user-agent'].indexOf('MicroMessenger') > 0 ){
+        if(req.headers['user-agent'].indexOf('MicroMessenger') > 0 || req.headers['user-agent'].indexOf('QQ')){
             return true;
         }
     }
@@ -111,7 +111,7 @@ function start_http_module(m) {
             if (params && params.action) {
                 var token = params.token;
                 var action = params.action;
-                if (innot_oauth(action) || from_wechat(req)) { //不需要token的接口
+                if (innot_oauth(action) || from_wechatorqq(req)) { //不需要token的接口
                     http_module_exe(req, res, params);
                 } else if (token) {
                     //检查token
