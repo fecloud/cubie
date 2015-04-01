@@ -26,7 +26,7 @@ log4js.configure({
 
 //普通日志
 var logger = log4js.getLogger('default');
-logger.setLevel('WARN');
+logger.setLevel('DEBUG');
 
 //访问日志
 var access_logger = log4js.getLogger('access');

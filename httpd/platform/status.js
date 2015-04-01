@@ -195,6 +195,8 @@ function stop_service(req, res, params) {
         cmd = cmd + " " +  params.sub;
     }
 
+    util.debug("cmd:" + cmd);
+
     child = exec(cmd, function (error, stdout, stderr) {
 
             if (error != null) {
