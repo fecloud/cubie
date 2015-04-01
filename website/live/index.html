@@ -60,7 +60,10 @@
 
                 var w = $(window).width();
                 var h = $(window).height() - 41;
-
+                //如果是从微信或者是QQ的不用多41
+                if (agentWechatOrQQ()) {
+                    h = $(window).height()
+                }
                 jwplayer("live").setup({
                     file: "https://" + address + "/live/demo.m3u8",
                     height: h,
