@@ -39,6 +39,9 @@
 
         $(document).ready(function () {
 
+            if (agentWechatOrQQ()) {
+                $('#header').display = none;
+            }
             var address = location.hostname;
             var user_agent = agent();
             if (user_agent == 'pc') {
