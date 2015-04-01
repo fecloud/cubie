@@ -159,8 +159,12 @@ function start_service(req, res, params) {
 
     var result = new com.web_result();
 
-    child = exec("service httpd start " + params.value,
-        function (error, stdout, stderr) {
+    var cmd = "service " + params.value + " start";
+    if (params.sub) {
+        cmd = cmd + " " +  params.sub;
+    }
+
+    child = exec(cmd, function (error, stdout, stderr) {
             var out = stdout;
             if (out && out != '') {
                 var arr = out.match(/\d+\.+\d+/g);
@@ -168,6 +172,8 @@ function start_service(req, res, params) {
                 if (arr != null) {
                     result.data = arr.join(" ");
                 }
+            }else {
+                result.error = err_const.err_500;
             }
             util.result_client(req, res, result);
 
@@ -186,14 +192,21 @@ exports.start_service = start_service;
 function stop_service(req, res, params) {
 
     var result = new com.web_result();
-    child = exec("service httpd stop " + params.value,
-        function (error, stdout, stderr) {
+
+    var cmd = "service " + params.value + " stop";
+    if (params.sub) {
+        cmd = cmd + " " +  params.sub;
+    }
+
+    child = exec(cmd, function (error, stdout, stderr) {
             var out = stdout;
             if (out && out != '') {
                 var arr = out.match(/\d+\.+\d+/g);
                 util.debug(arr);
                 if (arr != null) {
                     result.data = arr.join(" ");
+                }else {
+                    result.error = err_const.err_500;
                 }
             }
             util.result_client(req, res, result);
