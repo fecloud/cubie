@@ -31,8 +31,8 @@ else
 	chmod 777 $PROG_LOG_PATH
 fi
 
-if [ -d "$PROG_APTH" ] ; then
-        rm -rf $PROG_APTH
+if [ -d "$PROG_PATH" ] ; then
+        rm -rf $PROG_PATH
 		rm -rf $PROG_PATH_WEB
 fi
 
