@@ -19,6 +19,12 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+
+            if (agentWechatOrQQ()) {
+                $('#header').css('display','none');
+                $('#services').css('margin-top','0px');
+            }
+
             var fm_switch = document.querySelector('.fm-switch');
             var fm = new Switchery(fm_switch);
             fm_switch.onchange = function () {
@@ -144,7 +150,7 @@
 
     </div>
 
-    <ul id="content" class="list group">
+    <ul id="services" class="list group">
         <li class="list-item">
             <div class="box">
                 <div class="content">文件管理服务</div>
@@ -191,7 +197,7 @@
 
     </ul>
 
-    <ul id="content" class="list group">
+    <ul id="env" class="list group">
         <li class="list-item">
             <div class="box">
                 <div class="content">CPU</div>
@@ -244,7 +250,7 @@
     </ul>
 
 
-    <ul id="content" class="list group">
+    <ul id="disks" class="list group">
         <li class="list-item">
             <div class="box">
                 <div class="content">磁盘容量</div>

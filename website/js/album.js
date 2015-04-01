@@ -8,6 +8,10 @@ var content_css;
 
 $(document).ready(function () {
 
+    if (agentWechatOrQQ()) {
+        $('#header').css('display','none');
+    }
+
     back_bind();
 
     path = getArgs('path');

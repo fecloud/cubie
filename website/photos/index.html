@@ -18,6 +18,10 @@
 
         $(document).ready(function () {
 
+            if (agentWechatOrQQ()) {
+                $('#header').css('display','none');
+            }
+
             back_bind();
 
             load_data();
