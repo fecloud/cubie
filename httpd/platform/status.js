@@ -159,7 +159,7 @@ function start_service(req, res, params) {
 
     var result = new com.web_result();
 
-    var cmd = "service " + params.value + " start";
+    var cmd = "service " + params.values + " start";
     if (params.sub) {
         cmd = cmd + " " +  params.sub;
     }
@@ -193,7 +193,7 @@ function stop_service(req, res, params) {
 
     var result = new com.web_result();
 
-    var cmd = "service " + params.value + " stop";
+    var cmd = "service " + params.values + " stop";
     if (params.sub) {
         cmd = cmd + " " +  params.sub;
     }
