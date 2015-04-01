@@ -210,7 +210,7 @@ function agent() {
 function agentWechatOrQQ() {
 
     var user_agent = window.navigator.userAgent;
-    if (user_agent.indexOf('MicroMessenger') > 1 || user_agent.indexOf('QQ')) {
+    if (user_agent.indexOf('MicroMessenger') > 1 || user_agent.indexOf('QQ') > 1) {
         return true;
     }
     return false;
