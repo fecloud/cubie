@@ -40,7 +40,7 @@
         $(document).ready(function () {
 
             if (agentWechatOrQQ()) {
-                $('#header').style.display = "none";
+                $('#header').css('display','none')
             }
             var address = location.hostname;
             var user_agent = agent();
