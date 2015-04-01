@@ -6,6 +6,10 @@ var more = true;
 
 $(document).ready(function () {
 
+    if (agentWechatOrQQ()) {
+        $('#header').css('display','none');
+    }
+
     changeFileUpload();
 
     var path = getArgs('path');

@@ -18,6 +18,10 @@
 
         $(document).ready(function () {
 
+            if (agentWechatOrQQ()) {
+                $('#header').css('display','none');
+            }
+
             var path = getArgs('path');
             if (path == '')
                 path = "/";

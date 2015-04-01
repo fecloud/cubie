@@ -18,6 +18,10 @@
         var filename = '';
         $(document).ready(function () {
 
+            if (agentWechatOrQQ()) {
+                $('#header').css('display','none');
+            }
+
             var path = getArgs('path');
             var filename = getArgs('name');
             var isFile = getArgs('isFile');
