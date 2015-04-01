@@ -173,6 +173,7 @@ function start_service(req, res, params) {
                     result.data = arr.join(" ");
                 }
             }else {
+                util.error(error.message);
                 result.error = err_const.err_500;
             }
             util.result_client(req, res, result);
@@ -206,6 +207,7 @@ function stop_service(req, res, params) {
                 if (arr != null) {
                     result.data = arr.join(" ");
                 }else {
+                    util.error(error.message);
                     result.error = err_const.err_500;
                 }
             }
