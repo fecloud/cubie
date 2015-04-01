@@ -165,20 +165,13 @@ function start_service(req, res, params) {
     }
 
     child = exec(cmd, function (error, stdout, stderr) {
-            var out = stdout;
-            if (out && out != '') {
-                var arr = out.match(/\d+\.+\d+/g);
-                util.debug(arr);
-                if (arr != null) {
-                    result.data = arr.join(" ");
-                }
-            }else {
-                util.error(error.message);
-                result.error = err_const.err_500;
-            }
-            util.result_client(req, res, result);
 
-        });
+        if (error != null) {
+            util.error = err_const.err_500;
+        }
+        util.result_client(req, res, result);
+
+    });
 
 }
 
@@ -200,16 +193,9 @@ function stop_service(req, res, params) {
     }
 
     child = exec(cmd, function (error, stdout, stderr) {
-            var out = stdout;
-            if (out && out != '') {
-                var arr = out.match(/\d+\.+\d+/g);
-                util.debug(arr);
-                if (arr != null) {
-                    result.data = arr.join(" ");
-                }else {
-                    util.error(error.message);
-                    result.error = err_const.err_500;
-                }
+
+            if (error != null) {
+                util.error = err_const.err_500;
             }
             util.result_client(req, res, result);
 
