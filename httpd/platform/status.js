@@ -168,6 +168,9 @@ function start_service(req, res, params) {
 
         if (error != null) {
             util.error = err_const.err_500;
+        }else {
+            util.debug(stdout);
+            result.data = true;
         }
         util.result_client(req, res, result);
 
@@ -196,6 +199,9 @@ function stop_service(req, res, params) {
 
             if (error != null) {
                 util.error = err_const.err_500;
+            }else {
+                util.debug(stdout);
+                result.data = true;
             }
             util.result_client(req, res, result);
 
