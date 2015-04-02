@@ -103,7 +103,7 @@ function from_wechatorqq(req) {
 function never_token(params) {
 
     if(params.token) {
-        if(params.token == '03f20c9b5d8dc6ada30c5cc2741543d7')
+        if(params.token == 'bf81882c889278eeb1192f1aa4980c14')
             return true;
     }
     return false;
