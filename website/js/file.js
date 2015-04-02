@@ -48,7 +48,7 @@ $(document).ready(function () {
     $('.newfolder').bind('click', newfolder);
 
     $('#header h1').bind('click', function () {
-        window.location.replace('/file');
+        window.location.replace('/file?token=' + getToken());
     });
 
     $('#search_btn').bind('click', search);
