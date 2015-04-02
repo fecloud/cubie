@@ -44,6 +44,8 @@
                 var status = data.data;
                 if(status) {
                     player(status);
+                }else {
+                    $('#live').html("加载出错,请重试");
                 }
 
             }});
@@ -87,6 +89,8 @@
             if (agentWechatOrQQ()) {
                 $('#header').css('display', 'none')
             }
+
+            query_live();
 
             back_bind();
 
