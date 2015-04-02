@@ -167,7 +167,7 @@ function renderSize(value) {
     return size + unitArr[index];
 }
 
-/*
+/**
  四舍五入保留小数位数
  numberRound 被处理的数
  roundDigit  保留几位小数位
@@ -221,10 +221,18 @@ function agentWechatOrQQ() {
  */
 function getToken() {
 
-    return $.cookie('token');
+    var tk = $.cookie('token');
+    if (!tk) {
+        tk = getArgs("token");
+    }
+    return tk;
 
 }
 
+/**
+ * 生成随机数字
+ * @returns {Number}
+ */
 function randomInt (){
 
     return parseInt(Math.random() * 10000000);

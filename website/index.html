@@ -16,8 +16,8 @@
 
         $(document).ready(function () {
 
-            if (($.cookie('uname') && $.cookie('token')) || agentWechatOrQQ()) {
-                window.location.replace('main.html');
+            if (($.cookie('uname') && $.cookie('token'))) {
+                window.location.replace('main.html?token=' +  getToken());
             }
 
             $('#login_btn').bind('click', login);
@@ -67,7 +67,7 @@
                         //保存到cookie
                         $.cookie('uname', data.data.uname, { expires: 100 });
                         $.cookie('token', data.data.token, { expires: 100 });
-                        window.location.replace('main.html');
+                        window.location.replace('main.html?token=' +  getToken());
                     } else {
                         alert("用户名或者密码错误");
                         $('#uname').focus();

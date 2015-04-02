@@ -104,6 +104,8 @@ function uptime(req, res, params) {
                 util.debug(server_time);
                 obj.server_time = server_time[0];
                 result.data = obj;
+            }else {
+                result.error = err_const.err_500;
             }
             util.result_client(req, res, result);
 
@@ -230,6 +232,8 @@ function server_uptime(req, res, params) {
                 var arr = out.replace(',', "").replace("\n", "");
                 util.debug(arr);
                 result.data = arr;
+            }else {
+                result.error = err_const.err_500;
             }
             util.result_client(req, res, result);
 

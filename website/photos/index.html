@@ -26,7 +26,6 @@
 
             load_data();
 
-
             $('#add_photos').bind('click', function () {
 
                 if (agent() == 'pc') {
@@ -55,7 +54,6 @@
                         load_data();
                     }
 
-
                 }});
         }
 
@@ -67,7 +65,7 @@
                     if (data && data.data) {
                         data.data.forEach(function (album) {
 
-                            var h = "<div><a class=\"photos\" href=\"album.html?path=" + album.path + "&name=" + album.name + "\"><div style=\"background-image: url(";
+                            var h = "<div><a class=\"photos\" href=\"album.html?token="+ getToken() + "&path=" + album.path + "&name=" + album.name + "\"><div style=\"background-image: url(";
                             if (album.first) {
                                 h += thum + $.md5(album.first.path + "_160_160") + ".jpg";
                             } else {
@@ -84,7 +82,6 @@
         }
 
     </script>
-
 
 </head>
 

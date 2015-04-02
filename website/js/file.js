@@ -132,7 +132,7 @@ function load_list(data) {
             var item = '<li class="list-item" src="{5}" file="{6}" name="{7}"><a href="{0}" class="box file-desc clean_right"><i class="file-icon {1}"></i><div class="box1 content"><h3>{2}</h3><div class="list-content">{3}<span>{4}</span></div></div><div class="show-operate"><i class="idown"></i></div></a><div class="box file-operate" ><div class="box1 file-rename"><i class="iedit"></i>重命名</div><div class="box1 file-delete" ><i class="iremove"></i>删除</div></div></li>';
             ;
             if (file.isDir) {
-                item = item.format("index.html?path=" + file.path, "folder", file.name, new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss"), "", file.path, file.isFile, file.name);
+                item = item.format("index.html?token=" + getToken() + "&path=" + file.path, "folder", file.name, new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss"), "", file.path, file.isFile, file.name);
             } else {
                 item = item.format("/src" + file.path, getFileTypeCss(file.name), file.name, new Date(file.mtime).format("yyyy-MM-dd hh:mm:ss"), renderSize(file.size), file.path, file.isFile, file.name);
             }
@@ -154,7 +154,7 @@ function load_list(data) {
 
 
 function newfolder() {
-    window.location.replace('/file/add_folder.html?path=' + current_path);
+    window.location.replace('/file/add_folder.html?token=' + getToken() + '&path=' + current_path);
 }
 
 //var idown_pre ;

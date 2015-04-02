@@ -86,13 +86,13 @@
 
             $.ajax({url: "{0}{1}.php?action=uptime&token={2}".format(status_service, randomInt(), getToken()), success: function (data) {
 
-                if (data.data.load) {
+                if (data.data && data.data.load) {
                     $('#load').html(data.data.load);
                 } else {
                     $('#load').html('暂无');
                 }
 
-                if (data.data.server_time) {
+                if (data.data && data.data.server_time) {
                     $('#server_time').html(data.data.server_time);
                 } else {
                     $('#server_time').html('暂无');

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/index.css"/>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/com.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -21,11 +22,16 @@
 
             });
 
+            $("#file").attr("href",function() { return "file?token=" + getToken()});
+            $("#live").attr("href",function() { return "live?token=" + getToken()});
+            $("#baidupansync").attr("href",function() { return "baidupansync?token=" + getToken()});
+            $("#photos").attr("href",function() { return "photos?token=" + getToken()});
+            $("#status").attr("href",function() { return "status?token=" + getToken()});
+
+
         });
 
     </script>
-
-
 
 </head>
 
@@ -37,19 +43,19 @@
     <div class="content">
         <div class="left_block">
             <div>
-                <a href="file" class="list-item"><span>文件管理</span></a>
+                <a id="file" class="list-item"><span>文件管理</span></a>
                 <a href="#" class="list-item_m"></a>
-                <a href="live" class="list-item"><span>远程监控</span></a>
+                <a id="live" class="list-item"><span>远程监控</span></a>
             </div>
             <div>
-                <a href="baidupansync" class="list-item">百度网盘同步</a>
+                <a id="baidupansync" class="list-item">百度网盘同步</a>
                 <a href="#" class="list-item_m"></a>
                 <a href="http://yc.xunlei.com" class="list-item" target="_black" >远程下载</a>
             </div>
             <div>
-                <a href="photos" class="list-item">我的相册</a>
+                <a id="photos" class="list-item">我的相册</a>
                 <a href="#" class="list-item_m"> </a>
-                <a href="status" class="list-item">服务器状态</a>
+                <a id="status" class="list-item">服务器状态</a>
             </div>
         </div>
         <div class="right_block">
