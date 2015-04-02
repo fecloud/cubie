@@ -1,6 +1,7 @@
 var os = require('os')
 var exec = require('child_process').exec,
     child;
+var fs = require('fs');
 
 
 var com = require('../com.js');
@@ -242,3 +243,28 @@ function server_uptime(req, res, params) {
 }
 
 exports.server_uptime = server_uptime;
+
+/**
+ * 查询rtmp与hls地址
+ * @param req
+ * @param res
+ * @param params
+ */
+function query_live(req, res, params) {
+
+    fs.readFile('/var/run/liveurl', function (err, data) {
+
+        var result = new com.web_result();
+
+        if (err) {
+            result.error = err_const.err_500;
+        }else  {
+            result.data = data.toString().replace('\n','');
+        }
+        util.result_client(req, res, result);
+
+    });
+
+}
+
+exports.query_live = query_live;
