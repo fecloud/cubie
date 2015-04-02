@@ -111,7 +111,7 @@ function start_http_module(m) {
             if (params && params.action) {
                 var token = params.token;
                 var action = params.action;
-                if (innot_oauth(action) || from_wechatorqq(req)) { //不需要token的接口
+                if (innot_oauth(action)) { //不需要token的接口
                     http_module_exe(req, res, params);
                 } else if (token) {
                     //检查token

@@ -166,7 +166,7 @@ function start_service(req, res, params) {
 
     child = exec(cmd, function (error, stdout, stderr) {
 
-        if (error != null) {
+        if (error !== null) {
             util.error = err_const.err_500;
         }else {
             util.debug(stdout);
@@ -199,7 +199,7 @@ function stop_service(req, res, params) {
 
     child = exec(cmd, function (error, stdout, stderr) {
 
-            if (error != null) {
+            if (error !== null) {
                 util.error = err_const.err_500;
             }else {
                 util.debug(stdout);
