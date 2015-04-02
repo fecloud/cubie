@@ -2,7 +2,7 @@ var os = require('os')
 var exec = require('child_process').exec,
     child;
 var fs = require('fs');
-
+var url =require('url');
 
 var com = require('../com.js');
 var err_const = require('../error.js');
@@ -259,7 +259,9 @@ function query_live(req, res, params) {
         if (err) {
             result.error = err_const.err_500;
         }else  {
-            result.data = data.toString().replace('\n','');
+			var str = data.toString().replace('\n','');
+			
+            result.data = url.parse(str).pathname;
         }
         util.result_client(req, res, result);
 
