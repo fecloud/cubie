@@ -188,7 +188,7 @@ function irename(b) {
     b.preventDefault();
     b.stopPropagation();
     var src = $(b.target).closest('li')[0];
-    window.location.replace('rename.html?path={0}&isFile={1}&name={2}'.format(src.getAttribute('src'), src.getAttribute('file'), src.getAttribute('name')));
+    window.location.replace('rename.html?token={0}&path={1}&isFile={2}&name={3}'.format(getToken(), src.getAttribute('src'), src.getAttribute('file'), src.getAttribute('name')));
 }
 
 
