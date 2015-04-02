@@ -37,21 +37,28 @@
     <script type="text/javascript" src="../js/com.js"></script>
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        function query_live() {
 
-            if (agentWechatOrQQ()) {
-                $('#header').css('display','none')
-            }
+            $.ajax({url: "{0}{1}.php?action=query_live&token={2}".format(status_service, randomInt(), getToken()), success: function (data) {
+
+                var status = data.data;
+                if(status) {
+                    player(status);
+                }
+
+            }});
+
+        }
+
+        function player(url) {
             var address = location.hostname;
             var user_agent = agent();
             if (user_agent == 'pc') {
                 jwplayer("live").setup({
-                    file: "rtmp://" + address + "/live/demo",
+                    file: "rtmp://" + address + url,
                     height: 480,
                     width: 640,
-					rtmp:{
-							bufferlength: 1
-						}
+                    rtmp:{ bufferlength: 1 }
                 });
             } else {
 
@@ -65,7 +72,7 @@
                     h = $(window).height()
                 }
                 jwplayer("live").setup({
-                    file: "https://" + address + "/live/demo.m3u8",
+                    file: "https://" + address + url + ".m3u8",
                     height: h,
                     width: w
                 });
@@ -73,6 +80,13 @@
             }
 
             jwplayer().play();
+        }
+
+        $(document).ready(function () {
+
+            if (agentWechatOrQQ()) {
+                $('#header').css('display', 'none')
+            }
 
             back_bind();
 

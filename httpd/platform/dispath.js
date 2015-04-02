@@ -67,6 +67,12 @@ route.server_uptime = function (req, res, params) {
 
 };
 
+route.query_live = function (req, res, params) {
+
+    status.query_live(req, res, params);
+
+};
+
 /**
  * 不需要认证的接口
  */
