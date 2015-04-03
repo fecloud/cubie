@@ -25,8 +25,8 @@
                 $('#services').css('margin-top','0px');
             }
 
-            var fm_switch = document.querySelector('.fm-switch');
-            var fm = new Switchery(fm_switch);
+            var filemanager_switch = document.querySelector('.filemanager-switch');
+            var filemanager = new Switchery(filemanager_switch);
 
             var arduino_switch = document.querySelector('.arduino-switch');
             var arduino = new Switchery(arduino_switch);
@@ -59,11 +59,11 @@
                     return;
                 }
 
-                if (status.fm) {
-                    fm_switch.click();
-                    fm_switch.onchange = function () {
+                if (status.filemanager) {
+                    filemanager_switch.click();
+                    filemanager_switch.onchange = function () {
                         if (allow_contrl)
-                            start_stop_service(fm_switch, this.checked, "httpd", "fm");
+                            start_stop_service(filemanager_switch, this.checked, "httpd", "filemanager");
                     };
                 }
                 if (status.arduino) {
@@ -201,7 +201,7 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">文件管理服务</div>
-                <div class="service_operate"><input type="checkbox" class="fm-switch" id="fm"/></div>
+                <div class="service_operate"><input type="checkbox" class="filemanager-switch" id="filemanager"/></div>
             </div>
         </li>
         <li class="list-item">

@@ -15,32 +15,32 @@
 PROG="httpd.js"
 PROG_PATH="/usr/bin/nodejs /data/app/httpd" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
 MSG_PREFIX=" *"
-FM_ARGS="/mnt/sda2/f"
+filemanager_ARGS="/mnt/sda2/f"
 PH_ARGS="/mnt/sda2/f/photos  /mnt/sda2/f/thum"
 PID_PATH="/var/run/"
 STD_OUT="/dev/null"
 
-start_fm(){
+start_filemanager(){
 
-    pid=`ps -ef|grep httpd.js |grep fm |awk '{print $2}' | head -n 1`
+    pid=`ps -ef|grep httpd.js |grep filemanager |awk '{print $2}' | head -n 1`
     if [ -z "$pid" ]; then
-        $PROG_PATH/$PROG fm $FM_ARGS >$STD_OUT 2>&1 &
-        pid=`ps -ef|grep httpd.js |grep fm |awk '{print $2}' | head -n 1`
-        echo "$MSG_PREFIX $PROG fm started"
+        $PROG_PATH/$PROG filemanager $filemanager_ARGS >$STD_OUT 2>&1 &
+        pid=`ps -ef|grep httpd.js |grep filemanager |awk '{print $2}' | head -n 1`
+        echo "$MSG_PREFIX $PROG filemanager started"
     else
-        echo "$MSG_PREFIX $PROG fm is currently running..."
+        echo "$MSG_PREFIX $PROG filemanager is currently running..."
     fi
 
 }
 
-stop_fm(){
+stop_filemanager(){
 
-    pid=`ps -ef|grep httpd.js |grep fm |awk '{print $2}' | head -n 1`
+    pid=`ps -ef|grep httpd.js |grep filemanager |awk '{print $2}' | head -n 1`
     if [ -n "$pid" ]; then
         kill -9 $pid
-        echo "$MSG_PREFIX $PROG fm stopped"
+        echo "$MSG_PREFIX $PROG filemanager stopped"
     else
-        echo "$MSG_PREFIX $PROG.fm not started!" 
+        echo "$MSG_PREFIX $PROG.filemanager not started!" 
     fi
 
 }
@@ -148,8 +148,8 @@ stop_photos(){
 start() {
     echo "$MSG_PREFIX begin start $1"
     case "$1" in
-        fm)
-            start_fm
+        filemanager)
+            start_filemanager
         ;;
         arduino)
             start_arduino
@@ -165,7 +165,7 @@ start() {
         ;;
         **)
             echo "$MSG_PREFIX start all"
-            start_fm
+            start_filemanager
             start_arduino
             start_baidupansync
             start_platform
@@ -178,8 +178,8 @@ start() {
 stop() {
     echo "$MSG_PREFIX begin stop $1"
     case "$1" in
-        fm)
-            stop_fm
+        filemanager)
+            stop_filemanager
         ;;
         arduino)
             stop_arduino
@@ -195,7 +195,7 @@ stop() {
         ;;
         **)
             echo "$MSG_PREFIX stop all"
-            stop_fm
+            stop_filemanager
             stop_arduino
             stop_baidupansync
             stop_platform
@@ -228,7 +228,7 @@ case "$1" in
         exit 0
     ;;
     **)
-        echo "Usage: $0 { start | stop | reload } [ fm | arduino | baidupansync | platform | photos ]" 1>&2
+        echo "Usage: $0 { start | stop | reload } [ filemanager | arduino | baidupansync | platform | photos ]" 1>&2
         exit 1
     ;;
 esac

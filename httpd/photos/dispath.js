@@ -19,7 +19,7 @@ route.list_photos = function (req, res, params) {
 
 route.delete_phots = function (req, res, params) {
 
-    util.result_client(req, res, fm.delete_file(params));
+    util.result_client(req, res, filemanager.delete_file(params));
 
 };
 
@@ -36,7 +36,7 @@ route.save_photos = function (req, res, params) {
 
 route.rename_photos = function (req, res, params) {
 
-    fm.rename(req, res, params);
+    filemanager.rename(req, res, params);
 };
 
 

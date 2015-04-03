@@ -7,40 +7,40 @@
  */
 var com = require('../com.js');
 var util = require('../util.js');
-var fm = require('./fm.js');
+var filemanager = require('./filemanager.js');
 
 var route = {};
 
 route.list = function (req, res, params) {
 
-    util.result_client(req, res, fm.list_dir(params));
+    util.result_client(req, res, filemanager.list_dir(params));
 
 };
 
 route.delete = function (req, res, params) {
 
-    util.result_client(req, res, fm.delete_file(params));
+    util.result_client(req, res, filemanager.delete_file(params));
 
 };
 
 route.newfolder = function (req, res, params) {
 
-    fm.new_dir(req, res, params);
+    filemanager.new_dir(req, res, params);
 };
 
 route.upload = function (req, res, params) {
-    fm.save_file(req, res, params);
+    filemanager.save_file(req, res, params);
 
 };
 
 route.rename = function (req, res, params) {
 
-    fm.rename(req, res, params);
+    filemanager.rename(req, res, params);
 };
 
 route.search = function (req, res, params) {
 
-    fm.search(req, res, params);
+    filemanager.search(req, res, params);
 };
 
 

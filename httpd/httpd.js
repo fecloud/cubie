@@ -10,7 +10,7 @@ var oauth = require('./oauth/oauth.js');
 
 var modules = [
 
-    {'name': 'fm', 'port': 3000},
+    {'name': 'filemanager', 'port': 3000},
     {'name': 'arduino', 'port': 3001},
     {'name': 'baidupansync', 'port': 3002},
     {'name': 'platform', 'port': 3003}    ,
@@ -27,7 +27,7 @@ var com = require('./com.js');
  */
 function set_route(m) {
 
-    if (m.name == 'fm') {
+    if (m.name == 'filemanager') {
         route = new require('./filemanager/dispath.js').route;
     } else if (m.name == 'arduino') {
         route = new require('./arduino/dispath.js').route;
@@ -186,12 +186,12 @@ if (start_module) {
 
     } else {
         util.error("not found module name ,please check !");
-        util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,platform,photos] args');
+        util.debug('useage :\n \thttpd.js [filemanager,arduino,baidupansync,platform,photos] args');
     }
 
 } else {
     util.error("not setting start_module name ,please set !");
-    util.debug('useage :\n \thttpd.js [fm,arduino,baidupansync,platform,photos] args');
+    util.debug('useage :\n \thttpd.js [filemanager,arduino,baidupansync,platform,photos] args');
     process.exit(1);
 }
 

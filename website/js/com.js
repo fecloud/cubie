@@ -239,7 +239,7 @@ function randomInt (){
 
 }
 
-var fm_service = "/service/fm/";
+var filemanager_service = "/service/filemanager/";
 var baidupansync = "/service/baidupansync/";
 var status_service = "/service/platform/";
 var platform_service = "/service/platform/";

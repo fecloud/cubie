@@ -71,7 +71,7 @@ function search() {
             //console.log('search');
         });
         $('#content').html('');
-        $.ajax({url: "{0}{1}.php?action=search&token={2}&value={3}&query={4}".format(fm_service, randomInt(), getToken(), current_path, query),
+        $.ajax({url: "{0}{1}.php?action=search&token={2}&value={3}&query={4}".format(filemanager_service, randomInt(), getToken(), current_path, query),
             success: function (data) {
 
                 load_list(data);
@@ -106,7 +106,7 @@ function load_data(befor, end) {
     }
 
     loading = true;
-    var address = "{0}{1}.php?action=list&token={2}&value={3}&skip={4}&num={5}".format(fm_service, randomInt(), getToken(), current_path, count, page_num);
+    var address = "{0}{1}.php?action=list&token={2}&value={3}&skip={4}&num={5}".format(filemanager_service, randomInt(), getToken(), current_path, count, page_num);
     $.ajax({url: address,
         success: function (data) {
             loading = false;
@@ -176,7 +176,7 @@ function idown(b) {
 
 function iremove(b) {
     var file = $(b.target).closest('li')[0];
-    $.ajax({url: "{0}{1}.php?action=delete&token={2}&value={3}".format(fm_service, randomInt(), getToken(), file.getAttribute('src')),
+    $.ajax({url: "{0}{1}.php?action=delete&token={2}&value={3}".format(filemanager_service, randomInt(), getToken(), file.getAttribute('src')),
         success: function (data) {
             file.remove();
             count = count - 1;
