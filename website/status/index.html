@@ -27,9 +27,6 @@
 
             var fm_switch = document.querySelector('.fm-switch');
             var fm = new Switchery(fm_switch);
-            fm_switch.onchange = function () {
-                console.log(this.checked);
-            };
 
             var arduino_switch = document.querySelector('.arduino-switch');
             var arduino = new Switchery(arduino_switch);
@@ -52,29 +49,59 @@
 
             back_bind();
 
+            var allow_contrl = false;
 
             $.ajax({url: "{0}{1}.php?action=status&token={2}".format(status_service, randomInt(), getToken()), success: function (data) {
 
                 var status = data.data;
 
+                if (!status) {
+                    return;
+                }
+
                 if (status.fm) {
                     fm_switch.click();
+                    fm_switch.onchange = function () {
+                        if (allow_contrl)
+                            start_stop_service(fm_switch, this.checked, "httpd", "fm");
+                    };
                 }
                 if (status.arduino) {
                     arduino_switch.click();
+                    arduino_switch.onchange = function () {
+                        if (allow_contrl)
+                            start_stop_service(arduino_switch, this.checked, "httpd", "arduino");
+                    };
                 }
 				if (status.vlserver) {
 					vlserver_switch.click();
+                    vlserver_switch.onchange = function () {
+                        if (allow_contrl)
+                            start_stop_service(vlserver_switch, this.checked, "vlserver", "");
+                    };
 				}
                 if (status.vlrtmp) {
                     vlrtmp_switch.click();
+                    vlrtmp_switch.onchange = function () {
+                        if (allow_contrl)
+                            start_stop_service(vlrtmp_switch, this.checked, "vlrtmp", "");
+                    };
                 }
                 if (status.baiduyunsync) {
                     baiduyunsync_switch.click();
+                    baiduyunsync_switch.onchange = function () {
+                        if (allow_contrl)
+                            start_stop_service(baiduyunsync_switch, this.checked, "httpd", "baiduyunsync");
+                    };
                 }
                 if (status.photos) {
                     photos_switch.click();
+                    photos_switch.onchange = function () {
+                        if (allow_contrl)
+                            start_stop_service(photos_switch, this.checked, "httpd", "photos");
+                    };
                 }
+                allow_contrl = true;
 
                 $('#arch').html(status.arch);
                 $('#core').html(status.core);
@@ -97,7 +124,6 @@
                 } else {
                     $('#server_time').html('暂无');
                 }
-
 
             }});
 
@@ -127,9 +153,30 @@
                     $('#server_uptime').html('暂无');
                 }
 
-
             }});
 
+            function start_stop_service(sw, checked, name, subname) {
+                var req = "";
+                if(checked){
+                    req = "{0}{1}.php?token={2}&action=start_service&values={3}&sub={4}".format(status_service, randomInt(), getToken(), name, subname);
+                }else {
+                    req = "{0}{1}.php?token={2}&action=stop_service&values={3}&sub={4}".format(status_service, randomInt(), getToken(), name, subname);
+                }
+
+                $.ajax({url: req, success: function (data) {
+
+                    if (!data.data) {
+                        sw.click();
+                    }
+                    allow_contrl = true;
+                }, complete: function(XMLHttpRequest, textStatus) {
+                    if (XMLHttpRequest.status !== 200) {
+                        sw.click();
+                        allow_contrl = true;
+                    }
+                }});
+                allow_contrl = false;
+            }
 
         });
 
