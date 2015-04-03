@@ -10,7 +10,7 @@ var util = require('../util.js');
 
 var service_status = function () {
 
-    this.fm = false;
+    this.filemanager = false;
     this.arduino = false;
     this.baiduyunsync = false;
     this.status = false;
@@ -40,8 +40,8 @@ function status(req, res, params) {
             if (out && out != '') {
 
                 //查询所有服务的状态
-                if (out.indexOf('fm') > 0) {
-                    service_s.fm = true;
+                if (out.indexOf('filemanager') > 0) {
+                    service_s.filemanager = true;
                 }
 
                 if (out.indexOf('arduino') > 0) {
