@@ -61,46 +61,46 @@
 
                 if (status.filemanager) {
                     filemanager_switch.click();
-                    filemanager_switch.onchange = function () {
-                        if (allow_contrl)
-                            start_stop_service(filemanager_switch, this.checked, "httpd", "filemanager");
-                    };
                 }
+                filemanager_switch.onchange = function () {
+                    if (allow_contrl)
+                        start_stop_service(filemanager_switch, this.checked, "httpd", "filemanager");
+                };
                 if (status.arduino) {
                     arduino_switch.click();
-                    arduino_switch.onchange = function () {
-                        if (allow_contrl)
-                            start_stop_service(arduino_switch, this.checked, "httpd", "arduino");
-                    };
                 }
+                arduino_switch.onchange = function () {
+                    if (allow_contrl)
+                        start_stop_service(arduino_switch, this.checked, "httpd", "arduino");
+                };
 				if (status.vlserver) {
 					vlserver_switch.click();
-                    vlserver_switch.onchange = function () {
-                        if (allow_contrl)
-                            start_stop_service(vlserver_switch, this.checked, "vlserver", "");
-                    };
 				}
+                vlserver_switch.onchange = function () {
+                    if (allow_contrl)
+                        start_stop_service(vlserver_switch, this.checked, "vlserver", "");
+                };
                 if (status.vlrtmp) {
                     vlrtmp_switch.click();
-                    vlrtmp_switch.onchange = function () {
-                        if (allow_contrl)
-                            start_stop_service(vlrtmp_switch, this.checked, "vlrtmp", "");
-                    };
                 }
+                vlrtmp_switch.onchange = function () {
+                    if (allow_contrl)
+                        start_stop_service(vlrtmp_switch, this.checked, "vlrtmp", "");
+                };
                 if (status.baiduyunsync) {
                     baiduyunsync_switch.click();
-                    baiduyunsync_switch.onchange = function () {
-                        if (allow_contrl)
-                            start_stop_service(baiduyunsync_switch, this.checked, "httpd", "baiduyunsync");
-                    };
                 }
+                baiduyunsync_switch.onchange = function () {
+                    if (allow_contrl)
+                        start_stop_service(baiduyunsync_switch, this.checked, "httpd", "baiduyunsync");
+                };
                 if (status.photos) {
                     photos_switch.click();
-                    photos_switch.onchange = function () {
-                        if (allow_contrl)
-                            start_stop_service(photos_switch, this.checked, "httpd", "photos");
-                    };
                 }
+                photos_switch.onchange = function () {
+                    if (allow_contrl)
+                        start_stop_service(photos_switch, this.checked, "httpd", "photos");
+                };
                 allow_contrl = true;
 
                 $('#arch').html(status.arch);
