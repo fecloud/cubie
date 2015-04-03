@@ -37,8 +37,8 @@
             var vlrtmp_switch = document.querySelector('.vlrtmp-switch');
             var vlrtmp = new Switchery(vlrtmp_switch);
 
-            var baiduyunsync_switch = document.querySelector('.baiduyunsync-switch');
-            var baiduyunsync = new Switchery(baiduyunsync_switch);
+            var baidupansync_switch = document.querySelector('.baidupansync-switch');
+            var baidupansync = new Switchery(baidupansync_switch);
 
             var photos_switch = document.querySelector('.photos-switch');
             var photos = new Switchery(photos_switch);
@@ -87,12 +87,12 @@
                     if (allow_contrl)
                         start_stop_service(vlrtmp_switch, this.checked, "vlrtmp", "");
                 };
-                if (status.baiduyunsync) {
-                    baiduyunsync_switch.click();
+                if (status.baidupansync) {
+                    baidupansync_switch.click();
                 }
-                baiduyunsync_switch.onchange = function () {
+                baidupansync_switch.onchange = function () {
                     if (allow_contrl)
-                        start_stop_service(baiduyunsync_switch, this.checked, "httpd", "baiduyunsync");
+                        start_stop_service(baidupansync_switch, this.checked, "httpd", "baidupansync");
                 };
                 if (status.photos) {
                     photos_switch.click();
@@ -225,7 +225,7 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">百度网盘同步服务</div>
-                <div class="service_operate"><input type="checkbox" class="baiduyunsync-switch" id="baiduyunsync"/>
+                <div class="service_operate"><input type="checkbox" class="baidupansync-switch" id="baidupansync"/>
                 </div>
             </div>
         </li>

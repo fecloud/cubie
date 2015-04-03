@@ -12,7 +12,7 @@ var service_status = function () {
 
     this.filemanager = false;
     this.arduino = false;
-    this.baiduyunsync = false;
+    this.baidupansync = false;
     this.status = false;
     this.photos = false;
     this.vlserver = false;
@@ -49,7 +49,7 @@ function status(req, res, params) {
                 }
 
                 if (out.indexOf('baidupansync') > 0) {
-                    service_s.baiduyunsync = true;
+                    service_s.baidupansync = true;
                 }
 
                 if (out.indexOf('status') > 0) {
