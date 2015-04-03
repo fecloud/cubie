@@ -11,18 +11,18 @@ var com = require('./com.js');
 
 var start_module = process.argv[2];
 
-log4js.configure({
-    appenders: [
-        { type: 'file', filename: '/var/log/httpd/' + start_module + '.log', category: 'default' },
-        { type: 'file', filename: '/var/log/httpd/' + 'access.' + start_module + '.log', category: 'access' }
-    ]
-});
 //log4js.configure({
 //    appenders: [
-//        { type: 'console', category: 'default' },
-//        { type: 'console', category: 'access' }
+//        { type: 'file', filename: '/var/log/httpd/' + start_module + '.log', category: 'default' },
+//        { type: 'file', filename: '/var/log/httpd/' + 'access.' + start_module + '.log', category: 'access' }
 //    ]
 //});
+log4js.configure({
+    appenders: [
+        { type: 'console', category: 'default' },
+        { type: 'console', category: 'access' }
+    ]
+});
 
 //普通日志
 var logger = log4js.getLogger('default');

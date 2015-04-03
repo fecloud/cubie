@@ -7,10 +7,10 @@ var util = require('./util.js');
 
 var pool = mysql.createPool({
         connectionLimit: 2,
-        host: 'localhost',
-        user: 'root',
-        password: 'fcloud',
-        database: 'fcloud'
+        host: 'rds6v2uvvrennaa.mysql.rds.aliyuncs.com',
+        user: 'db7k81jhgfilemanager13wla',
+        password: 'ouyangfeng',
+        database: 'db7k81jhgfilemanager13wla'
     }
 );
 
