@@ -124,7 +124,7 @@ function uploadFile(b) {
         var file = b.files[index];
         var filename = '';
         if (file.name == "image.jpg") {
-            filename = new Date().format("yyyy-MM-dd_hh:mm:ss-") + index + '.jpg'
+            filename = new Date().format("yyyy-MM-dd_hh-mm-ss-") + index + '.jpg'
         } else {
             filename = file.name;
         }
