@@ -24,6 +24,8 @@ else
 	exit 1
 fi
 
+service httpd stop
+
 if [ -d "$PROG_LOG_PATH" ] ; then
 	echo "$MSG_PREFIX $PROG_LOG_PATH exits"
 else 
@@ -43,13 +45,15 @@ cp -v -n -r ./$PROG/* $PROG_PATH/
 cp -v -n -r ./$PROG_WEB/* $PROG_PATH_WEB/
 
 if [ -f "/etc/init.d/$PROG" ] ; then
-	echo "$MSG_PREFIX /etc/init.d/$PROG  already exist"
-else
-	echo "#/bin/sh"  >> /etc/init.d/$PROG
-	echo "ARGS=\$*" >> /etc/init.d/$PROG
-	echo "echo \"su -c '$PROG_PATH/$PROG \$ARGS' linaro\" | sh" >> /etc/init.d/$PROG
-	chmod 755 /etc/init.d/$PROG
+	echo "$MSG_PREFIX /etc/init.d/$PROG  already exist delete"
+	rm -f /etc/init.d/$PROG
 fi
+
+echo "#/bin/sh"  >> /etc/init.d/$PROG
+echo "ARGS=\$*" >> /etc/init.d/$PROG
+echo "echo \"su -c '$PROG_PATH/$PROG \$ARGS' linaro\" | sh" >> /etc/init.d/$PROG
+chmod 755 /etc/init.d/$PROG
+
 if [ -x "/usr/bin/node" ] ; then
 	echo "$MSG_PREFIX install nodejs"
 else

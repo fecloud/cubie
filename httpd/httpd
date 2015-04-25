@@ -15,8 +15,8 @@
 PROG="httpd.js"
 PROG_PATH="/usr/bin/nodejs /data/app/httpd" #::# Not need, but sometimes helpful (if $PROG resides in /opt for example).
 MSG_PREFIX=" *"
-filemanager_ARGS="/mnt/sda2/f"
-PH_ARGS="/mnt/sda2/f/photos  /mnt/sda2/f/thum"
+filemanager_ARGS="/hdd"
+PH_ARGS="/hdd/photos  /hdd/thum"
 PID_PATH="/var/run/"
 STD_OUT="/dev/null"
 
