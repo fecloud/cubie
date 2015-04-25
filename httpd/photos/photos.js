@@ -274,16 +274,18 @@ function get_max_date(dir, base) {
             // 查看文件状态
             var st = fs.statSync(dir + "/" + name);
             var f = new File();
-            if (st.isFile() && name.indexOf('.') != 0 && util.is_pic(name)) {
-                f.isFile = true;
-                f.name = name;
-                f.size = st.size;
-                f.mtime = st.mtime.getTime();
-                f.path = base + "/" + name;
-                if (max_date == undefined) {
-                    max_date = f;
-                } else if (max_date.mtime < f.mtime) {
-                    max_date = f;
+            if (st.isFile() && name.indexOf('.') != 0) {
+                if (util.is_pic(name) || util.is_video(name)) {
+                    f.isFile = true;
+                    f.name = name;
+                    f.size = st.size;
+                    f.mtime = st.mtime.getTime();
+                    f.path = base + "/" + name;
+                    if (max_date == undefined) {
+                        max_date = f;
+                    } else if (max_date.mtime < f.mtime) {
+                        max_date = f;
+                    }
                 }
             }
 
