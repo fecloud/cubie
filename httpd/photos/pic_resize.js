@@ -98,7 +98,7 @@ emitter.on("req", function (worker) {
 
                     });
             }else if(util.is_video(worker.task.file)){
-                child = exec("ffmpeg -i " + worker.task.file + " -vframes 1 -r 1  -s " + w + "*" + h + " -f  image2 " + worker.task.tofile,
+                child = exec("ffmpeg -i " + worker.task.file + " -vframes 1 -r 1  -s " + worker.task.w + "*" + worker.task.h + " -f  image2 " + worker.task.tofile,
                     function (error, stdout, stderr) {
                         if (error !== null) {
                             util.error('exec error: ' + error);
