@@ -12,6 +12,8 @@ var emitter = new events.EventEmitter();
 var fs = require('fs')
     , gm = require('gm');
 
+var exec = require('child_process').exec,
+    child;
 var util = require('../util.js');
 
 
@@ -71,29 +73,43 @@ emitter.on("req", function (worker) {
     fs.exists(worker.task.tofile, function (exists) {
 
         if (exists) {
-            util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " not need resize");
+            util.debug("rezie " + worker.task.file + " tofile " + worker.task.tofile + " not need resize");
             worker.working = false;
             util.debug('worker ' + worker.id + ' finish task req next');
             req_worker(true);
         } else {
             //需要resize
-            util.debug("gm rezie " + worker.task.file + " tofile" + worker.task.tofile);
-            gm(worker.task.file)
-                .resize(worker.task.w, worker.task.h)
-				.autoOrient()
-                .write(worker.task.tofile, function (err) {
+            util.debug("rezie " + worker.task.file + " tofile" + worker.task.tofile);
+            if(util.is_pic(worker.task.file)) {
+                gm(worker.task.file)
+                    .resize(worker.task.w, worker.task.h)
+                    .autoOrient()
+                    .write(worker.task.tofile, function (err) {
 
-                    //gm 出现错误
-                    if (err) {
-                        util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " error " + err.toString());
-                    } else {
-                        util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " success");
-                    }
-                    worker.working = false;
-                    util.debug('worker ' + worker.id + ' finish task req next');
-                    req_worker(true);
+                        //gm 出现错误
+                        if (err) {
+                            util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " error " + err.toString());
+                        } else {
+                            util.debug("gm rezie " + worker.task.file + " tofile " + worker.task.tofile + " success");
+                        }
+                        worker.working = false;
+                        util.debug('worker ' + worker.id + ' finish task req next');
+                        req_worker(true);
 
-                });
+                    });
+            }else if(util.is_video(worker.task.file)){
+                child = exec("ffmpeg -i " + worker.task.file + " -vframes 1 -r 1  -s " + w + "*" + h + " -f  image2 " + worker.task.tofile,
+                    function (error, stdout, stderr) {
+                        if (error !== null) {
+                            util.error('exec error: ' + error);
+                        }else {
+                            util.debug("ffmpeg rezie " + worker.task.file + " tofile " + worker.task.tofile + " success");
+                        }
+                        worker.working = false;
+                        util.debug('worker ' + worker.id + ' finish task req next');
+                        req_worker(true);
+                    });
+            }
         }
 
     });
