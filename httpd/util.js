@@ -160,6 +160,28 @@ function is_pic(file) {
 exports.is_pic = is_pic;
 
 /**
+ * 根据后缀判断是否是视频
+ * @param file
+ */
+function is_video(file) {
+
+    if (file) {
+
+        var last = file.lastIndexOf('.');
+        var fix = file.substring(last + 1);
+        fix = fix.toLowerCase();
+        if (fix == 'mov' || fix == 'h264' || fix == 'mp4' || fix == '3gp') {
+            return true;
+        }
+    }
+    return false;
+
+}
+
+exports.is_video = is_video;
+
+
+/**
  * 字符串md5
  * @param string
  * @returns {*}
