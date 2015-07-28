@@ -81,11 +81,6 @@
                 }
             }});
 
-            $("#bdfd_server").bind("click", function() {
-                //跳转到网盘同步服务端管理页面
-                window.location.replace('http://yuncore.aliapp.com/bdfshtml.html');
-            });
-
         });
 
     </script>
@@ -107,10 +102,12 @@
 
     <ul class="list group">
         <li id="bdfd_server" class="list-item">
-            <div class="box">
-                <div class="content">服务端状态</div>
-                <div class="service_operate text_right" style="color:black">&gt;&gt;</div>
-            </div>
+			<a href="http://yuncore.aliapp.com/bdfshtml.html" >
+				<div class="box">
+					<div class="content">服务端状态</div>
+					<div class="service_operate text_right" style="color:black">&gt;&gt;</div>
+				</div>
+			</a>
         </li>
          <li class="list-item">
             <div class="box">
