@@ -76,6 +76,7 @@
                          $("#bdfs_uploading").html("上传中");
                          $("#bdfs_uploading_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
                          $("#bdfs_uploading_length").html(renderSize(server_data.uploading.length));
+                         $("#bdfs_upload_size").html(renderSize(server_data.upload_size));
                     }
                 }
             }});
@@ -152,6 +153,12 @@
             <div class="box">
                 <div class="content">文件大小</div>
                 <div class="service_operate text_right" id="bdfs_uploading_length">...</div>
+            </div>
+        </li>
+		<li class="list-item">
+            <div class="box">
+                <div class="content">已上传</div>
+                <div class="service_operate text_right" id="bdfs_upload_size">...</div>
             </div>
         </li>
     </ul>
