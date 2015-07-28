@@ -48,6 +48,12 @@
         .box1 {
             line-height: 44px;
         }
+
+		.txt-over {
+			text-overflow: ellipsis; 
+			overflow: hidden; 
+			white-space: nowrap; 
+		}
     </style>
     <script type="text/javascript">
 
@@ -143,7 +149,7 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">文件名称</div>
-                <div class="service_operate text_right" id="bdfs_uploading_name">...</div>
+                <div class="service_operate text_right content txt-over" id="bdfs_uploading_name">...</div>
             </div>
         </li>
         <li class="list-item">
