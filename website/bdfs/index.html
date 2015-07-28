@@ -67,9 +67,14 @@
                     $("#bdfs_status").html("正常");
                 }
             }});
+			
+			client_env();
 
-            $.ajax({url: "{0}{1}.php?action=clientenv".format(bdfs_service, randomInt(), getToken()), success: function (data) {
-                if(data && data.code == 200){
+        });
+		
+		function client_env() {
+			$.ajax({url: "{0}{1}.php?action=clientenv".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+                if (data && data.code == 200) {
                     var server_data = data.data;
                     $("#bdfs_localfilelist").html(server_data.localfilelist);
                     var date = new Date(); 
@@ -84,10 +89,12 @@
                          $("#bdfs_uploading_length").html(renderSize(server_data.uploading.length));
                          $("#bdfs_upload_size").html(renderSize(server_data.upload_size));
                     }
-                }
-            }});
-
-        });
+				}
+				setTimeout("client_env()",2000); 
+            }, error: function () {
+				setTimeout("client_env()",2000);
+			}});	
+		}
 
     </script>
 
