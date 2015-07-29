@@ -81,7 +81,7 @@
                     date.setTime(server_data.localfilelist_last);
                     $("#bdfs_localfilelist_last").html(date.format("MM-dd hh:mm:ss"));
 
-                    if (server_data.uploading === false) {
+                    if (server_data.uploading === false || server_data.uploading === "") {
                         $("#bdfs_uploading").html("未上传");
                     } else {
                          $("#bdfs_uploading").html("上传中");
