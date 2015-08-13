@@ -63,10 +63,17 @@
 
 
             $.ajax({url: "{0}{1}.php?action=status".format(bdfs_service, randomInt(), getToken()), success: function (data) {
-                if(data && data.code == 200){
+                if (data && data.code == 200){
                     $("#bdfs_status").html("正常");
-                }
-            }});
+                } else {
+					$("#bdfs_status").html("故障");
+                    $("#bdfs_status").css('color','red');
+
+				}
+            }, error: function () {
+				$("#bdfs_status").html("故障");
+                $("#bdfs_status").css('color','red');
+			}});
 			
 			client_env();
 
@@ -76,19 +83,33 @@
 			$.ajax({url: "{0}{1}.php?action=clientenv".format(bdfs_service, randomInt(), getToken()), success: function (data) {
                 if (data && data.code == 200) {
                     var server_data = data.data;
-                    $("#bdfs_localfilelist").html(server_data.localfilelist);
-                    var date = new Date(); 
-                    date.setTime(server_data.localfilelist_last);
-                    $("#bdfs_localfilelist_last").html(date.format("MM-dd hh:mm:ss"));
-
-                    if (server_data.uploading === false || server_data.uploading === "") {
-                        $("#bdfs_uploading").html("未上传");
-                    } else {
-                         $("#bdfs_uploading").html("上传中");
-                         $("#bdfs_uploading_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
-                         $("#bdfs_uploading_length").html(renderSize(server_data.uploading.length));
-                         $("#bdfs_upload_size").html(renderSize(server_data.upload_size));
-                    }
+					if (server_data.localfilelist) {
+						$("#bdfs_localfilelist").html(server_data.localfilelist);
+						var date = new Date(); 
+						date.setTime(server_data.localfilelist_last);
+						$("#bdfs_localfilelist_last").html(date.format("MM-dd hh:mm:ss"));
+					}
+					if (server_data.uploading) {
+						if (server_data.uploading === false || server_data.uploading === "") {
+							$("#bdfs_uploading").html("未上传");
+						} else {
+							 $("#bdfs_uploading").html("上传中");
+							 $("#bdfs_uploading_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
+							 $("#bdfs_uploading_length").html(renderSize(server_data.uploading.length));
+							 $("#bdfs_upload_size").html(renderSize(server_data.upload_size));
+						}
+					}
+					
+					if (server_data.downloading) {
+						if (server_data.downloading === false || server_data.downloading === "") {
+							$("#bdfs_downloading").html("未上传");
+						} else {
+							 $("#bdfs_downloading").html("上传中");
+							 $("#bdfs_downloading_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
+							 $("#bdfs_downloading_length").html(renderSize(server_data.downloading.length));
+							 $("#bdfs_download_size").html(renderSize(server_data.download_size));
+						}
+					}
 				}
 				setTimeout("client_env()",2000); 
             }, error: function () {
@@ -169,6 +190,33 @@
             <div class="box">
                 <div class="content">已上传</div>
                 <div class="service_operate text_right" id="bdfs_upload_size">...</div>
+            </div>
+        </li>
+    </ul>
+	
+	<ul id="download" class="list group">
+        <li class="list-item">
+            <div class="box">
+                <div class="content">正在下载</div>
+                <div class="service_operate text_right" id="bdfs_downloading">...</div>
+            </div>
+        </li>
+        <li class="list-item">
+            <div class="box">
+                <div class="content">文件名称</div>
+                <div class="service_operate text_right content txt-over" id="bdfs_downloading_name">...</div>
+            </div>
+        </li>
+        <li class="list-item">
+            <div class="box">
+                <div class="content">文件大小</div>
+                <div class="service_operate text_right" id="bdfs_downloading_length">...</div>
+            </div>
+        </li>
+		<li class="list-item">
+            <div class="box">
+                <div class="content">已下载</div>
+                <div class="service_operate text_right" id="bdfs_download_size">...</div>
             </div>
         </li>
     </ul>
