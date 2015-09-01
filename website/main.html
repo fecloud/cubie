@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,10 +6,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui"/>
-    <link rel="apple-touch-icon-precomposed" href="/img/screen_icon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="img/screen_icon.png"/>
+    <link rel="stylesheet" href="css/com.css">
+    <link rel="stylesheet" href="css/index.css">
     <meta name="format-detection" content="telephone=no"/>
-	<meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="stylesheet" href="/css/index.css"/>
     <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
     <script type="text/javascript" src="js/com.js"></script>
@@ -38,34 +39,68 @@
 
 <body>
 
-<div id="container">
+<div id="container" class="container">
 
-    <div class="header"></div>
-    <div class="content">
-        <div class="left_block">
-            <div>
-                <a id="file" class="list-item"><span>文件管理</span></a>
-                <a href="#" class="list-item_m"></a>
-                <a id="live" class="list-item"><span>远程监控</span></a>
-            </div>
-            <div>
-                <a id="bdfs" class="list-item">百度网盘同步</a>
-                <a href="#" class="list-item_m"></a>
-                <a href="http://yc.xunlei.com" class="list-item" target="_black" >远程下载</a>
-            </div>
-            <div>
-                <a id="photos" class="list-item">我的相册</a>
-                <a href="#" class="list-item_m"> </a>
-                <a id="status" class="list-item">服务器状态</a>
-            </div>
-        </div>
-        <div class="right_block">
-            <span id="exit">退出</span>
-        </div>
+    <div id="header">
+
+        <h1>FCloud</h1>
+
     </div>
 
-</div>
+    <ul class="list group menu">
 
+        <li id="div1" class="list-item menu-item" >
+            <a href="#" id="file" >
+                <i class="icon" style="background-image: url('../img/file_manager.png')" ></i>
+                <i class="labl" >文件管理</i>
+            </a>
+        </li>
+
+        <li id="div1" class="list-item menu-item">
+            <a href="#" id="photos" >
+                <i class="icon" style="background-image: url('../img/photos.png')" ></i>
+                <i class="labl" >相&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</i>
+            </a>
+        </li>
+
+        <li id="div1" class="list-item menu-item" >
+            <a href="#" id="live" >
+                <i class="icon" style="background-image: url('../img/camera.png')"  ></i>
+                <i class="labl" >远程监控</i>
+            </a>
+        </li>
+
+        <li id="div1" class="list-item menu-item" >
+            <a href="#" id="bdfs" >
+                <i class="icon" style="background-image: url('../img/netdisk.png')" ></i>
+                <i class="labl">百度云同步</i>
+            </a>
+        </li>
+
+        <li id="div1" class="list-item menu-item" >
+            <a href="http://yc.xunlei.com" >
+                <i class="icon" style="background-image: url('../img/yuanchen.png')" ></i>
+                <i class="labl" >远程下载</i>
+            </a>
+        </li>
+
+        <li id="div1" class="list-item menu-item" >
+            <a href="#" id="status" >
+                <i class="icon" style="background-image: url('../img/status.png')" ></i>
+                <i class="labl" >服务状态</i>
+            </a>
+        </li>
+
+        <li id="div1" class="list-item menu-item" >
+            <a href="#" id="exit" >
+                <i class="icon" style="background-image: url('../img/logoff.png')" ></i>
+                <i class="labl" >退&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出</i>
+            </a>
+        </li>
+
+    </ul>
+
+</div>
 
 </body>
 </html>
