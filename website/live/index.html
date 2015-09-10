@@ -43,15 +43,13 @@
 
                 var status = data.data;
                 if(status) {
-                  //player(status);
-				  
+                    player(status);
                 }else {
                     $('#live').html("加载出错,请重试");
                 }
 
             }});
-			player_hls();
-			//player(status);
+
         }
 
         function player(url) {
@@ -85,19 +83,6 @@
 
             jwplayer().play();
         }
-		
-		function player_hls() {
-		 //改变样式
-                $('#palyer_container').addClass('m_palyer');
-			var w = $(window).width();
-                var h = $(window).height() - 45;
-                //如果是从微信或者是QQ的不用多41
-                if (agentWechatOrQQ()) {
-                    h = $(window).height()
-                }
-			var html = "<video id=\"video\" controls=\"\" preload=\"none\" width=\"" + w  +"\"" + " height=\"" + h + "\" ><source id=\"mp4\" src=\"oatos_intro.mp4\" type=\"video/mp4\"></video>";
-			$("#live").html(html);
-		}
 
         $(document).ready(function () {
 
