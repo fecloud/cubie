@@ -10,9 +10,12 @@
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="../css/com.css"/>
     <link rel="stylesheet" href="../css/status.css"/>
+    <link rel="stylesheet" href="../css/switchery.min.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../js/com.js"></script>
+    <script type="text/javascript" src="../js/html5.js"></script>
+    <script type="text/javascript" src="../js/switchery.min.js"></script>
     <style type="text/css">
         .content, .show-operate {
             /*color: #007aff;*/
@@ -32,19 +35,6 @@
             cursor: pointer;
         }
 
-        .user_icon {
-            width: 30px;
-            height: 30px;
-            margin-top: 7px;
-            line-height: 30px;
-            background-image: url("http://tb.himg.baidu.com/sys/portraitn/item/");
-            -webkit-background-size: 30px 30px;
-            background-size: 30px 30px;
-            border: 0px solid #000;
-            -moz-border-radius: 8px;
-            -webkit-border-radius: 8px;
-        }
-
         .box1 {
             line-height: 44px;
         }
@@ -60,6 +50,12 @@
         $(document).ready(function () {
 
             back_bind();
+
+            var allow_download_switch = document.querySelector('.allow-download-switch');
+            var allow_download = new Switchery(allow_download_switch);
+
+            var allow_upload_switch = document.querySelector('.allow-upload-switch');
+            var allow_upload = new Switchery(allow_upload_switch);
 
 
             $.ajax({url: "{0}{1}.php?action=status".format(bdfs_service, randomInt(), getToken()), success: function (data) {
@@ -80,7 +76,7 @@
         });
 		
 		function client_env() {
-			$.ajax({url: "{0}{1}.php?action=clientenv".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+			$.ajax({url: "{0}{1}.php?action=status_ment".format(bdfs_service, randomInt(), getToken()), success: function (data) {
                 if (data && data.code == 200) {
                     var server_data = data.data;
 					if (server_data.localfilelist) {
@@ -102,9 +98,9 @@
 					
 					if (server_data.downloading) {
 						if (server_data.downloading === false || server_data.downloading === "") {
-							$("#bdfs_downloading").html("未上传");
+							$("#bdfs_downloading").html("未下载");
 						} else {
-							 $("#bdfs_downloading").html("上传中");
+							 $("#bdfs_downloading").html("下载中");
 							 $("#bdfs_downloading_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
 							 $("#bdfs_downloading_length").html(renderSize(server_data.downloading.length));
 							 $("#bdfs_download_size").html(renderSize(server_data.download_size));
@@ -129,40 +125,34 @@
 
         <div class="btn back_btn">返回</div>
         <h1>百度网盘同步</h1>
-
         <div style=" width: 50px;height: 30px;"></div>
 
     </div>
 
     <ul class="list group">
-        <li id="bdfd_server" class="list-item">
-			<a href="http://yuncore.aliapp.com/bdfshtml.html" >
-				<div class="box">
-					<div class="content">服务端状态</div>
-					<div class="service_operate text_right" style="color:black">&gt;&gt;</div>
-				</div>
-			</a>
-        </li>
          <li class="list-item">
-            <div class="box">
-                <div class="content">服务状态</div>
-                <div class="service_operate text_right" id="bdfs_status">...</div>
-            </div>
+            <a href="report.html" >
+                <div class="box">
+                    <div class="content">服务状态</div>
+                    <div class="service_operate text_right" id="bdfs_status">...</div>
+                </div>
+            </a>
         </li>
         
     </ul>
 
-    <ul id="locafile" class="list group">
-        <li class="list-item">
+    <ul class="list group">
+         <li class="list-item">
             <div class="box">
-                <div class="content">文件列表上传</div>
-                <div class="service_operate text_right" id="bdfs_localfilelist">...</div>
+                <div class="content">上传文件</div>
+                <div class="service_operate text_right" id="bdfs_status"><input type="checkbox" class="allow-download-switch" id="allow-download"/></div>
             </div>
+            
         </li>
         <li class="list-item">
             <div class="box">
-                <div class="content">文件列表上传时间</div>
-                <div class="service_operate text_right" id="bdfs_localfilelist_last">...</div>
+                <div class="content">下载文件</div>
+                <div class="service_operate text_right" id="bdfs_status"><input type="checkbox" class="allow-upload-switch" id="allow-upload"/></div>
             </div>
         </li>
     </ul>
