@@ -17,27 +17,6 @@
     <script type="text/javascript" src="../js/html5.js"></script>
     <script type="text/javascript" src="../js/switchery.min.js"></script>
     <style type="text/css">
-        .content, .show-operate {
-            /*color: #007aff;*/
-        }
-
-        .idown {
-            margin-left: 5px;
-            margin-top: -2px;
-            height: 13px;
-            margin-right: -5px;
-            width: 11px;
-            -moz-transform: rotate(-90deg);
-            -webkit-transform: rotate(-90deg);
-        }
-
-        .list-item {
-            cursor: pointer;
-        }
-
-        .box1 {
-            line-height: 44px;
-        }
 
 		.txt-over {
 			text-overflow: ellipsis; 
@@ -130,30 +109,29 @@
     </div>
 
     <ul class="list group">
-         <li class="list-item">
+        <li class="list-item">
+            <div class="box">
+                <div class="content">服务状态</div>
+                <div class="service_operate text_right" id="bdfs_status">...</div>
+            </div>
+        </li>
+        <li class="list-item">
             <a href="report.html" >
                 <div class="box">
-                    <div class="content">服务状态</div>
-                    <div class="service_operate text_right" id="bdfs_status">...</div>
+                    <div class="content">统计</div>
+                    <div class="service_operate text_right" id="bdfs_status">&gt;&gt;</div>
                 </div>
             </a>
         </li>
-        
     </ul>
 
     <ul class="list group">
          <li class="list-item">
             <div class="box">
-                <div class="content">上传文件</div>
+                <div class="content">文件同步</div>
                 <div class="service_operate text_right" id="bdfs_status"><input type="checkbox" class="allow-download-switch" id="allow-download"/></div>
             </div>
             
-        </li>
-        <li class="list-item">
-            <div class="box">
-                <div class="content">下载文件</div>
-                <div class="service_operate text_right" id="bdfs_status"><input type="checkbox" class="allow-upload-switch" id="allow-upload"/></div>
-            </div>
         </li>
     </ul>
 
