@@ -37,17 +37,17 @@
             var allow_upload = new Switchery(allow_upload_switch);
 
 
-            $.ajax({url: "{0}{1}.php?action=status".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=status".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data && data.code == 200){
-                    $("#bdfs_status").html("正常");
+                    $("#bdsync_status").html("正常");
                 } else {
-					$("#bdfs_status").html("故障");
-                    $("#bdfs_status").css('color','red');
+					$("#bdsync_status").html("故障");
+                    $("#bdsync_status").css('color','red');
 
 				}
             }, error: function () {
-				$("#bdfs_status").html("故障");
-                $("#bdfs_status").css('color','red');
+				$("#bdsync_status").html("故障");
+                $("#bdsync_status").css('color','red');
 			}});
 			
 			client_env();
@@ -55,36 +55,40 @@
         });
 		
 		function client_env() {
-			$.ajax({url: "{0}{1}.php?action=status_ment".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+			$.ajax({url: "{0}{1}.php?action=status_ment".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data && data.code == 200) {
                     var server_data = data.data;
 					if (server_data.localfilelist) {
-						$("#bdfs_localfilelist").html(server_data.localfilelist);
+						$("#bdsync_localfilelist").html(server_data.localfilelist);
 						var date = new Date(); 
 						date.setTime(server_data.localfilelist_last);
-						$("#bdfs_localfilelist_last").html(date.format("MM-dd hh:mm:ss"));
+						$("#bdsync_localfilelist_last").html(date.format("MM-dd hh:mm:ss"));
 					}
 					if (server_data.uploading) {
 						if (server_data.uploading === false || server_data.uploading === "") {
-							$("#bdfs_uploading").html("未上传");
+							$("#bdsync_uploading").html("未上传");
 						} else {
-							 $("#bdfs_uploading").html("上传中");
-							 $("#bdfs_uploading_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
-							 $("#bdfs_uploading_length").html(renderSize(server_data.uploading.length));
-							 $("#bdfs_upload_size").html(renderSize(server_data.upload_size));
+							 $("#bdsync_uploading").html("上传中");
+							 $("#bdsync_uploading_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
+							 $("#bdsync_uploading_length").html(renderSize(server_data.uploading.length));
+							 $("#bdsync_upload_size").html(renderSize(server_data.upload_size));
 						}
 					}
 					
 					if (server_data.downloading) {
 						if (server_data.downloading === false || server_data.downloading === "") {
-							$("#bdfs_downloading").html("未下载");
+							$("#bdsync_downloading").html("未下载");
 						} else {
-							 $("#bdfs_downloading").html("下载中");
-							 $("#bdfs_downloading_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
-							 $("#bdfs_downloading_length").html(renderSize(server_data.downloading.length));
-							 $("#bdfs_download_size").html(renderSize(server_data.download_size));
+							 $("#bdsync_downloading").html("下载中");
+							 $("#bdsync_downloading_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
+							 $("#bdsync_downloading_length").html(renderSize(server_data.downloading.length));
+							 $("#bdsync_download_size").html(renderSize(server_data.download_size));
 						}
 					}
+
+                    if (server_data.syncworking) {
+                        $("#bdsync_syncworking").html(server_data.syncworking);
+                    }
 				}
 				setTimeout("client_env()",2000); 
             }, error: function () {
@@ -112,14 +116,14 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">服务状态</div>
-                <div class="service_operate text_right" id="bdfs_status">...</div>
+                <div class="service_operate text_right" id="bdsync_status">...</div>
             </div>
         </li>
         <li class="list-item">
             <a href="report.html" >
                 <div class="box">
                     <div class="content">统计</div>
-                    <div class="service_operate text_right" id="bdfs_status">&gt;&gt;</div>
+                    <div class="service_operate text_right" >&gt;&gt;</div>
                 </div>
             </a>
         </li>
@@ -129,7 +133,13 @@
          <li class="list-item">
             <div class="box">
                 <div class="content">文件同步</div>
-                <div class="service_operate text_right" id="bdfs_status"><input type="checkbox" class="allow-download-switch" id="allow-download"/></div>
+                <div class="service_operate text_right" ><input type="checkbox" class="allow-download-switch" id="allow-download"/></div>
+            </div>
+        </li>
+        <li class="list-item">
+            <div class="box">
+                <div class="content">同步状态</div>
+                <div class="service_operate text_right" id="bdsync_syncworking">...</div>
             </div>
             
         </li>
@@ -139,25 +149,25 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">正在上传</div>
-                <div class="service_operate text_right" id="bdfs_uploading">...</div>
+                <div class="service_operate text_right" id="bdsync_uploading">...</div>
             </div>
         </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">文件名称</div>
-                <div class="service_operate text_right content txt-over" id="bdfs_uploading_name">...</div>
+                <div class="service_operate text_right content txt-over" id="bdsync_uploading_name">...</div>
             </div>
         </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">文件大小</div>
-                <div class="service_operate text_right" id="bdfs_uploading_length">...</div>
+                <div class="service_operate text_right" id="bdsync_uploading_length">...</div>
             </div>
         </li>
 		<li class="list-item">
             <div class="box">
                 <div class="content">已上传</div>
-                <div class="service_operate text_right" id="bdfs_upload_size">...</div>
+                <div class="service_operate text_right" id="bdsync_upload_size">...</div>
             </div>
         </li>
     </ul>
@@ -166,25 +176,25 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">正在下载</div>
-                <div class="service_operate text_right" id="bdfs_downloading">...</div>
+                <div class="service_operate text_right" id="bdsync_downloading">...</div>
             </div>
         </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">文件名称</div>
-                <div class="service_operate text_right content txt-over" id="bdfs_downloading_name">...</div>
+                <div class="service_operate text_right content txt-over" id="bdsync_downloading_name">...</div>
             </div>
         </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">文件大小</div>
-                <div class="service_operate text_right" id="bdfs_downloading_length">...</div>
+                <div class="service_operate text_right" id="bdsync_downloading_length">...</div>
             </div>
         </li>
 		<li class="list-item">
             <div class="box">
                 <div class="content">已下载</div>
-                <div class="service_operate text_right" id="bdfs_download_size">...</div>
+                <div class="service_operate text_right" id="bdsync_download_size">...</div>
             </div>
         </li>
     </ul>

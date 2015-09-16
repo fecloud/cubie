@@ -30,7 +30,7 @@
         });
 
         function service_status() {
-            $.ajax({url: "{0}{1}.php?action=status".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=status".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data.code && data.code == 200) {
                     $("#status").html("正常");
                 }else {
@@ -45,7 +45,7 @@
         }
 
         function cpuinfo() {
-            $.ajax({url: "{0}{1}.php?action=cpuinfo".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=cpuinfo".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if(data.code && data.code == 200) {
                     $("#core").html(data.data);
                 }
@@ -56,17 +56,17 @@
 
         function load() {
 
-            $.ajax({url: "{0}{1}.php?action=env".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=env".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data.code && data.code == 200) {
                     var env = data.env;
-                    if (env['bdfs.cloudlist_session']) {
+                    if (env['bdsync.cloudlist_session']) {
                         var date = new Date(); 
-                        date.setTime(env['bdfs.cloudlist_session']);
+                        date.setTime(env['bdsync.cloudlist_session']);
                         $("#cloudlist_session").html(date.format("MM-dd hh:mm:ss"));
                     }
-                    if (env['bdfs.locallist_session']) {
+                    if (env['bdsync.locallist_session']) {
                         var date = new Date(); 
-                        date.setTime(env['bdfs.locallist_session']);
+                        date.setTime(env['bdsync.locallist_session']);
                         $("#locallist_session").html(date.format("MM-dd hh:mm:ss"));
                     }
                     
@@ -77,7 +77,7 @@
                 }
             }});
 
-            $.ajax({url: "{0}{1}.php?action=statistics".format(bdfs_service, randomInt(), getToken()), success: function (data) {
+            $.ajax({url: "{0}{1}.php?action=statistics".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data.code && data.code == 200) {
 
                     $("#cloudfile").html(data.cloudfile);
