@@ -59,15 +59,15 @@
             $.ajax({url: "{0}{1}.php?action=env".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data.code && data.code == 200) {
                     var env = data.env;
-                    if (env['bdsync.cloudlist_session']) {
+                    if (env['bdsync.cloudlist']) {
                         var date = new Date(); 
-                        date.setTime(env['bdsync.cloudlist_session']);
-                        $("#cloudlist_session").html(date.format("MM-dd hh:mm:ss"));
+                        date.setTime(env['bdsync.cloudlist']);
+                        $("#cloudlist").html(date.format("MM-dd hh:mm:ss"));
                     }
-                    if (env['bdsync.locallist_session']) {
+                    if (env['bdsync.locallist']) {
                         var date = new Date(); 
-                        date.setTime(env['bdsync.locallist_session']);
-                        $("#locallist_session").html(date.format("MM-dd hh:mm:ss"));
+                        date.setTime(env['bdsync.locallist']);
+                        $("#locallist").html(date.format("MM-dd hh:mm:ss"));
                     }
                     
                     $("#arch").html(env['os.arch']);
@@ -121,13 +121,13 @@
         <li class="list-item">
             <div class="box">
                 <div class="content">云端文件列表时间</div>
-                <div class="service_operate text_right" id="cloudlist_session">...</div>
+                <div class="service_operate text_right" id="cloudlist">...</div>
             </div>
         </li>
 		<li class="list-item">
             <div class="box">
                 <div class="content">本地文件列表时间</div>
-                <div class="service_operate text_right" id="locallist_session">...</div>
+                <div class="service_operate text_right" id="locallist">...</div>
             </div>
         </li>
     </ul>
