@@ -66,23 +66,23 @@
 					}
 					if (server_data.uploading) {
 						if (server_data.uploading === false || server_data.uploading === "") {
-							$("#bdsync_uploading").html("未上传");
+							$("#bdsync_file_status").html("...");
 						} else {
-							 $("#bdsync_uploading").html("上传中");
-							 $("#bdsync_uploading_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
-							 $("#bdsync_uploading_length").html(renderSize(server_data.uploading.length));
-							 $("#bdsync_upload_size").html(renderSize(server_data.upload_size));
+							 $("#bdsync_file_status").html("上传中");
+							 $("#bdsync_file_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
+							 $("#bdsync_file_length").html(renderSize(server_data.uploading.length));
+							 $("#bdsync_commit_size").html(renderSize(server_data.upload_size));
 						}
 					}
 					
 					if (server_data.downloading) {
 						if (server_data.downloading === false || server_data.downloading === "") {
-							$("#bdsync_downloading").html("未下载");
+							$("#bdsync_file_status").html("...");
 						} else {
-							 $("#bdsync_downloading").html("下载中");
-							 $("#bdsync_downloading_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
-							 $("#bdsync_downloading_length").html(renderSize(server_data.downloading.length));
-							 $("#bdsync_download_size").html(renderSize(server_data.download_size));
+							 $("#bdsync_file_status").html("下载中");
+							 $("#bdsync_file_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
+							 $("#bdsync_file_length").html(renderSize(server_data.downloading.length));
+							 $("#bdsync_commit_size").html(renderSize(server_data.download_size));
 						}
 					}
 
@@ -148,57 +148,30 @@
     <ul id="upload" class="list group">
         <li class="list-item">
             <div class="box">
-                <div class="content">正在上传</div>
-                <div class="service_operate text_right" id="bdsync_uploading">...</div>
+                <div class="content">当前状态</div>
+                <div class="service_operate text_right" id="bdsync_file_status">...</div>
             </div>
         </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">文件名称</div>
-                <div class="service_operate text_right content txt-over" id="bdsync_uploading_name">...</div>
+                <div class="service_operate text_right content txt-over" id="bdsync_file_name">...</div>
             </div>
         </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">文件大小</div>
-                <div class="service_operate text_right" id="bdsync_uploading_length">...</div>
+                <div class="service_operate text_right" id="bdsync_file_length">...</div>
             </div>
         </li>
 		<li class="list-item">
             <div class="box">
-                <div class="content">已上传</div>
-                <div class="service_operate text_right" id="bdsync_upload_size">...</div>
+                <div class="content">已完成</div>
+                <div class="service_operate text_right" id="bdsync_commit_size">...</div>
             </div>
         </li>
     </ul>
 	
-	<ul id="download" class="list group">
-        <li class="list-item">
-            <div class="box">
-                <div class="content">正在下载</div>
-                <div class="service_operate text_right" id="bdsync_downloading">...</div>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="box">
-                <div class="content">文件名称</div>
-                <div class="service_operate text_right content txt-over" id="bdsync_downloading_name">...</div>
-            </div>
-        </li>
-        <li class="list-item">
-            <div class="box">
-                <div class="content">文件大小</div>
-                <div class="service_operate text_right" id="bdsync_downloading_length">...</div>
-            </div>
-        </li>
-		<li class="list-item">
-            <div class="box">
-                <div class="content">已下载</div>
-                <div class="service_operate text_right" id="bdsync_download_size">...</div>
-            </div>
-        </li>
-    </ul>
-
 </div>
 
 </body>
