@@ -73,7 +73,12 @@
 							 $("#bdsync_file_length").html(renderSize(server_data.uploading.length));
 							 $("#bdsync_commit_size").html(renderSize(server_data.upload_size));
 						}
-					}
+					} else {
+                         $("#bdsync_file_status").html("...");
+                         $("#bdsync_file_name").html("...");
+                         $("#bdsync_file_length").html("...");
+                         $("#bdsync_commit_size").html("...");
+                    }
 					
 					if (server_data.downloading) {
 						if (server_data.downloading === false || server_data.downloading === "") {
@@ -84,7 +89,12 @@
 							 $("#bdsync_file_length").html(renderSize(server_data.downloading.length));
 							 $("#bdsync_commit_size").html(renderSize(server_data.download_size));
 						}
-					}
+					} else {
+                         $("#bdsync_file_status").html("...");
+                         $("#bdsync_file_name").html("...");
+                         $("#bdsync_file_length").html("...");
+                         $("#bdsync_commit_size").html("...");
+                    }
 
                     if (server_data.syncworking) {
                         $("#bdsync_syncworking").html(server_data.syncworking);
