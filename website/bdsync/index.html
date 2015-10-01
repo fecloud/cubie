@@ -64,31 +64,22 @@
 						date.setTime(server_data.localfilelist_last);
 						$("#bdsync_localfilelist_last").html(date.format("MM-dd hh:mm:ss"));
 					}
-					if (server_data.uploading) {
+					if (server_data.uploading || server_data.downloading) {
 						if (server_data.uploading === false || server_data.uploading === "") {
 							$("#bdsync_file_status").html("...");
-						} else {
+						} else if (server_data.uploading) {
 							 $("#bdsync_file_status").html("上传中");
 							 $("#bdsync_file_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
 							 $("#bdsync_file_length").html(renderSize(server_data.uploading.length));
 							 $("#bdsync_commit_size").html(renderSize(server_data.upload_size));
-						}
-					} else {
-                         $("#bdsync_file_status").html("...");
-                         $("#bdsync_file_name").html("...");
-                         $("#bdsync_file_length").html("...");
-                         $("#bdsync_commit_size").html("...");
-                    }
-					
-					if (server_data.downloading) {
-						if (server_data.downloading === false || server_data.downloading === "") {
-							$("#bdsync_file_status").html("...");
-						} else {
-							 $("#bdsync_file_status").html("下载中");
-							 $("#bdsync_file_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
-							 $("#bdsync_file_length").html(renderSize(server_data.downloading.length));
-							 $("#bdsync_commit_size").html(renderSize(server_data.download_size));
-						}
+						} else if (server_data.downloading === false || server_data.downloading === "") {
+                            $("#bdsync_file_status").html("...");
+                        } else if (server_data.downloading) {
+                             $("#bdsync_file_status").html("下载中");
+                             $("#bdsync_file_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
+                             $("#bdsync_file_length").html(renderSize(server_data.downloading.length));
+                             $("#bdsync_commit_size").html(renderSize(server_data.download_size));
+                        }
 					} else {
                          $("#bdsync_file_status").html("...");
                          $("#bdsync_file_name").html("...");
