@@ -10,12 +10,10 @@
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="../css/com.css"/>
     <link rel="stylesheet" href="../css/status.css"/>
-    <link rel="stylesheet" href="../css/switchery.min.css"/>
     <script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../js/com.js"></script>
     <script type="text/javascript" src="../js/html5.js"></script>
-    <script type="text/javascript" src="../js/switchery.min.js"></script>
     <style type="text/css">
 
 		.txt-over {
@@ -29,13 +27,6 @@
         $(document).ready(function () {
 
             back_bind();
-
-            var allow_download_switch = document.querySelector('.allow-download-switch');
-            var allow_download = new Switchery(allow_download_switch);
-
-            var allow_upload_switch = document.querySelector('.allow-upload-switch');
-            var allow_upload = new Switchery(allow_upload_switch);
-
 
             $.ajax({url: "{0}{1}.php?action=status".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data && data.code == 200){
@@ -58,38 +49,35 @@
 			$.ajax({url: "{0}{1}.php?action=status_ment".format(bdsync_service, randomInt(), getToken()), success: function (data) {
                 if (data && data.code == 200) {
                     var server_data = data.data;
-					if (server_data.localfilelist) {
-						$("#bdsync_localfilelist").html(server_data.localfilelist);
-						var date = new Date(); 
-						date.setTime(server_data.localfilelist_last);
-						$("#bdsync_localfilelist_last").html(date.format("MM-dd hh:mm:ss"));
-					}
-					if (server_data.uploading || server_data.downloading) {
-						if (server_data.uploading === false || server_data.uploading === "") {
-							$("#bdsync_file_status").html("...");
-						} else if (server_data.uploading) {
-							 $("#bdsync_file_status").html("上传中");
-							 $("#bdsync_file_name").html(server_data.uploading.path.substring(server_data.uploading.path.lastIndexOf('/') + 1));
-							 $("#bdsync_file_length").html(renderSize(server_data.uploading.length));
-							 $("#bdsync_commit_size").html(renderSize(server_data.upload_size));
-						} else if (server_data.downloading === false || server_data.downloading === "") {
-                            $("#bdsync_file_status").html("...");
-                        } else if (server_data.downloading) {
-                             $("#bdsync_file_status").html("下载中");
-                             $("#bdsync_file_name").html(server_data.downloading.path.substring(server_data.downloading.path.lastIndexOf('/') + 1));
-                             $("#bdsync_file_length").html(renderSize(server_data.downloading.length));
-                             $("#bdsync_commit_size").html(renderSize(server_data.download_size));
-                        }
-					} else {
-                         $("#bdsync_file_status").html("...");
-                         $("#bdsync_file_name").html("...");
-                         $("#bdsync_file_length").html("...");
-                         $("#bdsync_commit_size").html("...");
-                    }
 
-                    if (server_data.syncworking) {
+					if (server_data.syncworking) {
                         $("#bdsync_syncworking").html(server_data.syncworking);
                     }
+
+					if (server_data.syncworkingcode) {
+						if (server_data.syncworkingcode == 4) {
+							$("#bdsync_file_status").html("下载中");
+						} else if (server_data.syncworkingcode == 8) {
+							$("#bdsync_file_status").html("上传中");
+						} else {
+							$("#bdsync_file_status").html("...");
+						}
+					}
+
+					if (server_data.dofile) {
+						$("#bdsync_file_name").html(server_data.dofile.path.substring(server_data.dofile.path.lastIndexOf('/') + 1));
+						$("#bdsync_file_length").html(renderSize(server_data.dofile.length));
+					} else {
+						$("#bdsync_file_name").html("...");
+                        $("#bdsync_file_length").html("...");
+					}
+
+					if (server_data.dofile_size) {
+						 $("#bdsync_commit_size").html(renderSize(server_data.dofile_size));
+					} else {
+						$("#bdsync_commit_size").html("...");
+					}
+
 				}
 				setTimeout("client_env()",2000); 
             }, error: function () {
@@ -131,12 +119,6 @@
     </ul>
 
     <ul class="list group">
-         <li class="list-item">
-            <div class="box">
-                <div class="content">文件同步</div>
-                <div class="service_operate text_right" ><input type="checkbox" class="allow-download-switch" id="allow-download"/></div>
-            </div>
-        </li>
         <li class="list-item">
             <div class="box">
                 <div class="content">同步状态</div>
